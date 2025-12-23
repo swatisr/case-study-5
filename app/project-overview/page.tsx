@@ -84,9 +84,9 @@ export default function ProjectOverview() {
                   <Image
                     src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                     alt="Otovo Logo"
-                    width={80}
-                    height={28}
-                    className="w-auto h-5"
+                    width={64}
+                    height={22}
+                    className="w-auto h-4"
                     style={{ width: 'auto', height: 'auto' }}
                   />
                 </div>
@@ -108,8 +108,8 @@ export default function ProjectOverview() {
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
               <div className="w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden">
-                {/* Top text - FINTECH / PAYMENTS and 2019 • SR. UX DESIGNER */}
-                <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-start px-4 md:px-8 pt-4 md:pt-8">
+                {/* Top text - FINTECH / PAYMENTS and 2019 • SR. UX DESIGNER - Desktop Only */}
+                <div className="hidden md:block absolute top-0 left-0 right-0 z-10 flex justify-between items-start px-4 md:px-8 pt-4 md:pt-8">
                   <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
                     FINTECH / PAYMENTS
                   </div>
@@ -117,22 +117,36 @@ export default function ProjectOverview() {
                     2019 • SR. UX DESIGNER
                   </div>
                 </div>
-                {/* Image wrapper - to position logo relative to image */}
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[70%]">
-                  {/* Settle Logo - Right above top left corner of image */}
-                  <div className="absolute left-0 z-10" style={{ top: '-4px', transform: 'translateY(-100%)' }}>
+                
+                {/* Settle Logo - Center top, vertically aligned with FINTECH / PAYMENTS - Desktop Only */}
+                <div className="hidden md:flex absolute top-0 left-1/2 -translate-x-1/2 z-10 flex-col items-center pt-4 md:pt-8">
+                  <Image
+                    src="/image/Settle.svg"
+                    alt="Settle Logo"
+                    width={58}
+                    height={20}
+                    className="brightness-0 invert"
+                    style={{ width: '58px', height: 'auto' }}
+                  />
+                  <div className="text-white text-[16px] font-light mt-2 text-center">
+                    Merchant transactions in P2P app
+                  </div>
+                </div>
+                
+                {/* Image wrapper - to position image */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:bottom-0 md:top-auto md:translate-y-0 w-[90.3%] md:w-[70%]">
+                  {/* Image - Mobile: settle pic 3 */}
+                  <div className="md:hidden overflow-hidden" style={{ maxHeight: '100%' }}>
                     <Image
-                      src="/image/Settle.svg"
-                      alt="Settle Logo"
-                      width={58}
-                      height={20}
-                      className="brightness-0 invert"
-                      style={{ width: '58px', height: 'auto' }}
+                      src="/image/settle pic 3.png"
+                      alt="Settle"
+                      width={800}
+                      height={600}
+                      className="w-full h-auto object-contain"
                     />
                   </div>
-                  
-                  {/* Image - Full image, no crop */}
-                  <div className="rounded-t-lg overflow-hidden" style={{ maxHeight: '100%' }}>
+                  {/* Image - Desktop: settle2 */}
+                  <div className="hidden md:block overflow-hidden" style={{ maxHeight: '100%' }}>
                     <Image
                       src="/image/settle2.png"
                       alt="Settle"
@@ -141,6 +155,26 @@ export default function ProjectOverview() {
                       className="w-full h-auto object-contain"
                     />
                   </div>
+                </div>
+              </div>
+              
+              {/* Mobile: Logo and text below rectangle - Middle aligned */}
+              <div className="md:hidden mt-4 flex items-center justify-between w-full">
+                {/* Logo - Left aligned with image */}
+                <div>
+                  <Image
+                    src="/image/Settle.svg"
+                    alt="Settle Logo"
+                    width={64}
+                    height={22}
+                    className="w-auto h-4 brightness-0 invert"
+                    style={{ width: 'auto', height: 'auto' }}
+                  />
+                </div>
+                
+                {/* Text - Right aligned */}
+                <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
+                  <div className="font-semibold">Merchant transactions in P2P app</div>
                 </div>
               </div>
             </div>
