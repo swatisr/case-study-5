@@ -4,7 +4,7 @@ export default function ProjectOverview() {
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory bg-[hsl(var(--background))]">
       {/* Sticky Navbar */}
-      <nav className="fixed top-4 bottom-auto md:top-auto md:bottom-12 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40">
+      <nav className="fixed top-4 bottom-auto md:top-auto md:bottom-8 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40">
         {/* Desktop: Full Navigation */}
         <div className="hidden md:flex gap-8">
           <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
@@ -39,14 +39,14 @@ export default function ProjectOverview() {
                 />
                 
                 {/* Text Content - Positioned in columns 9-12 - Desktop Only */}
-                {/* First text block - Top */}
+                {/* First text block - Top Left and Right */}
                 <div className="hidden md:block absolute top-0 left-0 right-0 z-10">
-                  <div className="w-full h-full grid grid-cols-12">
-                    <div className="col-start-9 col-span-4 px-8 pt-8">
-                      <div className="text-[12px] uppercase tracking-[0.2em] text-white">
-                        <div>FINTECH / PAYMENTS</div>
-                        <div>2019 • SR. UX DESIGNER</div>
-                      </div>
+                  <div className="w-full flex justify-between items-start px-8 pt-8">
+                    <div className="text-[11px] uppercase tracking-[0.2em] text-white">
+                      FINTECH / PAYMENTS
+                    </div>
+                    <div className="text-[11px] uppercase tracking-[0.2em] text-white">
+                      2019 • SR. UX DESIGNER
                     </div>
                   </div>
                 </div>
@@ -69,8 +69,8 @@ export default function ProjectOverview() {
                       
                       {/* Second text block */}
                       <div className="text-[16px] font-light text-white">
-                        <div>On-site Documentation & Tracking</div>
-                        <div>18% faster project approvals</div>
+                        <div className="font-semibold">On-site Documentation & Tracking</div>
+                        <div className="font-light">18% faster project approvals</div>
                       </div>
                     </div>
                   </div>
@@ -93,8 +93,8 @@ export default function ProjectOverview() {
                 
                 {/* Text - Right aligned */}
                 <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
-                  <div>On-site Documentation & Tracking</div>
-                  <div>18% faster project approvals</div>
+                  <div className="font-semibold">On-site Documentation & Tracking</div>
+                  <div className="font-light">18% faster project approvals</div>
                 </div>
               </div>
             </div>
@@ -107,8 +107,41 @@ export default function ProjectOverview() {
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <div className="w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0">
-                {/* Section 2 content */}
+              <div className="w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden">
+                {/* Top text - FINTECH / PAYMENTS and 2019 • SR. UX DESIGNER */}
+                <div className="absolute top-0 left-0 right-0 z-10 flex justify-between items-start px-4 md:px-8 pt-4 md:pt-8">
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
+                    FINTECH / PAYMENTS
+                  </div>
+                  <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
+                    2019 • SR. UX DESIGNER
+                  </div>
+                </div>
+                {/* Image wrapper - to position logo relative to image */}
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[70%]">
+                  {/* Settle Logo - Right above top left corner of image */}
+                  <div className="absolute left-0 z-10" style={{ top: '-4px', transform: 'translateY(-100%)' }}>
+                    <Image
+                      src="/image/Settle.svg"
+                      alt="Settle Logo"
+                      width={58}
+                      height={20}
+                      className="brightness-0 invert"
+                      style={{ width: '58px', height: 'auto' }}
+                    />
+                  </div>
+                  
+                  {/* Image - Full image, no crop */}
+                  <div className="rounded-t-lg overflow-hidden" style={{ maxHeight: '100%' }}>
+                    <Image
+                      src="/image/settle2.png"
+                      alt="Settle"
+                      width={800}
+                      height={600}
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -134,7 +167,7 @@ export default function ProjectOverview() {
               {/* Section 4 content */}
             </div>
           </div>
-        </div>
+      </div>
       </section>
     </div>
   )
