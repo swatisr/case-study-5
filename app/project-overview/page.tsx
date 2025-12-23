@@ -4,7 +4,7 @@ export default function ProjectOverview() {
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory bg-[hsl(var(--background))]">
       {/* Sticky Navbar */}
-      <nav className="fixed top-4 md:bottom-12 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40">
+      <nav className="fixed top-4 bottom-auto md:top-auto md:bottom-12 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40">
         {/* Desktop: Full Navigation */}
         <div className="hidden md:flex gap-8">
           <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
@@ -63,6 +63,7 @@ export default function ProjectOverview() {
                           width={120}
                           height={40}
                           className="w-auto h-10"
+                          style={{ width: 'auto', height: 'auto' }}
                         />
                       </div>
                       
@@ -86,6 +87,7 @@ export default function ProjectOverview() {
                     width={80}
                     height={28}
                     className="w-auto h-5"
+                    style={{ width: 'auto', height: 'auto' }}
                   />
                 </div>
                 
