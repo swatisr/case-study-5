@@ -37,6 +37,63 @@ export default function ProjectOverview() {
                   className="object-cover object-[35%_center]"
                   priority
                 />
+                
+                {/* Text Content - Positioned in columns 9-12 - Desktop Only */}
+                {/* First text block - Top */}
+                <div className="hidden md:block absolute top-0 left-0 right-0 z-10">
+                  <div className="w-full h-full grid grid-cols-12">
+                    <div className="col-start-9 col-span-4 px-8 pt-8">
+                      <div className="text-[12px] uppercase tracking-[0.2em] text-white">
+                        <div>FINTECH / PAYMENTS</div>
+                        <div>2019 • SR. UX DESIGNER</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Logo and second text block - Centered - Desktop Only */}
+                <div className="hidden md:flex absolute inset-0 items-center z-10">
+                  <div className="w-full h-full grid grid-cols-12">
+                    <div className="col-start-9 col-span-4 flex flex-col justify-center px-8">
+                      {/* Logo */}
+                      <div className="mb-2">
+                        <Image
+                          src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
+                          alt="Otovo Logo"
+                          width={120}
+                          height={40}
+                          className="w-auto h-10"
+                        />
+                      </div>
+                      
+                      {/* Second text block */}
+                      <div className="text-[16px] font-light text-white">
+                        <div>On-site Documentation & Tracking</div>
+                        <div>18% faster project approvals</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Mobile: Logo and text below rectangle */}
+              <div className="md:hidden mt-4 flex items-center justify-between w-full">
+                {/* Logo - Left aligned with image */}
+                <div>
+                  <Image
+                    src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
+                    alt="Otovo Logo"
+                    width={80}
+                    height={28}
+                    className="w-auto h-5"
+                  />
+                </div>
+                
+                {/* Text - Right aligned */}
+                <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
+                  <div>On-site Documentation & Tracking</div>
+                  <div>18% faster project approvals</div>
+                </div>
               </div>
             </div>
           </div>
