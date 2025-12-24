@@ -65,5 +65,26 @@
         var(--gradient-color-6) 100%
       );
   }
+
+  .deep-blue-bg {
+    background:
+      /* soft cinematic vignette */
+      radial-gradient(
+        120% 120% at 50% 40%,
+        rgba(22, 34, 58, 0.18) 0%,
+        rgba(14, 26, 48, 0.22) 45%,
+        rgba(6, 14, 32, 0.42) 100%
+      ),
+      /* balanced deep blue gradient */
+      linear-gradient(
+        135deg,
+        #1b2f5a 0%,
+        #172a52 22%,
+        #12244a 42%,
+        #0e1e41 62%,
+        #091737 78%,
+        #050f2d 100%
+      );
+  }
 }
 
