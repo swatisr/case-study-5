@@ -1,11 +1,15 @@
+'use client'
+
+import { useState } from 'react'
 import Image from 'next/image'
 import ShowMoreButton from '@/components/ShowMoreButton'
 
 export default function ProjectOverview() {
+  const [hoveredRectangle, setHoveredRectangle] = useState<number | null>(null)
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory bg-[hsl(var(--background))]">
       {/* Sticky Navbar */}
-      <nav className="fixed top-4 bottom-auto md:top-auto md:bottom-8 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40">
+      <nav className={`fixed top-4 bottom-auto md:top-auto md:bottom-8 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40 md:transition-opacity md:duration-500 ${hoveredRectangle ? 'md:opacity-20' : 'md:opacity-100'}`}>
         {/* Desktop: Full Navigation */}
         <div className="hidden md:flex gap-8">
           <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
@@ -26,14 +30,18 @@ export default function ProjectOverview() {
       </nav>
 
       {/* Show More Button - appears when last section is visible */}
-      <ShowMoreButton />
+      <ShowMoreButton hoveredRectangle={hoveredRectangle} />
 
       {/* Section 1 */}
-      <section id="section-1" className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
+      <section id="section-1" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 ${hoveredRectangle && hoveredRectangle !== 1 ? 'md:opacity-20' : 'md:opacity-100'}`}>
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <div className="w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden">
+              <div 
+                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 1 ? 'md:scale-[1.02]' : ''}`}
+                onMouseEnter={() => setHoveredRectangle(1)}
+                onMouseLeave={() => setHoveredRectangle(null)}
+              >
                 <Image
                   src="/image/installerapp4.png"
                   alt="Installer App"
@@ -107,11 +115,15 @@ export default function ProjectOverview() {
       </section>
 
       {/* Section 2 */}
-      <section id="section-2" className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
+      <section id="section-2" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 ${hoveredRectangle && hoveredRectangle !== 2 ? 'md:opacity-20' : 'md:opacity-100'}`}>
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <div className="w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden">
+              <div 
+                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 2 ? 'md:scale-[1.02]' : ''}`}
+                onMouseEnter={() => setHoveredRectangle(2)}
+                onMouseLeave={() => setHoveredRectangle(null)}
+              >
                 {/* Top text - FINTECH / PAYMENTS and 2019 • SR. UX DESIGNER - Desktop Only */}
                 <div className="hidden md:flex absolute top-0 right-0 z-10 flex-col items-end px-4 md:px-8 pt-4 md:pt-8">
                   <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
@@ -187,11 +199,15 @@ export default function ProjectOverview() {
       </section>
 
       {/* Section 3 */}
-      <section id="section-3" className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
+      <section id="section-3" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 ${hoveredRectangle && hoveredRectangle !== 3 ? 'md:opacity-20' : 'md:opacity-100'}`}>
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <div className="w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-[#121212] rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden">
+              <div 
+                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-[#121212] rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 3 ? 'md:scale-[1.02]' : ''}`}
+                onMouseEnter={() => setHoveredRectangle(3)}
+                onMouseLeave={() => setHoveredRectangle(null)}
+              >
                 {/* Video - Mobile: Centered and middle-aligned */}
                 <div className="md:hidden absolute inset-0 flex items-center justify-center z-10 px-4">
                   <video
@@ -287,11 +303,15 @@ export default function ProjectOverview() {
       </section>
 
       {/* Section 4 */}
-      <section id="section-4" className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
+      <section id="section-4" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 ${hoveredRectangle && hoveredRectangle !== 4 ? 'md:opacity-20' : 'md:opacity-100'}`}>
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <div className="w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden">
+              <div 
+                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 4 ? 'md:scale-[1.02]' : ''}`}
+                onMouseEnter={() => setHoveredRectangle(4)}
+                onMouseLeave={() => setHoveredRectangle(null)}
+              >
                 <Image
                   src="/image/customerSupportkitchen 2.png"
                   alt="Customer Support Kitchen"

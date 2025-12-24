@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from 'react'
 
-export default function ShowMoreButton() {
+interface ShowMoreButtonProps {
+  hoveredRectangle?: number | null
+}
+
+export default function ShowMoreButton({ hoveredRectangle = null }: ShowMoreButtonProps) {
   const [activeSection, setActiveSection] = useState(0)
   const [isLastSectionVisible, setIsLastSectionVisible] = useState(false)
 
@@ -58,7 +62,7 @@ export default function ShowMoreButton() {
   return (
     <>
       {/* Desktop: Squares and More Projects button */}
-      <div className="hidden md:flex fixed left-5 md:left-10 lg:left-40 top-auto bottom-8 z-50 items-center py-4 gap-3">
+      <div className={`hidden md:flex fixed left-5 md:left-10 lg:left-40 top-auto bottom-8 z-50 items-center py-4 gap-3 md:transition-opacity md:duration-500 ${hoveredRectangle ? 'md:opacity-20' : 'md:opacity-100'}`}>
         {/* Squares - only show when not on last section */}
         {!isLastSectionVisible && (
           <div className="flex flex-col gap-1.5 items-center">
