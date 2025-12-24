@@ -29,7 +29,7 @@ export default function ProjectOverview() {
       <ShowMoreButton />
 
       {/* Section 1 */}
-      <section className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
+      <section id="section-1" className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
@@ -107,7 +107,7 @@ export default function ProjectOverview() {
       </section>
 
       {/* Section 2 */}
-      <section className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
+      <section id="section-2" className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
@@ -187,7 +187,7 @@ export default function ProjectOverview() {
       </section>
 
       {/* Section 3 */}
-      <section className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
+      <section id="section-3" className="h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))]">
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
