@@ -134,7 +134,7 @@ export default function ProjectOverview() {
                 </div>
                 
                 {/* Image wrapper - to position image */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:bottom-0 md:top-auto md:translate-y-0 w-[90.3%] md:w-[70%]">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:-bottom-12 md:top-auto md:translate-y-0 w-[90.3%] md:w-[70%]">
                   {/* Image - Mobile: settle pic 3 */}
                   <div className="md:hidden overflow-hidden" style={{ maxHeight: '100%' }}>
                     <Image
@@ -145,10 +145,10 @@ export default function ProjectOverview() {
                       className="w-full h-auto object-contain"
                     />
                   </div>
-                  {/* Image - Desktop: settle2 */}
+                  {/* Image - Desktop: settleappcombo */}
                   <div className="hidden md:block overflow-hidden" style={{ maxHeight: '100%' }}>
                     <Image
-                      src="/image/settle2.png"
+                      src="/image/settleappcombo.png"
                       alt="Settle"
                       width={800}
                       height={600}
