@@ -2,10 +2,13 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import ShowMoreButton from '@/components/ShowMoreButton'
+import AboutMeModal from '@/components/AboutMeModal'
 
 export default function ProjectOverview() {
   const [hoveredRectangle, setHoveredRectangle] = useState<number | null>(null)
+  const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory bg-[hsl(var(--background))]">
       {/* Sticky Navbar */}
@@ -18,9 +21,12 @@ export default function ProjectOverview() {
           <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
             COPY EMAIL
           </a>
-          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
+          <button 
+            onClick={() => setIsAboutMeOpen(true)}
+            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]"
+          >
             ABOUT ME
-          </a>
+          </button>
         </div>
         
         {/* Mobile: More Button */}
@@ -37,11 +43,12 @@ export default function ProjectOverview() {
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <div 
-                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 1 ? 'md:scale-[1.02]' : ''}`}
-                onMouseEnter={() => setHoveredRectangle(1)}
-                onMouseLeave={() => setHoveredRectangle(null)}
-              >
+              <Link href="/project-overview/otovo" className="block cursor-pointer">
+                <div 
+                  className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 1 ? 'md:scale-[1.01]' : ''}`}
+                  onMouseEnter={() => setHoveredRectangle(1)}
+                  onMouseLeave={() => setHoveredRectangle(null)}
+                >
                 <Image
                   src="/image/installerapp4.png"
                   alt="Installer App"
@@ -74,8 +81,8 @@ export default function ProjectOverview() {
                           alt="Otovo Logo"
                           width={120}
                           height={40}
-                          className="w-auto h-10"
-                          style={{ width: 'auto', height: 'auto' }}
+                          className="h-10"
+                          style={{ width: 'auto', height: '40px', aspectRatio: '120/40' }}
                         />
                       </div>
                       
@@ -87,7 +94,8 @@ export default function ProjectOverview() {
                     </div>
                   </div>
                 </div>
-              </div>
+                </div>
+              </Link>
               
               {/* Mobile: Logo and text below rectangle - Top aligned */}
               <div className="md:hidden mt-4 flex items-start justify-between w-full">
@@ -98,8 +106,8 @@ export default function ProjectOverview() {
                     alt="Otovo Logo"
                     width={64}
                     height={22}
-                    className="w-auto h-4"
-                    style={{ width: 'auto', height: 'auto' }}
+                    className="h-4"
+                    style={{ width: 'auto', height: '16px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
@@ -120,7 +128,7 @@ export default function ProjectOverview() {
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
               <div 
-                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 2 ? 'md:scale-[1.02]' : ''}`}
+                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 2 ? 'md:scale-[1.01]' : ''}`}
                 onMouseEnter={() => setHoveredRectangle(2)}
                 onMouseLeave={() => setHoveredRectangle(null)}
               >
@@ -142,7 +150,7 @@ export default function ProjectOverview() {
                     width={58}
                     height={20}
                     className="brightness-0 invert"
-                    style={{ width: '58px', height: 'auto' }}
+                    style={{ width: '58px', height: 'auto', aspectRatio: '58/20' }}
                   />
                   <div className="text-white text-[16px] font-light mt-1">
                     <div className="font-semibold">Merchant transactions in P2P app</div>
@@ -159,6 +167,7 @@ export default function ProjectOverview() {
                       width={800}
                       height={600}
                       className="w-full h-auto object-contain"
+                      priority
                     />
                   </div>
                   {/* Image - Desktop: settleappcombo */}
@@ -183,8 +192,8 @@ export default function ProjectOverview() {
                     alt="Settle Logo"
                     width={64}
                     height={22}
-                    className="w-auto h-4 brightness-0 invert"
-                    style={{ width: 'auto', height: 'auto' }}
+                    className="brightness-0 invert"
+                    style={{ width: 'auto', height: '22px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
@@ -204,7 +213,7 @@ export default function ProjectOverview() {
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
               <div 
-                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-[#121212] rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 3 ? 'md:scale-[1.02]' : ''}`}
+                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-[#121212] rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 3 ? 'md:scale-[1.01]' : ''}`}
                 onMouseEnter={() => setHoveredRectangle(3)}
                 onMouseLeave={() => setHoveredRectangle(null)}
               >
@@ -247,8 +256,8 @@ export default function ProjectOverview() {
                           alt="Otovo Logo"
                           width={120}
                           height={40}
-                          className="w-auto h-10"
-                          style={{ width: 'auto', height: 'auto' }}
+                          className="h-10"
+                          style={{ width: 'auto', height: '40px', aspectRatio: '120/40' }}
                         />
                       </div>
                       
@@ -286,8 +295,8 @@ export default function ProjectOverview() {
                     alt="Otovo Logo"
                     width={64}
                     height={22}
-                    className="w-auto h-4"
-                    style={{ width: 'auto', height: 'auto' }}
+                    className="h-4"
+                    style={{ width: 'auto', height: '16px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
@@ -308,7 +317,7 @@ export default function ProjectOverview() {
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
               <div 
-                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 4 ? 'md:scale-[1.02]' : ''}`}
+                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 4 ? 'md:scale-[1.01]' : ''}`}
                 onMouseEnter={() => setHoveredRectangle(4)}
                 onMouseLeave={() => setHoveredRectangle(null)}
               >
@@ -349,8 +358,8 @@ export default function ProjectOverview() {
                           alt="Otovo Logo"
                           width={120}
                           height={40}
-                          className="w-auto h-10"
-                          style={{ width: 'auto', height: 'auto' }}
+                          className="h-10"
+                          style={{ width: 'auto', height: '40px', aspectRatio: '120/40' }}
                         />
                       </div>
                       
@@ -373,8 +382,8 @@ export default function ProjectOverview() {
                     alt="Otovo Logo"
                     width={64}
                     height={22}
-                    className="w-auto h-4"
-                    style={{ width: 'auto', height: 'auto' }}
+                    className="h-4"
+                    style={{ width: 'auto', height: '16px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
@@ -388,6 +397,9 @@ export default function ProjectOverview() {
           </div>
       </div>
       </section>
+
+      {/* About Me Modal */}
+      <AboutMeModal isOpen={isAboutMeOpen} onClose={() => setIsAboutMeOpen(false)} />
     </div>
   )
 }
