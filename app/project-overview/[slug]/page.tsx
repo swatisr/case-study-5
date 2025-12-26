@@ -1,28 +1,101 @@
 'use client'
 
+import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import CaseStudySection from '@/components/CaseStudySection'
+import AboutMeModal from '@/components/AboutMeModal'
 
 export default function ProjectDetailPage() {
+  const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const params = useParams()
-  const slug = params?.slug as string
+  const slug = typeof params?.slug === 'string' ? params.slug : 'installer-app'
 
-  // For now, we'll use the Otovo project content
-  // This can be extended to fetch different content based on slug
+  // Determine current project number from slug
+  const getCurrentProjectNumber = (slug: string): number => {
+    const slugMap: { [key: string]: number } = {
+      'installer-app': 1,
+      'merchant-app': 2,
+      'jobs': 3,
+      'customersupport': 4,
+    }
+    return slugMap[slug] || 1
+  }
+
+  const currentProject = getCurrentProjectNumber(slug)
+
+  // Case study navigation data
+  const caseStudies = [
+    { number: 1, slug: 'installer-app', route: '/project-overview/installer-app' },
+    { number: 2, slug: 'merchant-app', route: '/project-overview/merchant-app' },
+    { number: 3, slug: 'jobs', route: '/project-overview/jobs' },
+    { number: 4, slug: 'customersupport', route: '/project-overview/customersupport' },
+  ]
+
+  // Get project-specific content for first section
+  const getProjectContent = (slug: string) => {
+    const contentMap: { [key: string]: { headline: string; description: string; image: string } } = {
+      'installer-app': {
+        headline: 'Installation documentation happened too late, slowing payments and quality checks',
+        description: 'Installations were complete, but the documentation kept the project open. There were other customer photos on the job and back-office teams managing paperwork and types hardware. The delays created bottlenecks in the payment and quality check processes.',
+        image: '/image/installerapp4.png',
+      },
+      'merchant-app': {
+        headline: 'Merchant transactions needed a streamlined payment flow to reduce friction',
+        description: 'The existing payment process created delays for merchants trying to process transactions. Multiple steps and unclear workflows led to abandoned transactions and support requests. We needed to simplify the flow while maintaining security and compliance.',
+        image: '/image/settleappcombo.png',
+      },
+      'jobs': {
+        headline: 'Job tracking and workflow management required real-time visibility',
+        description: 'Teams struggled to track job progress and coordinate work across different stages. The lack of real-time updates meant delays in communication and inefficient resource allocation. We needed a system that provided instant visibility into job status and team availability.',
+        image: '/image/jobs.png',
+      },
+      'customersupport': {
+        headline: 'Customer support teams needed better tools to resolve issues faster',
+        description: 'Support agents were spending too much time searching for information and context about customer issues. The fragmented tools and lack of integrated workflows slowed down resolution times and impacted customer satisfaction. We needed a unified support experience.',
+        image: '/image/customerSupportkitchen 2.png',
+      },
+    }
+    return contentMap[slug] || contentMap['installer-app']
+  }
+
+  const projectContent = getProjectContent(slug)
 
   return (
     <div className="min-h-screen bg-[hsl(var(--background))]">
-      {/* Sticky Back Button */}
-      <div className="fixed top-0 left-0 right-0 h-16 z-50 bg-[hsl(var(--background))]/80 backdrop-blur-md pointer-events-none flex items-center">
+      {/* Sticky Home Button and Case Study Navigation */}
+      <div className="fixed top-0 left-0 right-0 h-16 z-50 bg-[hsl(var(--background))]/80 backdrop-blur-md pointer-events-none flex items-center justify-between px-5 md:px-10 lg:px-40">
         <Link
           href="/project-overview"
-          className="left-5 md:left-10 lg:left-40 text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none pointer-events-auto"
+          className="text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none pointer-events-auto"
         >
-          <span className="text-[11px] uppercase tracking-[0.2em]">Back</span>
+          <span className="md:hidden text-[11px] tracking-[0.2em]">back</span>
+          <span className="hidden md:inline text-[11px] uppercase tracking-[0.2em]">Home</span>
           <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
         </Link>
+        
+        {/* Case Study Numbers - Hidden on mobile */}
+        <div className="hidden md:flex gap-6 pointer-events-auto">
+          {caseStudies.map((study) => {
+            const isActive = study.number === currentProject
+            return (
+              <Link
+                key={study.number}
+                href={study.route}
+                className={`text-[11px] uppercase tracking-[0.2em] font-light relative inline-block group transition-colors duration-300 leading-none ${
+                  isActive
+                    ? 'text-[hsl(var(--foreground))]'
+                    : 'text-[hsl(var(--muted-foreground))] opacity-40'
+                } hover:text-white hover:opacity-100`}
+              >
+                <span>{study.number}</span>
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
+              </Link>
+            )
+          })}
+        </div>
       </div>
 
       {/* Navigation */}
@@ -40,6 +113,12 @@ export default function ProjectDetailPage() {
           >
             COPY EMAIL
           </a>
+          <button
+            onClick={() => setIsAboutMeOpen(true)}
+            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]"
+          >
+            ABOUT ME
+          </button>
         </div>
         <button className="md:hidden text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
           MORE
@@ -51,23 +130,20 @@ export default function ProjectDetailPage() {
         leftContent={
           <>
             <p className="text-2xl md:text-4xl lg:text-5xl font-light text-[hsl(var(--foreground))] leading-tight">
-              Installation documentation happened too late, slowing payments and
-              quality checks
+              {projectContent.headline}
             </p>
             <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
-              Installations were complete, but the documentation kept the
-              project open. There were other customer photos on the job and
-              back-office teams managing paperwork and types hardware. The delays
-              created bottlenecks in the payment and quality check processes.
+              {projectContent.description}
             </p>
           </>
         }
         rightContent={
           <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
             <Image
-              src="/image/installerapp4.png"
-              alt="Construction site with workers"
+              src={projectContent.image}
+              alt="Project visual"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
               priority
             />
@@ -90,6 +166,7 @@ export default function ProjectDetailPage() {
               src="/image/installerapp4.png"
               alt="Building scaffolding detail"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
             />
           </div>
@@ -117,6 +194,7 @@ export default function ProjectDetailPage() {
               src="/image/24. iPhone.png"
               alt="Mobile app interface showing projects list"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
             />
           </div>
@@ -141,6 +219,7 @@ export default function ProjectDetailPage() {
                 src="/image/24. iPhone.png"
                 alt="App screen with house illustration"
                 fill
+                sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"
               />
             </div>
@@ -149,6 +228,7 @@ export default function ProjectDetailPage() {
                 src="/image/24. iPhone3.png"
                 alt="App screen with project details"
                 fill
+                sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"
               />
             </div>
@@ -157,6 +237,7 @@ export default function ProjectDetailPage() {
                 src="/image/18. iPhone.png"
                 alt="App screen dark state"
                 fill
+                sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"
               />
             </div>
@@ -165,6 +246,7 @@ export default function ProjectDetailPage() {
                 src="/image/24. iPhone.png"
                 alt="App screen with notifications"
                 fill
+                sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"
               />
             </div>
@@ -187,6 +269,7 @@ export default function ProjectDetailPage() {
               src="/image/24. iPhone.png"
               alt="Installation tracking interface"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
             />
           </div>
@@ -210,6 +293,7 @@ export default function ProjectDetailPage() {
               src="/image/24. iPhone.png"
               alt="Project card with documentation"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
             />
           </div>
@@ -224,6 +308,7 @@ export default function ProjectDetailPage() {
               src="/image/24. iPhone.png"
               alt="Project details with illustration"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
             />
           </div>
@@ -259,6 +344,7 @@ export default function ProjectDetailPage() {
               src="/image/24. iPhone.png"
               alt="Camera interface for photo capture"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
             />
           </div>
@@ -287,6 +373,7 @@ export default function ProjectDetailPage() {
               src="/image/24. iPhone.png"
               alt="Success confirmation screen"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
             />
           </div>
@@ -331,6 +418,106 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </footer>
+
+      {/* About Me Modal */}
+      <AboutMeModal isOpen={isAboutMeOpen} onClose={() => setIsAboutMeOpen(false)} />
+
+      {/* Mobile Floating Button */}
+      <button
+        onClick={() => setIsMobileMenuOpen(true)}
+        className="md:hidden fixed bottom-6 right-6 z-[100] w-14 h-14 rounded-full bg-[hsl(var(--secondary))] text-white shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.4)] active:scale-95 transition-all duration-200 flex items-center justify-center"
+        aria-label="Open menu"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-6 h-6"
+        >
+          <path
+            d="M3 12H21M3 6H21M3 18H21"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="md:hidden fixed inset-0 bg-black/50 z-[60]"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          
+          {/* Menu Panel */}
+          <div
+            className="md:hidden fixed bottom-0 left-0 right-0 z-[70] bg-[hsl(var(--secondary))] rounded-t-3xl transition-transform duration-300 ease-out"
+            style={{ maxHeight: '60vh' }}
+          >
+            <div className="px-6 pt-8 pb-6">
+              {/* Menu Items */}
+              <div className="flex flex-col gap-6 mb-8">
+                <button
+                  onClick={() => {
+                    setIsAboutMeOpen(true)
+                    setIsMobileMenuOpen(false)
+                  }}
+                  className="text-left text-white text-sm font-light"
+                >
+                  About me
+                </button>
+                <a
+                  href="#"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-left text-white text-sm font-light"
+                >
+                  Linked In
+                </a>
+                <button
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText('your-email@example.com')
+                      setIsMobileMenuOpen(false)
+                    } catch (err) {
+                      console.error('Failed to copy email:', err)
+                    }
+                  }}
+                  className="text-left text-white text-sm font-light bg-white/10 px-4 py-2 rounded-lg"
+                >
+                  Copy email
+                </button>
+              </div>
+
+              {/* Case Study Numbers */}
+              <div className="flex gap-6 justify-center">
+                {caseStudies.map((study) => {
+                  const isActive = study.number === currentProject
+                  return (
+                    <Link
+                      key={study.number}
+                      href={study.route}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`text-sm font-light transition-colors duration-300 ${
+                        isActive
+                          ? 'text-white'
+                          : 'text-white/40'
+                      }`}
+                    >
+                      {study.number}
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
