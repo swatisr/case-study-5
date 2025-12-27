@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import ShowMoreButton from '@/components/ShowMoreButton'
@@ -9,6 +10,33 @@ import AboutMeModal from '@/components/AboutMeModal'
 export default function ProjectOverview() {
   const [hoveredRectangle, setHoveredRectangle] = useState<number | null>(null)
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    // Check if user is authenticated
+    const auth = localStorage.getItem('portfolio-auth')
+    if (auth !== 'authenticated') {
+      router.push('/')
+    } else {
+      setIsAuthenticated(true)
+    }
+  }, [router])
+
+  // Show loading while checking authentication
+  if (isAuthenticated === null) {
+    return (
+      <div className="min-h-screen bg-[hsl(var(--background))] flex items-center justify-center">
+        <div className="text-[hsl(var(--muted-foreground))]">Loading...</div>
+      </div>
+    )
+  }
+
+  // Don't render if not authenticated (will redirect)
+  if (!isAuthenticated) {
+    return null
+  }
+
   return (
     <div className="h-screen overflow-y-scroll snap-y snap-mandatory bg-[hsl(var(--background))]">
       {/* Sticky Navbar */}
@@ -53,6 +81,7 @@ export default function ProjectOverview() {
                   src="/image/installerapp4.png"
                   alt="Installer App"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
                   className="object-cover object-[35%_center]"
                   priority
                 />
@@ -325,6 +354,7 @@ export default function ProjectOverview() {
                   src="/image/customerSupportkitchen 2.png"
                   alt="Customer Support Kitchen"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
                   className="object-cover"
                   priority
                 />
