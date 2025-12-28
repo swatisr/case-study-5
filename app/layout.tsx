@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={spaceGrotesk.variable}>
-      <body className={spaceGrotesk.className}>{children}</body>
+      <body className={`${spaceGrotesk.className} bg-[hsl(var(--background))]`}>{children}</body>
     </html>
   )
 }

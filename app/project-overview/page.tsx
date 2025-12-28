@@ -11,6 +11,7 @@ export default function ProjectOverview() {
   const [hoveredRectangle, setHoveredRectangle] = useState<number | null>(null)
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -20,6 +21,12 @@ export default function ProjectOverview() {
       router.push('/')
     } else {
       setIsAuthenticated(true)
+      // Fade in with slight delay (100ms after home page fade out starts)
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const delay = prefersReducedMotion ? 0 : 100
+      setTimeout(() => {
+        setIsVisible(true)
+      }, delay)
     }
   }, [router])
 
@@ -37,8 +44,21 @@ export default function ProjectOverview() {
     return null
   }
 
+  const prefersReducedMotion = typeof window !== 'undefined' 
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+    : false
+  const transitionDuration = prefersReducedMotion ? 0 : 600
+
   return (
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory bg-[hsl(var(--background))]">
+    <div className="fixed inset-0 bg-[hsl(var(--background))]">
+      <div 
+        className={`h-screen overflow-y-scroll snap-y snap-mandatory transition-opacity ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          isVisible 
+            ? 'opacity-100' 
+            : 'opacity-0'
+        }`}
+        style={{ transitionDuration: `${transitionDuration}ms` }}
+      >
       {/* Sticky Navbar */}
       <nav className={`fixed top-4 bottom-auto md:top-auto md:bottom-8 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40 md:transition-opacity md:duration-500 ${hoveredRectangle ? 'md:opacity-20' : 'md:opacity-100'}`}>
         {/* Desktop: Full Navigation */}
@@ -430,6 +450,7 @@ export default function ProjectOverview() {
 
       {/* About Me Modal */}
       <AboutMeModal isOpen={isAboutMeOpen} onClose={() => setIsAboutMeOpen(false)} />
+      </div>
     </div>
   )
 }

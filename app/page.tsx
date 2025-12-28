@@ -70,7 +70,7 @@ export default function Home() {
         setTimeout(() => {
           setIsTransitioning(true)
           
-          const transitionDuration = prefersReducedMotion ? 0 : 350
+          const transitionDuration = prefersReducedMotion ? 0 : 600
           
           setTimeout(() => {
             localStorage.setItem('portfolio-auth', 'authenticated')
@@ -105,24 +105,34 @@ export default function Home() {
     // Validation is handled in useEffect with debounce
   }
 
-  const prefersReducedMotionValue = prefersReducedMotion ? 0 : 350
+  const prefersReducedMotionValue = prefersReducedMotion ? 0 : 600
   const transitionClass = isTransitioning 
-    ? `transition-opacity ease-out opacity-0`
-    : `transition-opacity ease-out opacity-100`
+    ? `transition-opacity ease-[cubic-bezier(0.4,0,0.2,1)] opacity-0`
+    : `transition-opacity ease-[cubic-bezier(0.4,0,0.2,1)] opacity-100`
 
   return (
-    <div className="h-screen overflow-hidden bg-[hsl(var(--background))] text-[hsl(var(--foreground))] relative">
+    <div 
+      className={`h-screen overflow-hidden bg-[hsl(var(--background))] text-[hsl(var(--foreground))] relative ${transitionClass}`}
+      style={{ transitionDuration: `${prefersReducedMotionValue}ms` }}
+    >
       {/* Utility Links - Desktop: Aligned with input, Right Side | Mobile: Horizontal, close to input */}
       <nav 
-        className={`absolute top-1/2 translate-y-[calc(50vh-50%+180px)] md:translate-y-[calc(50vh-50%+200px)] lg:translate-y-[calc(50vh-50%+220px)] left-6 md:left-auto md:right-8 lg:right-12 xl:right-16 z-10 ${transitionClass}`}
-        style={{ transitionDuration: `${prefersReducedMotionValue}ms` }}
+        className="absolute top-1/2 translate-y-[calc(50vh-50%+180px)] md:translate-y-[calc(50vh-50%+200px)] lg:translate-y-[calc(50vh-50%+220px)] left-6 md:left-auto md:right-8 lg:right-12 xl:right-16 z-10"
       >
         <div className="flex flex-row gap-4 md:gap-6 lg:gap-8 items-end">
-          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-40 font-light relative inline-block group hover:opacity-70 transition-opacity duration-300 leading-none">
+          <button 
+            onClick={handleCopyEmail}
+            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-40 font-light relative inline-block group hover:opacity-70 transition-opacity duration-300 leading-none cursor-pointer"
+          >
             COPY EMAIL
             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
-          </a>
-          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-40 font-light relative inline-block group hover:opacity-70 transition-opacity duration-300 leading-none">
+          </button>
+          <a 
+            href="https://linkedin.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-40 font-light relative inline-block group hover:opacity-70 transition-opacity duration-300 leading-none"
+          >
             LINKEDIN
             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
           </a>
@@ -131,8 +141,7 @@ export default function Home() {
 
       {/* Main Content - Vertically Centered, Left Aligned */}
       <div 
-        className={`absolute top-1/2 -translate-y-1/2 left-6 md:left-8 lg:left-12 xl:left-16 max-w-xs md:max-w-sm lg:max-w-md ${transitionClass}`}
-        style={{ transitionDuration: `${prefersReducedMotionValue}ms` }}
+        className="absolute top-[calc(50%+50px)] md:top-1/2 -translate-y-1/2 left-6 md:left-8 lg:left-12 xl:left-16 max-w-xs md:max-w-sm lg:max-w-md"
       >
         {/* Role/Location */}
         <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light mb-2 md:mb-3">
@@ -198,8 +207,7 @@ export default function Home() {
 
       {/* Image Strip - Infinite Right-to-Left Scrolling Train */}
       <div 
-        className={`absolute bottom-6 md:bottom-8 lg:bottom-12 left-6 md:left-8 lg:left-12 xl:left-16 right-6 md:right-8 lg:right-12 xl:right-16 overflow-hidden ${transitionClass}`}
-        style={{ transitionDuration: `${prefersReducedMotionValue}ms` }}
+        className="absolute bottom-6 md:bottom-8 lg:bottom-12 left-6 md:left-8 lg:left-12 xl:left-16 right-6 md:right-8 lg:right-12 xl:right-16 overflow-hidden"
       >
         <div 
           className="flex items-start gap-6 md:gap-8 lg:gap-10 xl:gap-12 scroll-train"
