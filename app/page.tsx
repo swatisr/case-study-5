@@ -1,72 +1,128 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
-// Project images with their display names
-const projectImages = [
-  { src: '/image/installerapp4.png', name: 'Installer App' },
-  { src: '/image/settleappcombo.png', name: 'Settle' },
-  { src: '/image/customerSupportkitchen 2.png', name: 'Customer Support' },
-  { src: '/image/jobs.png', name: 'Jobs' },
-  { src: '/image/CS1.png', name: 'Case Study 1' },
-  { src: '/image/IA1.png', name: 'Installer App' },
-  { src: '/image/IA2.png', name: 'Installer App' },
-  { src: '/image/IAMockup.png', name: 'Installer App Mockup' },
-  { src: '/image/InstallerApp1.png', name: 'Installer App' },
-  { src: '/image/settel3.png', name: 'Settle' },
-  { src: '/image/settle pic 2.png', name: 'Settle' },
-  { src: '/image/settle pic 3.png', name: 'Settle' },
-  { src: '/image/settle1.png', name: 'Settle' },
-  { src: '/image/settle2.png', name: 'Settle' },
-  { src: '/image/laptopCustomer Support.png', name: 'Customer Support' },
-  { src: '/image/18. iPhone.png', name: 'iPhone Mockup' },
-  { src: '/image/24. iPhone.png', name: 'iPhone Mockup' },
-  { src: '/image/24. iPhone3.png', name: 'iPhone Mockup' },
-  { src: '/image/M001T1432 L Iphone 16 Pro Mockup 21Jul25.png', name: 'iPhone 16 Pro Mockup' },
-  { src: '/image/PSD.png', name: 'Design System' },
-  { src: '/image/customerSupportkitchen.png', name: 'Customer Support' },
+// Trail images from public/trail folder
+const trailImages = [
+  { src: '/trail/08.2.jpg', name: 'Project 1' },
+  { src: '/trail/4_ScenesScreen_c_v4.jpg', name: 'Project 2' },
+  { src: '/trail/casestudy02low.jpg', name: 'Project 3' },
+  { src: '/trail/Desktop app 1.png', name: 'Desktop App' },
+  { src: '/trail/header.jpg', name: 'Header' },
+  { src: '/trail/hero.png', name: 'Hero' },
+  { src: '/trail/HomeScreen_VisualDesign_31Oct-1.jpg', name: 'Home Screen' },
+  { src: '/trail/image-17.jpg', name: 'Image 17' },
+  { src: '/trail/Map 1.png', name: 'Map 1' },
+  { src: '/trail/map.png', name: 'Map' },
+  { src: '/trail/Mobile app 1.png', name: 'Mobile App 1' },
+  { src: '/trail/mobile app 2.png', name: 'Mobile App 2' },
+  { src: '/trail/mobile.png', name: 'Mobile' },
+  { src: '/trail/Netscout.png', name: 'Netscout' },
+  { src: '/trail/sf1.png', name: 'SF1' },
+  { src: '/trail/snapshotPlatform .jpg', name: 'Snapshot Platform' },
+  { src: '/trail/Transfer-Details-Success.jpg', name: 'Transfer Details' },
 ]
+
 
 export default function Home() {
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [isLoggingIn, setIsLoggingIn] = useState(false)
+  const [statusMessage, setStatusMessage] = useState('')
+  const [statusType, setStatusType] = useState<'error' | 'success' | ''>('')
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const router = useRouter()
+  
+  // Duplicate images for seamless infinite scroll
+  const duplicatedImages = [...trailImages, ...trailImages]
+
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches)
+    }
+    
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+
+
+  useEffect(() => {
+    // Debounce validation - wait 600ms after user stops typing
+    if (password.length === 0) {
+      setStatusMessage('')
+      setStatusType('')
+      return
+    }
+
+    const timeoutId = setTimeout(() => {
+      // User has stopped typing for 600ms, now validate
+      if (password === 'hellomonday') {
+        // Correct password - show "Logging in..." for 800ms
+        setStatusMessage('Logging in…')
+        setStatusType('success')
+        
+        // After 800ms, start transition
+        setTimeout(() => {
+          setIsTransitioning(true)
+          
+          const transitionDuration = prefersReducedMotion ? 0 : 350
+          
+          setTimeout(() => {
+            localStorage.setItem('portfolio-auth', 'authenticated')
+            router.push('/project-overview')
+          }, transitionDuration)
+        }, 800)
+      } else {
+        // Incorrect password - show error message
+        setStatusMessage('')
+        setStatusType('error')
+      }
+    }, 600)
+    
+    return () => clearTimeout(timeoutId)
+  }, [password, prefersReducedMotion, router])
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setPassword(value)
-    setError('')
-    
-    if (value === 'hellomonday') {
-      setIsLoggingIn(true)
-      // Show "Logging in..." for 100ms then redirect
-      setTimeout(() => {
-        localStorage.setItem('portfolio-auth', 'authenticated')
-        router.push('/project-overview')
-      }, 100)
-    } else {
-      setIsLoggingIn(false)
-    }
+    // Clear status messages while typing
+    setStatusMessage('')
+    setStatusType('')
+  }
+
+  const handleCopyEmail = () => {
+    // Copy email functionality (same as COPY EMAIL link)
+    navigator.clipboard.writeText('your.email@example.com').catch(() => {})
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Auto-login is handled in handlePasswordChange
+    // Validation is handled in useEffect with debounce
   }
 
+  const prefersReducedMotionValue = prefersReducedMotion ? 0 : 350
+  const transitionClass = isTransitioning 
+    ? `transition-opacity ease-out opacity-0`
+    : `transition-opacity ease-out opacity-100`
+
   return (
-    <div className="h-screen overflow-hidden bg-[hsl(var(--background))] text-[hsl(var(--foreground))] flex flex-col">
-      {/* Header Links - Extreme Right */}
-      <nav className="fixed top-4 md:top-8 right-0 z-50 px-5 md:px-10 lg:px-40">
-        <div className="flex gap-8">
-          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-50 font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none">
+    <div className="h-screen overflow-hidden bg-[hsl(var(--background))] text-[hsl(var(--foreground))] relative">
+      {/* Utility Links - Desktop: Aligned with input, Right Side | Mobile: Horizontal, close to input */}
+      <nav 
+        className={`absolute top-1/2 translate-y-[calc(50vh-50%+180px)] md:translate-y-[calc(50vh-50%+200px)] lg:translate-y-[calc(50vh-50%+220px)] left-6 md:left-auto md:right-8 lg:right-12 xl:right-16 z-10 ${transitionClass}`}
+        style={{ transitionDuration: `${prefersReducedMotionValue}ms` }}
+      >
+        <div className="flex flex-row gap-4 md:gap-6 lg:gap-8 items-end">
+          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-40 font-light relative inline-block group hover:opacity-70 transition-opacity duration-300 leading-none">
             COPY EMAIL
             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
           </a>
-          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-50 font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none">
+          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-40 font-light relative inline-block group hover:opacity-70 transition-opacity duration-300 leading-none">
             LINKEDIN
             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
           </a>
@@ -74,66 +130,107 @@ export default function Home() {
       </nav>
 
       {/* Main Content - Vertically Centered, Left Aligned */}
-      <div className="flex-1 flex flex-col justify-center px-5 md:px-10 lg:px-40">
-        <div className="w-full max-w-4xl space-y-4">
-          {/* Label */}
-          <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
-            Lead UX Designers, Otovo ASA
-          </div>
+      <div 
+        className={`absolute top-1/2 -translate-y-1/2 left-6 md:left-8 lg:left-12 xl:left-16 max-w-xs md:max-w-sm lg:max-w-md ${transitionClass}`}
+        style={{ transitionDuration: `${prefersReducedMotionValue}ms` }}
+      >
+        {/* Role/Location */}
+        <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light mb-2 md:mb-3">
+          Lead UX Designers, Otovo ASA
+        </div>
 
-          {/* Name - 26px */}
-          <h1 className="text-[26px] font-bold text-[hsl(var(--foreground))]">
-            Swati Srivastava
-          </h1>
+        {/* Name */}
+        <h1 className="text-[24px] md:text-[28px] lg:text-[32px] font-bold text-[hsl(var(--foreground))] mb-3 md:mb-4 leading-tight">
+          Swati Srivastava
+        </h1>
 
-          {/* Description - 14px, 50% width */}
-          <p className="text-sm leading-relaxed text-[hsl(var(--muted-foreground))] font-light max-w-[50%]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-          </p>
+        {/* Description - Narrow and Readable */}
+        <p className="text-xs md:text-sm lg:text-base leading-relaxed text-[hsl(var(--muted-foreground))] font-light mb-6 md:mb-8">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
 
-          {/* Password Form */}
-          <div className="space-y-4 max-w-md">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <input
-                  type={isLoggingIn ? 'text' : 'password'}
-                  value={isLoggingIn ? 'Logging in...' : password}
-                  onChange={handlePasswordChange}
-                  className="w-full px-4 py-5 bg-[hsl(0_0%_6%)] border border-[hsl(0_0%_5%)] rounded-lg text-[hsl(var(--foreground))] focus:outline-none focus:border-[hsl(0_0%_5%)] hover:bg-[hsl(0_0%_5%)] hover:shadow-[inset_0_0_8px_rgba(0,0,0,0.1)] transition-all duration-200 placeholder:text-[hsl(var(--muted-foreground))]/50"
-                  placeholder={isLoggingIn ? '' : 'Enter password to view the case studies'}
-                  autoFocus
-                  disabled={isLoggingIn}
-                />
-              </div>
+        {/* Password Form - Quiet and Secondary */}
+        <div className="space-y-2 md:space-y-3">
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={password}
+              onChange={handlePasswordChange}
+              className="w-full px-3 md:px-4 py-2.5 md:py-3 bg-[hsl(0_0%_6%)] border border-[hsl(0_0%_7%)] text-sm md:text-base text-[hsl(var(--foreground))] focus:outline-none focus:border-[hsl(0_0%_8%)] hover:bg-[hsl(0_0%_5%)] hover:shadow-[inset_0_0_8px_rgba(0,0,0,0.1)] transition-all duration-200 placeholder:text-[hsl(var(--muted-foreground))]/50"
+              placeholder="Enter password to view the case studies"
+              autoFocus
+              disabled={isTransitioning}
+            />
+          </form>
 
-              {error && (
-                <div className="text-red-400 text-sm">{error}</div>
-              )}
-            </form>
+          {/* Validation Messages - Fixed Height Container */}
+          <div className="h-5 min-h-[20px]">
+            {/* Success Message - Always rendered, opacity controlled */}
+            <div 
+              className={`text-xs text-green-400 transition-opacity ${
+                statusType === 'success' && statusMessage 
+                  ? 'opacity-100 duration-[225ms] ease-in' 
+                  : 'opacity-0 duration-200 ease-out'
+              }`}
+            >
+              {statusMessage}
+            </div>
+            
+            {/* Error Message - Always rendered, opacity controlled */}
+            <div 
+              className={`text-xs text-red-400 transition-opacity ${
+                statusType === 'error' 
+                  ? 'opacity-100 duration-[225ms] ease-in' 
+                  : 'opacity-0 duration-200 ease-out'
+              }`}
+            >
+              Password seems to be incorrect. You can try again or email me.{' '}
+              <button
+                onClick={handleCopyEmail}
+                className="underline hover:opacity-70 transition-opacity"
+              >
+                copy email
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Horizontal Image Gallery */}
-      <div className="w-full px-5 md:px-10 lg:px-40 pb-8 md:pb-12">
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-          {projectImages.map((project, index) => (
-            <div
-              key={index}
-              className="relative flex-shrink-0 h-24 overflow-hidden rounded-none"
-            >
-              <div className="relative h-24" style={{ width: 'auto' }}>
+      {/* Image Strip - Infinite Right-to-Left Scrolling Train */}
+      <div 
+        className={`absolute bottom-6 md:bottom-8 lg:bottom-12 left-6 md:left-8 lg:left-12 xl:left-16 right-6 md:right-8 lg:right-12 xl:right-16 overflow-hidden ${transitionClass}`}
+        style={{ transitionDuration: `${prefersReducedMotionValue}ms` }}
+      >
+        <div 
+          className="flex items-start gap-6 md:gap-8 lg:gap-10 xl:gap-12 scroll-train"
+          style={{
+            willChange: prefersReducedMotion ? 'auto' : 'transform'
+          }}
+        >
+          {duplicatedImages.map((image, index) => {
+            // Vary image heights naturally for editorial feel - different sizes per breakpoint
+            const mobileHeights = ['h-[60px]', 'h-[75px]', 'h-[90px]', 'h-[65px]', 'h-[80px]', 'h-[70px]', 'h-[85px]', 'h-[68px]']
+            const desktopHeights = ['md:h-[80px]', 'md:h-[100px]', 'md:h-[120px]', 'md:h-[90px]', 'md:h-[110px]', 'md:h-[95px]', 'md:h-[105px]', 'md:h-[85px]', 'md:h-[115px]', 'md:h-[88px]', 'md:h-[98px]', 'md:h-[92px]']
+            const mobileClass = mobileHeights[index % mobileHeights.length]
+            const desktopClass = desktopHeights[index % desktopHeights.length]
+            
+            return (
+              <div
+                key={`${image.src}-${index}`}
+                className={`flex-shrink-0 ${mobileClass} ${desktopClass}`}
+              >
                 <Image
-                  src={project.src}
-                  alt={project.name}
-                  width={100}
-                  height={96}
-                  className="h-24 w-auto object-contain"
-                  style={{ width: 'auto', height: '96px', maxWidth: 'none' }}
+                  src={image.src}
+                  alt={image.name}
+                  width={200}
+                  height={150}
+                  className="h-full w-auto object-contain"
+                  style={{ width: 'auto', height: '100%', maxWidth: 'none' }}
+                  unoptimized
                 />
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>
