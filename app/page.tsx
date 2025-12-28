@@ -61,7 +61,7 @@ export default function Home() {
 
     const timeoutId = setTimeout(() => {
       // User has stopped typing for 600ms, now validate
-      if (password === 'hellomonday') {
+      if (password === 'monday') {
         // Correct password - show "Logging in..." for 800ms
         setStatusMessage('Logging in…')
         setStatusType('success')
