@@ -91,7 +91,7 @@ export default function ProjectOverview() {
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <Link href="/project-overview/otovo" className="block cursor-pointer">
+              <Link href="/project-overview/installer-app" className="block cursor-pointer">
                 <div 
                   className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 1 ? 'md:scale-[1.01]' : ''}`}
                   onMouseEnter={() => setHoveredRectangle(1)}
@@ -176,11 +176,12 @@ export default function ProjectOverview() {
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <div 
-                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 2 ? 'md:scale-[1.01]' : ''}`}
-                onMouseEnter={() => setHoveredRectangle(2)}
-                onMouseLeave={() => setHoveredRectangle(null)}
-              >
+              <Link href="/project-overview/merchant-app" className="block cursor-pointer">
+                <div 
+                  className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 2 ? 'md:scale-[1.01]' : ''}`}
+                  onMouseEnter={() => setHoveredRectangle(2)}
+                  onMouseLeave={() => setHoveredRectangle(null)}
+                >
                 {/* Top text - FINTECH / PAYMENTS and 2019 • SR. UX DESIGNER - Desktop Only */}
                 <div className="hidden md:flex absolute top-0 right-0 z-10 flex-col items-end px-4 md:px-8 pt-4 md:pt-8">
                   <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
@@ -230,7 +231,8 @@ export default function ProjectOverview() {
                     />
                   </div>
                 </div>
-              </div>
+                </div>
+              </Link>
               
               {/* Mobile: Logo and text below rectangle - Middle aligned */}
               <div className="md:hidden mt-4 flex items-center justify-between w-full">
