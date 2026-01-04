@@ -21,7 +21,7 @@ export default function CaseStudySection({
     <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16">
       {/* Left Content */}
       {leftContent && (
-        <div className="md:col-span-6 flex flex-col justify-center">
+        <div className="md:col-span-6 flex flex-col justify-start">
           <div className="space-y-6">{leftContent}</div>
         </div>
       )}
@@ -31,7 +31,7 @@ export default function CaseStudySection({
         <div
           className={`${
             leftContent ? 'md:col-span-6' : 'md:col-span-12'
-          } flex flex-col justify-center`}
+          } flex flex-col justify-start`}
         >
           <div className="space-y-6">{rightContent}</div>
         </div>

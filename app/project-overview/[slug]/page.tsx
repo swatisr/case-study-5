@@ -48,8 +48,8 @@ export default function ProjectDetailPage() {
         image: '/image/settleappcombo.png',
       },
       'jobs': {
-        headline: 'Job tracking and workflow management required real-time visibility',
-        description: 'Teams struggled to track job progress and coordinate work across different stages. The lack of real-time updates meant delays in communication and inefficient resource allocation. We needed a system that provided instant visibility into job status and team availability.',
+        headline: 'Jobs: Repairs and Fixes Workflow',
+        description: 'Imagine a customer with a solar installation that\'s been running for a few years. Something stops working. They don\'t know who to call, so they contact Otovo. Behind the scenes, the team needs to understand the issue, assign the work, manage responsibility and cost, and approve an invoice without slowing daily operations. This is the context in which Jobs was introduced.',
         image: '/image/jobs.png',
       },
       'customersupport': {
@@ -128,14 +128,25 @@ export default function ProjectDetailPage() {
       {/* Section 1: Problem Statement */}
       <CaseStudySection
         leftContent={
-          <>
-            <p className="text-2xl md:text-4xl lg:text-5xl font-light text-[hsl(var(--foreground))] leading-tight">
-              {projectContent.headline}
-            </p>
-            <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
-              {projectContent.description}
-            </p>
-          </>
+          slug === 'jobs' ? (
+            <>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--foreground))] leading-tight mb-4">
+                Jobs: Repairs and Fixes Workflow
+              </h1>
+              <p className="text-sm md:text-base text-[hsl(var(--muted-foreground))] font-light">
+                900+ Jobs Invoiced
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-2xl md:text-4xl lg:text-5xl font-light text-[hsl(var(--foreground))] leading-tight">
+                {projectContent.headline}
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                {projectContent.description}
+              </p>
+            </>
+          )
         }
         rightContent={
           <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
@@ -151,20 +162,45 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Section 2: Context */}
+      {/* Section 2: Context Introduction (Jobs only) */}
+      {slug === 'jobs' && (
+        <CaseStudySection
+          leftContent={
+            <p className="text-base md:text-lg text-white font-bold leading-relaxed">
+              Imagine a customer with a solar installation that's been running for a few years. Something stops working. They don't know who to call, so they contact Otovo. Behind the scenes, the team needs to understand the issue, assign the work, manage responsibility and cost, and approve an invoice without slowing daily operations. This is the context in which Jobs was introduced.
+            </p>
+          }
+        />
+      )}
+
+      {/* Section 3: Context */}
       <CaseStudySection
         leftContent={
-          <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
-            The workflow between field installers and back-office operations
-            needed to be redefined to ensure timely documentation and smoother
-            project completion.
-          </p>
+          slug === 'jobs' ? (
+            <>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Otovo already had a detailed workflow for installation projects. While it worked well for installations, repairs, fixes, and inspections behaved differently. They were smaller in scope, more dynamic, and linked to projects without being equivalent to them.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Trying to fit this work into the project workflow added friction and raised an early design question:
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4 italic">
+                Are we improving the experience by extending what exists, or by treating this as a different type of work?
+              </p>
+            </>
+          ) : (
+            <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+              The workflow between field installers and back-office operations
+              needed to be redefined to ensure timely documentation and smoother
+              project completion.
+            </p>
+          )
         }
         rightContent={
           <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
             <Image
-              src="/image/installerapp4.png"
-              alt="Building scaffolding detail"
+              src={slug === 'jobs' ? '/image/installerapp4.png' : '/image/installerapp4.png'}
+              alt={slug === 'jobs' ? 'Installation workflow comparison' : 'Building scaffolding detail'}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
@@ -173,26 +209,43 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Section 3: Solution Approach */}
+      {/* Section 4: Solution Approach */}
       <CaseStudySection
         leftContent={
-          <>
-            <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
-              Because no installer app existed, we first had to define what work
-              belonged in the field versus the back office.
-            </p>
-            <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
-              This was an exercise in how installers should document, a new
-              workflow for back-office teams, and how the data would flow from
-              the field to the back office and beyond.
-            </p>
-          </>
+          slug === 'jobs' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Deciding whether Jobs should be a separate tool
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Before exploring UI, the focus was on whether Jobs should exist as its own tool.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Treating jobs as simplified projects would blur conceptual boundaries, add conditional complexity, and slow implementation. From engineering and business perspectives, a separate, lightweight tool could be built faster and tested safely. From a design perspective, it allowed jobs to be represented clearly as their own object, connected to projects but not pretending to be one.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                This led to the decision to design Jobs as a standalone beta without disturbing the core marketplace workflow.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Because no installer app existed, we first had to define what work
+                belonged in the field versus the back office.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                This was an exercise in how installers should document, a new
+                workflow for back-office teams, and how the data would flow from
+                the field to the back office and beyond.
+              </p>
+            </>
+          )
         }
         rightContent={
           <div className="relative w-full aspect-[9/16] max-w-sm mx-auto rounded-lg overflow-hidden">
             <Image
-              src="/image/24. iPhone.png"
-              alt="Mobile app interface showing projects list"
+              src={slug === 'jobs' ? '/image/24. iPhone3.png' : '/image/24. iPhone.png'}
+              alt={slug === 'jobs' ? 'Jobs tool decision process' : 'Mobile app interface showing projects list'}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
@@ -201,23 +254,40 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Section 4: App Interface Examples */}
+      {/* Section 5: App Interface Examples */}
       <CaseStudySection
         leftContent={
-          <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
-            The new workflow was organized into modules and sections to ensure
-            work flow between installers and operations. This made the
-            installation and operations teams more efficient. Ultimately, allowing
-            operations to track, verify, and use information has created a
-            better experience.
-          </p>
+          slug === 'jobs' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                What the Jobs tool needed to support for internal teams
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                For Otovo agents, handling a job involved documenting the issue, assigning work, updating requirements, tracking progress, and approving invoices.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Installers needed a clear view of assigned jobs, expectations, and how to submit invoices correctly.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Design decisions were driven by mapping this work carefully and ensuring the system reflected how tasks were handled in practice.
+              </p>
+            </>
+          ) : (
+            <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+              The new workflow was organized into modules and sections to ensure
+              work flow between installers and operations. This made the
+              installation and operations teams more efficient. Ultimately, allowing
+              operations to track, verify, and use information has created a
+              better experience.
+            </p>
+          )
         }
         rightContent={
           <div className="grid grid-cols-2 gap-4">
             <div className="relative w-full aspect-[9/16] rounded-lg overflow-hidden">
               <Image
-                src="/image/24. iPhone.png"
-                alt="App screen with house illustration"
+                src={slug === 'jobs' ? '/image/24. iPhone.png' : '/image/24. iPhone.png'}
+                alt={slug === 'jobs' ? 'Jobs interface example 1' : 'App screen with house illustration'}
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"
@@ -225,8 +295,8 @@ export default function ProjectDetailPage() {
             </div>
             <div className="relative w-full aspect-[9/16] rounded-lg overflow-hidden">
               <Image
-                src="/image/24. iPhone3.png"
-                alt="App screen with project details"
+                src={slug === 'jobs' ? '/image/24. iPhone3.png' : '/image/24. iPhone3.png'}
+                alt={slug === 'jobs' ? 'Jobs interface example 2' : 'App screen with project details'}
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"
@@ -234,8 +304,8 @@ export default function ProjectDetailPage() {
             </div>
             <div className="relative w-full aspect-[9/16] rounded-lg overflow-hidden">
               <Image
-                src="/image/18. iPhone.png"
-                alt="App screen dark state"
+                src={slug === 'jobs' ? '/image/18. iPhone.png' : '/image/18. iPhone.png'}
+                alt={slug === 'jobs' ? 'Jobs interface example 3' : 'App screen dark state'}
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"
@@ -243,8 +313,8 @@ export default function ProjectDetailPage() {
             </div>
             <div className="relative w-full aspect-[9/16] rounded-lg overflow-hidden">
               <Image
-                src="/image/24. iPhone.png"
-                alt="App screen with notifications"
+                src={slug === 'jobs' ? '/image/IA1.png' : '/image/24. iPhone.png'}
+                alt={slug === 'jobs' ? 'Jobs interface example 4' : 'App screen with notifications'}
                 fill
                 sizes="(max-width: 768px) 50vw, 25vw"
                 className="object-cover"
@@ -254,20 +324,37 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Section 5: Installation Tracking UI */}
+      {/* Section 6: Installation Tracking UI */}
       <CaseStudySection
         leftContent={
-          <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
-            Real-time tracking capabilities allowed installers to mark when work
-            started and completed, with checklists ensuring all documentation
-            requirements were met before project closure.
-          </p>
+          slug === 'jobs' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Designing Jobs to work within existing workflows
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Jobs needed to fit into an ecosystem where projects, issues, installers, and invoices were already connected.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                A project could have issues. An issue could become a job. A job needed to reference the project without redefining it.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Redesigning the entire workflow was not feasible in the short term. The design approach focused on supporting the current structure while making relationships clearer, delivering value immediately without blocking future improvements.
+              </p>
+            </>
+          ) : (
+            <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+              Real-time tracking capabilities allowed installers to mark when work
+              started and completed, with checklists ensuring all documentation
+              requirements were met before project closure.
+            </p>
+          )
         }
         rightContent={
           <div className="relative w-full aspect-[9/16] max-w-sm mx-auto rounded-lg overflow-hidden">
             <Image
-              src="/image/24. iPhone.png"
-              alt="Installation tracking interface"
+              src={slug === 'jobs' ? '/image/IA2.png' : '/image/24. iPhone.png'}
+              alt={slug === 'jobs' ? 'Jobs workflow integration' : 'Installation tracking interface'}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
@@ -276,22 +363,72 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Section 6: MVP Scope */}
+      {/* Section 6b: Designing for partial automation - Jobs only */}
+      {slug === 'jobs' && (
+        <CaseStudySection
+          leftContent={
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Designing for partial automation with required verification
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Invoice approval already existed in the project workflow, and Jobs needed to share it.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                OCR was introduced to reduce manual effort by reading invoice details uploaded by installers. This improved speed but introduced a risk of over trusting machine captured data.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                The design required agents to actively review and confirm key details before approval, balancing automation with clear human responsibility.
+              </p>
+            </>
+          }
+          rightContent={
+            <div className="relative w-full aspect-[9/16] max-w-sm mx-auto rounded-lg overflow-hidden">
+              <Image
+                src="/image/IA2.png"
+                alt="Invoice approval interface"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-cover"
+              />
+            </div>
+          }
+        />
+      )}
+
+      {/* Section 7: MVP Scope */}
       <CaseStudySection
         leftContent={
-          <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
-            We scoped the initial release to solve the core bottlenecks: photo
-            capture, document upload, and installation tracking. We added more
-            advanced capabilities (like barcodes) once the workflow proved
-            effective. Keeping the MVP focused made adoption easier and guided
-            where to invest next.
-          </p>
+          slug === 'jobs' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                What was designed and shipped
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                The work resulted in:
+              </p>
+              <ul className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed list-disc list-inside space-y-2 mt-2">
+                <li>a UI for job creation and assignment</li>
+                <li>a shared invoice approval panel</li>
+                <li>a jobs overview for installers</li>
+                <li>integration of jobs into the existing issues interface</li>
+              </ul>
+            </>
+          ) : (
+            <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+              We scoped the initial release to solve the core bottlenecks: photo
+              capture, document upload, and installation tracking. We added more
+              advanced capabilities (like barcodes) once the workflow proved
+              effective. Keeping the MVP focused made adoption easier and guided
+              where to invest next.
+            </p>
+          )
         }
         rightContent={
           <div className="relative w-full aspect-[9/16] max-w-sm mx-auto rounded-lg overflow-hidden">
             <Image
-              src="/image/24. iPhone.png"
-              alt="Project card with documentation"
+              src={slug === 'jobs' ? '/image/IAMockup.png' : '/image/24. iPhone.png'}
+              alt={slug === 'jobs' ? 'Jobs tool interface' : 'Project card with documentation'}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
@@ -300,13 +437,31 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Section 7: Project Details */}
+      {/* Section 8: Project Details */}
       <CaseStudySection
+        leftContent={
+          slug === 'jobs' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Making job status and context easy to scan
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                As the feature evolved, clarity became a key UI focus.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Internal and installer facing experiences were separated, and an overview pattern was introduced to help agents quickly understand what a job was, where it belonged, its current state, and what needed attention.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Jobs were integrated into existing views using filters and contextual placement, reducing navigation effort and cognitive load.
+              </p>
+            </>
+          ) : null
+        }
         rightContent={
           <div className="relative w-full aspect-[9/16] max-w-sm mx-auto rounded-lg overflow-hidden">
             <Image
-              src="/image/24. iPhone.png"
-              alt="Project details with illustration"
+              src={slug === 'jobs' ? '/image/CS1.png' : '/image/24. iPhone.png'}
+              alt={slug === 'jobs' ? 'Jobs overview interface' : 'Project details with illustration'}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
@@ -315,34 +470,47 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Section 8: Metrics (Bounded Container) */}
+      {/* Section 9: Metrics (Bounded Container) */}
       <CaseStudySection
         boundedContainer={true}
         leftContent={
-          <div className="space-y-12">
-            <div>
-              <p className="text-6xl md:text-7xl lg:text-8xl font-light text-[hsl(var(--foreground))] mb-2">
-                18%
-              </p>
-              <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light">
-                Reduction in documentation time
-              </p>
+          slug === 'jobs' ? (
+            <div className="space-y-12">
+              <div>
+                <p className="text-6xl md:text-7xl lg:text-8xl font-light text-[hsl(var(--foreground))] mb-2">
+                  900+
+                </p>
+                <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light">
+                  paid installer tasks tracked and invoiced
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="text-6xl md:text-7xl lg:text-8xl font-light text-[hsl(var(--foreground))] mb-2">
-                1000+
-              </p>
-              <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light">
-                projects completed through the app
-              </p>
+          ) : (
+            <div className="space-y-12">
+              <div>
+                <p className="text-6xl md:text-7xl lg:text-8xl font-light text-[hsl(var(--foreground))] mb-2">
+                  18%
+                </p>
+                <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light">
+                  Reduction in documentation time
+                </p>
+              </div>
+              <div>
+                <p className="text-6xl md:text-7xl lg:text-8xl font-light text-[hsl(var(--foreground))] mb-2">
+                  1000+
+                </p>
+                <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light">
+                  projects completed through the app
+                </p>
+              </div>
             </div>
-          </div>
+          )
         }
         rightContent={
           <div className="relative w-full aspect-[9/16] max-w-sm mx-auto rounded-lg overflow-hidden">
             <Image
-              src="/image/24. iPhone.png"
-              alt="Camera interface for photo capture"
+              src={slug === 'jobs' ? '/image/settle1.png' : '/image/24. iPhone.png'}
+              alt={slug === 'jobs' ? 'Jobs metrics visualization' : 'Camera interface for photo capture'}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"
@@ -351,27 +519,44 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Section 9: Impact/Results */}
+      {/* Section 10: Impact/Results */}
       <CaseStudySection
         leftContent={
-          <>
-            <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed mb-4">
-              Documentation was now expected to be completed on the same day
-              with operations being able to invoice the customer earlier than
-              before. Operations are also proactively notified when the
-              installation work starts and ends.
-            </p>
-            <p className="text-base text-[hsl(var(--muted-foreground))] font-light">
-              Barcode scanning was introduced in the next iteration to assist
-              documentation.
-            </p>
-          </>
+          slug === 'jobs' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                How Jobs changed ongoing work handling
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Jobs became a dedicated way to create, assign, and settle ongoing work across the lifespan of an installation. It enabled Otovo to handle repairs and fixes more flexibly than the project system alone, while remaining connected to it.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Since launch, the Jobs feature has enabled 900 plus paid installer tasks to be tracked and invoiced directly within the system.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Repair and maintenance work moved from ad hoc coordination into a structured, auditable workflow, without overloading the project system designed for full installations.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-lg md:text-xl text-[hsl(var(--muted-foreground))] font-light leading-relaxed mb-4">
+                Documentation was now expected to be completed on the same day
+                with operations being able to invoice the customer earlier than
+                before. Operations are also proactively notified when the
+                installation work starts and ends.
+              </p>
+              <p className="text-base text-[hsl(var(--muted-foreground))] font-light">
+                Barcode scanning was introduced in the next iteration to assist
+                documentation.
+              </p>
+            </>
+          )
         }
         rightContent={
           <div className="relative w-full aspect-[9/16] max-w-sm mx-auto rounded-lg overflow-hidden">
             <Image
-              src="/image/24. iPhone.png"
-              alt="Success confirmation screen"
+              src={slug === 'jobs' ? '/image/settle2.png' : '/image/24. iPhone.png'}
+              alt={slug === 'jobs' ? 'Jobs impact visualization' : 'Success confirmation screen'}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
               className="object-cover"

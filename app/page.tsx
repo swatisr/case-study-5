@@ -77,10 +77,10 @@ export default function Home() {
             router.push('/project-overview')
           }, transitionDuration)
         }, 800)
-      } else {
+      } else if (password.length > 0) {
         // Incorrect password - show error message
-        setStatusMessage('')
         setStatusType('error')
+        setStatusMessage('') // Clear any success message
       }
     }, 600)
     
@@ -173,13 +173,13 @@ export default function Home() {
           </form>
 
           {/* Validation Messages - Fixed Height Container */}
-          <div className="h-5 min-h-[20px]">
+          <div className="min-h-[24px] mt-2">
             {/* Success Message - Always rendered, opacity controlled */}
             <div 
               className={`text-xs text-green-400 transition-opacity ${
                 statusType === 'success' && statusMessage 
                   ? 'opacity-100 duration-[225ms] ease-in' 
-                  : 'opacity-0 duration-200 ease-out'
+                  : 'opacity-0 duration-200 ease-out pointer-events-none h-0 overflow-hidden'
               }`}
             >
               {statusMessage}
@@ -190,7 +190,7 @@ export default function Home() {
               className={`text-xs text-red-400 transition-opacity ${
                 statusType === 'error' 
                   ? 'opacity-100 duration-[225ms] ease-in' 
-                  : 'opacity-0 duration-200 ease-out'
+                  : 'opacity-0 duration-200 ease-out pointer-events-none h-0 overflow-hidden'
               }`}
             >
               Password seems to be incorrect. You can try again or email me.{' '}
