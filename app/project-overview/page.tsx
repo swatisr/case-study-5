@@ -369,11 +369,12 @@ export default function ProjectOverview() {
         <div className="w-full px-5 md:px-10 lg:px-40">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
             <div className="col-span-12">
-              <div 
-                className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 4 ? 'md:scale-[1.01]' : ''}`}
-                onMouseEnter={() => setHoveredRectangle(4)}
-                onMouseLeave={() => setHoveredRectangle(null)}
-              >
+              <Link href="/project-overview/customersupport" className="block cursor-pointer">
+                <div 
+                  className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 4 ? 'md:scale-[1.01]' : ''}`}
+                  onMouseEnter={() => setHoveredRectangle(4)}
+                  onMouseLeave={() => setHoveredRectangle(null)}
+                >
                 <Image
                   src="/image/customerSupportkitchen 2.png"
                   alt="Customer Support Kitchen"
@@ -426,6 +427,7 @@ export default function ProjectOverview() {
                   </div>
                 </div>
               </div>
+              </Link>
               
               {/* Mobile: Logo and text below rectangle - Top aligned */}
               <div className="md:hidden mt-4 flex items-start justify-between w-full">

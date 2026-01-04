@@ -53,8 +53,8 @@ export default function ProjectDetailPage() {
         image: '/image/jobs.png',
       },
       'customersupport': {
-        headline: 'Customer support teams needed better tools to resolve issues faster',
-        description: 'Support agents were spending too much time searching for information and context about customer issues. The fragmented tools and lack of integrated workflows slowed down resolution times and impacted customer satisfaction. We needed a unified support experience.',
+        headline: 'Building AI Supported Customer Support',
+        description: 'Overview',
         image: '/image/customerSupportkitchen 2.png',
       },
     }
@@ -160,6 +160,23 @@ export default function ProjectDetailPage() {
                 </p>
               </div>
             </>
+          ) : slug === 'customersupport' ? (
+            <>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--foreground))] leading-tight mb-4">
+                Building AI Supported Customer Support
+              </h1>
+              <div className="space-y-4 mt-4">
+                <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                  As Otovo scaled across markets, customer support volume increased rapidly. Most incoming tickets were not complex issues, but repeated questions about project status, payments, and next steps.
+                </p>
+                <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                  Analysis showed that these questions were largely caused by missing, unclear, or poorly timed information across the product rather than failures in support handling.
+                </p>
+                <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                  The goal of this work was to reduce unnecessary support requests by improving how information was presented, while still preserving access to human support when needed.
+                </p>
+              </div>
+            </>
           ) : (
             <>
               <p className="text-2xl md:text-4xl lg:text-5xl font-light text-[hsl(var(--foreground))] leading-tight">
@@ -220,6 +237,26 @@ export default function ProjectDetailPage() {
                 The goal was to support in-person payments at nearby shops and events using the same app people already used for peer-to-peer transfers.
               </p>
             </>
+          ) : slug === 'customersupport' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Core problem we were addressing
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Customers contacted support primarily to reduce uncertainty.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                They wanted to know:
+              </p>
+              <ul className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed list-disc list-inside space-y-2 mt-2">
+                <li>where their installation was in the process</li>
+                <li>when payments would happen</li>
+                <li>what would happen next</li>
+              </ul>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Support teams were repeatedly answering the same questions because the product did not surface this information clearly at the right time.
+              </p>
+            </>
           ) : slug === 'installer-app' ? (
             <>
               <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
@@ -259,7 +296,30 @@ export default function ProjectDetailPage() {
       {/* Section 4: Solution Approach */}
       <CaseStudySection
         leftContent={
-          slug === 'installer-app' ? (
+          slug === 'customersupport' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Information design as the primary lever
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Rather than starting with tooling, we focused first on information design.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                The design approach was to reduce the need to ask a question at all by making key information visible, timely, and contextual.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                This included:
+              </p>
+              <ul className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed list-disc list-inside space-y-2 mt-2">
+                <li>redesigning MyPage modules to clearly show installation status and milestones</li>
+                <li>surfacing payment timing and expectations explicitly</li>
+                <li>explaining next steps in plain language instead of linking to generic help content</li>
+              </ul>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                The intent was that customers could understand their situation without navigating to a Help Center or contacting support.
+              </p>
+            </>
+          ) : slug === 'installer-app' ? (
             <>
               <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
                 Defining the product role before designing the interface
@@ -334,7 +394,27 @@ export default function ProjectDetailPage() {
       {/* Section 5: App Interface Examples */}
       <CaseStudySection
         leftContent={
-          slug === 'merchant-app' ? (
+          slug === 'customersupport' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Dynamic FAQs tied to the installation stage
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                A key concept explored was dynamic FAQs that changed based on where the customer was in their installation journey.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Instead of a static list of questions, answers would be generated based on:
+              </p>
+              <ul className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed list-disc list-inside space-y-2 mt-2">
+                <li>current installation stage</li>
+                <li>payment status</li>
+                <li>market specific rules</li>
+              </ul>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                This approach was designed but not fully implemented due to time and implementation constraints. As a result, some information remained fragmented across different surfaces.
+              </p>
+            </>
+          ) : slug === 'merchant-app' ? (
             <>
               <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
                 Merchant payments needed to be treated as a separate problem space
@@ -482,6 +562,28 @@ export default function ProjectDetailPage() {
                 Redesigning the entire workflow was not feasible in the short term. The design approach focused on supporting the current structure while making relationships clearer, delivering value immediately without blocking future improvements.
               </p>
             </>
+          ) : slug === 'customersupport' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Introducing AI cautiously
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                AI was introduced to support search based answers rather than as a conversational chatbot.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                This decision was based on two observations:
+              </p>
+              <ul className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed list-disc list-inside space-y-2 mt-2">
+                <li>trust in chatbots was low, especially among older customers</li>
+                <li>many support questions required precise, factual answers rather than conversation</li>
+              </ul>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                AI was used to surface relevant answers more efficiently, but responses required monitoring to ensure correctness and clarity.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                AI reduced effort, but did not eliminate the need for oversight.
+              </p>
+            </>
           ) : slug === 'installer-app' ? (
             <>
               <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
@@ -554,7 +656,25 @@ export default function ProjectDetailPage() {
       {/* Section 7: MVP Scope */}
       <CaseStudySection
         leftContent={
-          slug === 'installer-app' ? (
+          slug === 'customersupport' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Customers still wanted human contact
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Even when information was clearer and AI assisted answers were available, some customers still wanted to talk to a person.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                This was especially true in edge cases, delays, or moments of uncertainty.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                In early iterations, access to human support was too restricted. Customers who were previously used to calling a phone line experienced frustration when they could not easily reach a person.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                This was a critical learning.
+              </p>
+            </>
+          ) : slug === 'installer-app' ? (
             <>
               <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
                 Scoping the first release to support iteration
@@ -666,6 +786,25 @@ export default function ProjectDetailPage() {
                 Jobs were integrated into existing views using filters and contextual placement, reducing navigation effort and cognitive load.
               </p>
             </>
+          ) : slug === 'customersupport' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Build versus buy tradeoff
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                During the project, a key question was whether to:
+              </p>
+              <ul className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed list-disc list-inside space-y-2 mt-2">
+                <li>use a third party support tool that already handled routing, escalation, and AI responses</li>
+                <li>or design and build an inhouse solution tailored to Otovo's workflows</li>
+              </ul>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Given limited time and implementation capacity, we chose to design a focused inhouse solution first, with the intention to improve and expand it over time.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                This allowed faster rollout, but also meant some details were not implemented to the level customers expected, contributing to frustration during early use.
+              </p>
+            </>
           ) : slug === 'installer-app' ? (
             <>
               <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
@@ -729,6 +868,26 @@ export default function ProjectDetailPage() {
                 </p>
               </div>
             </div>
+          ) : slug === 'customersupport' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Outcomes
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Support ticket volume was significantly reduced after launch, particularly for repetitive status and payment related questions.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Support teams were able to spend more time on complex cases rather than answering the same questions repeatedly.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                At the same time, the project revealed clear limits:
+              </p>
+              <ul className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed list-disc list-inside space-y-2 mt-2">
+                <li>AI responses required ongoing monitoring</li>
+                <li>information design alone could not replace human reassurance</li>
+                <li>removing familiar contact channels too quickly damaged trust</li>
+              </ul>
+            </>
           ) : slug === 'installer-app' ? (
             <div className="space-y-12">
               <div>
@@ -785,7 +944,22 @@ export default function ProjectDetailPage() {
       {/* Section 10: Impact/Results */}
       <CaseStudySection
         leftContent={
-          slug === 'merchant-app' ? (
+          slug === 'customersupport' ? (
+            <>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
+                Key reflection
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed">
+                Reducing support demand is not only a tooling problem.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                Clear information design can prevent many questions, and AI can help scale answers, but customers still expect visible and reliable access to human support.
+              </p>
+              <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-light leading-relaxed mt-4">
+                The long term value of this work came from understanding where automation helps and where it should stop, and from treating customer support as an evolving system rather than a one time solution.
+              </p>
+            </>
+          ) : slug === 'merchant-app' ? (
             <>
               <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
                 What this work made possible
