@@ -8,6 +8,7 @@ interface CaseStudySectionProps {
   specialBackground?: boolean
   boundedContainer?: boolean
   className?: string
+  boundedContainerPadding?: string
 }
 
 export default function CaseStudySection({
@@ -16,6 +17,7 @@ export default function CaseStudySection({
   specialBackground = false,
   boundedContainer = false,
   className = '',
+  boundedContainerPadding = 'p-8 md:p-12 lg:p-16',
 }: CaseStudySectionProps) {
   const gridContent = (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16">
@@ -31,9 +33,9 @@ export default function CaseStudySection({
         <div
           className={`${
             leftContent ? 'md:col-span-6' : 'md:col-span-12'
-          } flex flex-col justify-start`}
+          } flex flex-col justify-start items-center`}
         >
-          <div className="space-y-6">{rightContent}</div>
+          <div className="space-y-6 w-full">{rightContent}</div>
         </div>
       )}
     </div>
@@ -47,7 +49,7 @@ export default function CaseStudySection({
     >
       <div className="w-full px-5 md:px-10 lg:px-40">
         {boundedContainer ? (
-          <div className="bg-[#171717] border border-[hsl(var(--border))] rounded-xl shadow-lg p-8 md:p-12 lg:p-16">
+          <div className={`bg-[#171717] border border-[hsl(var(--border))] rounded-xl shadow-lg ${boundedContainerPadding}`}>
             {gridContent}
           </div>
         ) : (
