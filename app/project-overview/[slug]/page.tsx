@@ -195,7 +195,7 @@ export default function ProjectDetailPage() {
         rightContent={
           slug === 'merchant-app' ? (
             <div className="flex justify-center w-full">
-              <div className="relative w-full rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))]" style={{ minHeight: '300px', transform: 'scale(1.44)', transformOrigin: 'center' }}>
+              <div className="relative w-full max-w-full mx-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-44" style={{ minHeight: '200px' }}>
                 <Image
                   src="/image/settle app/settlegif1.gif"
                   alt="Settle app interface"
@@ -207,7 +207,7 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+            <div className="relative w-full max-w-full mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={projectContent.image}
                 alt="Project visual"
@@ -290,7 +290,7 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'merchant-app' ? null : (
-            <div className="relative w-full rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+            <div className="relative w-full max-w-full mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/installerapp4.png' : '/image/installerapp4.png'}
                 alt={slug === 'jobs' ? 'Installation workflow comparison' : 'Building scaffolding detail'}
@@ -309,7 +309,7 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-center items-center w-full">
-              <div className="relative w-full md:w-2/3 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ transform: 'scale(3)', transformOrigin: 'center', minHeight: '200px' }}>
+              <div className="relative w-full max-w-full mx-auto md:w-2/3 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
                 <Image
                   src="/image/settle app/settle app 2019.png"
                   alt="Settle app 2019"
@@ -420,7 +420,7 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          <div className={`relative w-full ${slug === 'merchant-app' ? '' : 'max-w-sm ml-auto'} rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]`} style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+          <div className={`relative w-full max-w-full mx-auto ${slug === 'merchant-app' ? 'md:max-w-none' : 'md:max-w-sm md:ml-auto'} rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2`} style={{ minHeight: '200px' }}>
             <Image
               src={slug === 'jobs' ? '/image/24. iPhone3.png' : slug === 'merchant-app' ? '/image/settle app/group image 1.png' : '/image/24. iPhone.png'}
               alt={slug === 'jobs' ? 'Jobs tool decision process' : slug === 'merchant-app' ? 'Settle merchant group interface' : 'Mobile app interface showing projects list'}
@@ -438,7 +438,7 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end w-full">
-              <div className="relative w-full md:w-1/2 rounded-none overflow-hidden bg-[hsl(var(--background))] shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ transform: 'scale(3)', transformOrigin: 'center', minHeight: '200px' }}>
+              <div className="relative w-full max-w-full mx-auto md:w-1/2 rounded-none overflow-hidden bg-[hsl(var(--background))] shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
                 <Image
                   src="/image/settle app/settleasa03.png"
                   alt="Settle merchant setup interface"
@@ -532,7 +532,7 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'merchant-app' ? (
-            <div className="relative w-full max-w-sm ml-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.8)', transformOrigin: 'center' }}>
+            <div className="relative w-full max-w-full mx-auto md:max-w-sm md:ml-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-8" style={{ minHeight: '200px' }}>
               <Image
                 src="/image/settle app/settleasa06.png"
                 alt="Settle merchant interface"
@@ -542,7 +542,7 @@ export default function ProjectDetailPage() {
               />
             </div>
           ) : (
-            <div className="relative w-full max-w-sm ml-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+            <div className="relative w-full max-w-full mx-auto md:max-w-sm md:ml-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/24. iPhone.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs interface example' : 'App screen with house illustration'}
@@ -653,7 +653,7 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'merchant-app' ? null : (
-            <div className="relative w-full max-w-sm ml-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+            <div className="relative w-full max-w-full mx-auto md:max-w-sm md:ml-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/IA2.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs workflow integration' : 'Installation tracking interface'}
@@ -686,7 +686,7 @@ export default function ProjectDetailPage() {
             </>
           }
           rightContent={
-            <div className="relative w-full max-w-sm ml-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+            <div className="relative w-full max-w-full mx-auto md:max-w-sm md:ml-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src="/image/IA2.png"
                 alt="Invoice approval interface"
@@ -787,7 +787,7 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: slug === 'merchant-app' ? 'scale(1.8)' : 'scale(1.2)', transformOrigin: 'top center' }}>
+          <div className={`relative w-full max-w-full mx-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-1-8' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px', transformOrigin: 'top center' }}>
             <Image
               src={slug === 'jobs' ? '/image/IAMockup.png' : slug === 'merchant-app' ? '/image/settle app/settleasa1410.png' : '/image/24. iPhone.png'}
               alt={slug === 'jobs' ? 'Jobs tool interface' : slug === 'merchant-app' ? 'Settle connected touchpoints' : 'Project card with documentation'}
@@ -974,7 +974,7 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: slug === 'merchant-app' ? 'scale(1.44)' : 'scale(1.2)', transformOrigin: 'center' }}>
+          <div className={`relative w-full max-w-full mx-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-1-44' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px' }}>
             <Image
               src={slug === 'jobs' ? '/image/settle1.png' : slug === 'merchant-app' ? '/image/settle app/settleasa10.png' : '/image/24. iPhone.png'}
               alt={slug === 'jobs' ? 'Jobs metrics visualization' : slug === 'merchant-app' ? 'What this work made possible' : 'Camera interface for photo capture'}

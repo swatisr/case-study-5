@@ -20,7 +20,7 @@ export default function CaseStudySection({
   boundedContainerPadding = 'p-8 md:p-12 lg:p-16',
 }: CaseStudySectionProps) {
   const gridContent = (
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-12 lg:gap-16">
       {/* Left Content */}
       {leftContent && (
         <div className="md:col-span-6 flex flex-col justify-start">
@@ -43,7 +43,7 @@ export default function CaseStudySection({
 
   return (
     <section
-      className={`py-20 md:py-32 ${
+      className={`py-16 md:py-24 lg:py-32 ${
         specialBackground ? 'deep-blue-bg' : 'bg-[hsl(var(--background))]'
       } ${className}`}
     >

@@ -96,6 +96,27 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Responsive image scaling for mobile */
+  .img-scale-mobile {
+    transform: scale(1);
+    transform-origin: center;
+  }
+  
+  @media (min-width: 768px) {
+    .img-scale-1-2 {
+      transform: scale(1.2);
+    }
+    .img-scale-1-44 {
+      transform: scale(1.44);
+    }
+    .img-scale-1-8 {
+      transform: scale(1.8);
+    }
+    .img-scale-3 {
+      transform: scale(3);
+    }
+  }
 }
 
 @keyframes pulse-subtle {
