@@ -127,7 +127,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 1: Problem Statement */}
       <CaseStudySection
-        className={slug === 'merchant-app' ? 'pt-[106px] md:pt-[169px] [&>div>div>div:last-child]:justify-center' : ''}
+        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'jobs' ? (
             <>
@@ -892,7 +892,7 @@ export default function ProjectDetailPage() {
         boundedContainerPadding={slug === 'merchant-app' ? 'py-24 md:py-36 lg:py-48 px-8 md:px-12 lg:px-16' : 'p-8 md:p-12 lg:p-16'}
         leftContent={
           slug === 'merchant-app' ? (
-            <div className="max-w-[80%]">
+            <>
               <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--foreground))] leading-tight mb-4">
                 What this work made possible
               </p>
@@ -904,7 +904,7 @@ export default function ProjectDetailPage() {
                 <li>a compliant foundation for merchant payments in European markets</li>
                 <li>a system flexible enough to support both temporary events and permanent shops</li>
               </ul>
-            </div>
+            </>
           ) : slug === 'jobs' ? (
             <div className="space-y-12">
               <div>
@@ -977,15 +977,27 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          <div className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-1-44' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px' }}>
-            <Image
-              src={slug === 'jobs' ? '/image/settle1.png' : slug === 'merchant-app' ? '/image/settle app/settleasa10.png' : '/image/24. iPhone.png'}
-              alt={slug === 'jobs' ? 'Jobs metrics visualization' : slug === 'merchant-app' ? 'What this work made possible' : 'Camera interface for photo capture'}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-              className="object-contain"
-            />
-          </div>
+          slug === 'merchant-app' ? (
+            <div className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-44`} style={{ minHeight: '200px' }}>
+              <Image
+                src="/image/settle app/settleasa10.png"
+                alt="What this work made possible"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-contain"
+              />
+            </div>
+          ) : (
+            <div className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2`} style={{ minHeight: '200px' }}>
+              <Image
+                src={slug === 'jobs' ? '/image/settle1.png' : '/image/24. iPhone.png'}
+                alt={slug === 'jobs' ? 'Jobs metrics visualization' : 'Camera interface for photo capture'}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-contain"
+              />
+            </div>
+          )
         }
       />
 
