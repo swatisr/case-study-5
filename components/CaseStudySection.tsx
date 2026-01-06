@@ -35,7 +35,7 @@ export default function CaseStudySection({
             leftContent ? 'md:col-span-6' : 'md:col-span-12'
           } flex flex-col justify-start items-end`}
         >
-          <div className="space-y-6 w-full">{rightContent}</div>
+          <div className="w-full flex items-start">{rightContent}</div>
         </div>
       )}
     </div>

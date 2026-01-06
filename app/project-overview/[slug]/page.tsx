@@ -127,12 +127,15 @@ export default function ProjectDetailPage() {
 
       {/* Section 1: Problem Statement */}
       <CaseStudySection
-        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : ''}
+        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : slug === 'installer-app' ? '!pt-[120px] md:!pt-[200px]' : slug === 'jobs' ? '!pt-[120px] md:!pt-[200px]' : ''}
         leftContent={
           slug === 'jobs' ? (
             <>
+              <p className="text-xs md:text-sm text-[hsl(var(--muted-foreground))] font-normal mb-3 uppercase tracking-wide">
+                Otovo • Operations Tool • B2B
+              </p>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--foreground))] leading-tight mb-4">
-                Jobs: Repairs and Fixes Workflow
+                designing Jobs: the operational tool for maintenance
               </h1>
               <p className="text-xs md:text-sm text-[hsl(var(--muted-foreground))] font-normal">
                 900+ Jobs Invoiced
@@ -203,6 +206,32 @@ export default function ProjectDetailPage() {
                   muted
                   playsInline
                   className="w-full h-full object-contain rounded-[20px]"
+                />
+              </div>
+            </div>
+          ) : slug === 'installer-app' ? (
+            <div className="flex justify-end w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-44" style={{ minHeight: '200px' }}>
+                <Image
+                  src="/image/installer app/headerimage.png"
+                  alt="Installer app header"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain rounded-[20px]"
+                  priority
+                />
+              </div>
+            </div>
+          ) : slug === 'jobs' ? (
+            <div className="flex justify-end w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-2-88" style={{ minHeight: '200px' }}>
+                <Image
+                  src="/image/jobs/headerImage.png"
+                  alt="Jobs header"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain rounded-[20px]"
+                  priority
                 />
               </div>
             </div>
@@ -289,7 +318,17 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          slug === 'merchant-app' ? null : (
+          slug === 'merchant-app' ? null : slug === 'installer-app' ? (
+            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4" style={{ minHeight: '200px' }}>
+              <Image
+                src="/image/installer app/workers.png"
+                alt="Workers installation scenario"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-contain"
+              />
+            </div>
+          ) : slug === 'jobs' ? null : (
             <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/installerapp4.png' : '/image/installerapp4.png'}
@@ -330,6 +369,46 @@ export default function ProjectDetailPage() {
             <p className="text-base md:text-lg text-white font-bold leading-relaxed">
               Imagine a customer with a solar installation that's been running for a few years. Something stops working. They don't know who to call, so they contact Otovo. Behind the scenes, the team needs to understand the issue, assign the work, manage responsibility and cost, and approve an invoice without slowing daily operations. This is the context in which Jobs was introduced.
             </p>
+          }
+        />
+      )}
+
+      {/* Image-Only Section: Flow (Jobs only) */}
+      {slug === 'jobs' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
+                <Image
+                  src="/image/jobs/flow.png"
+                  alt="Jobs flow"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
+
+      {/* Image-Only Section: Walkthrough (Jobs only) */}
+      {slug === 'jobs' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
+                <Image
+                  src="/image/jobs/walkthrough.png"
+                  alt="Jobs walkthrough"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
           }
         />
       )}
@@ -420,17 +499,69 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          <div className={`relative w-full max-w-full mx-auto md:ml-auto ${slug === 'merchant-app' ? 'md:max-w-none' : 'md:max-w-sm'} rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-1-32' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px' }}>
-            <Image
-              src={slug === 'jobs' ? '/image/24. iPhone3.png' : slug === 'merchant-app' ? '/image/settle app/group image 1.png' : '/image/24. iPhone.png'}
-              alt={slug === 'jobs' ? 'Jobs tool decision process' : slug === 'merchant-app' ? 'Settle merchant group interface' : 'Mobile app interface showing projects list'}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-              className="object-contain"
-            />
-          </div>
+          slug === 'installer-app' ? null : slug === 'jobs' ? (
+            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-145" style={{ minHeight: '200px' }}>
+              <Image
+                src="/image/jobs/snapshot.png"
+                alt="Jobs snapshot"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-contain"
+              />
+            </div>
+          ) : (
+            <div className={`relative w-full max-w-full mx-auto md:ml-auto ${slug === 'merchant-app' ? 'md:max-w-none' : 'md:max-w-sm'} rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-1-32' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px' }}>
+              <Image
+                src={slug === 'jobs' ? '/image/24. iPhone3.png' : slug === 'merchant-app' ? '/image/settle app/group image 1.png' : '/image/24. iPhone.png'}
+                alt={slug === 'jobs' ? 'Jobs tool decision process' : slug === 'merchant-app' ? 'Settle merchant group interface' : 'Mobile app interface showing projects list'}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-contain"
+              />
+            </div>
+          )
         }
       />
+
+      {/* Image-Only Section: Experience Map (Installer App only) */}
+      {slug === 'installer-app' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
+                <Image
+                  src="/image/installer app/experience map.png"
+                  alt="Experience map"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
+
+      {/* Image-Only Section: North Star (Installer App only) */}
+      {slug === 'installer-app' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
+                <Image
+                  src="/image/installer app/north star.png"
+                  alt="North star"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* New Section: Horizontal Image List (Merchant App only) */}
       {slug === 'merchant-app' && (
@@ -544,7 +675,7 @@ export default function ProjectDetailPage() {
                 />
               </div>
             </div>
-          ) : (
+          ) : slug === 'installer-app' ? null : slug === 'jobs' ? null : (
             <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/24. iPhone.png' : '/image/24. iPhone.png'}
@@ -557,6 +688,46 @@ export default function ProjectDetailPage() {
           )
         }
       />
+
+      {/* Image-Only Section: Flowmap (Installer App only) */}
+      {slug === 'installer-app' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
+                <Image
+                  src="/image/installer app/flowmap.png"
+                  alt="Flow map"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
+
+      {/* Image-Only Section: All Screens (Jobs only) */}
+      {slug === 'jobs' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
+                <Image
+                  src="/image/jobs/all screens.png"
+                  alt="Jobs all screens"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* Section 6: Installation Tracking UI */}
       <CaseStudySection
@@ -655,7 +826,17 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          slug === 'merchant-app' ? null : (
+          slug === 'merchant-app' ? null : slug === 'installer-app' ? (
+            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-4-8" style={{ minHeight: '200px' }}>
+              <Image
+                src="/image/installer app/allvertical.png"
+                alt="All vertical installation tracking"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-contain"
+              />
+            </div>
+          ) : slug === 'jobs' ? null : (
             <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/IA2.png' : '/image/24. iPhone.png'}
@@ -668,6 +849,27 @@ export default function ProjectDetailPage() {
           )
         }
       />
+
+      {/* Image-Only Section: Invoice Video (Jobs only) */}
+      {slug === 'jobs' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
+              <video
+                src="/image/jobs/invoice video.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-contain"
+              />
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* Section 6b: Designing for partial automation - Jobs only */}
       {slug === 'jobs' && (
@@ -688,17 +890,7 @@ export default function ProjectDetailPage() {
               </p>
             </>
           }
-          rightContent={
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
-              <Image
-                src="/image/IA2.png"
-                alt="Invoice approval interface"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                className="object-contain"
-              />
-            </div>
-          }
+          rightContent={null}
         />
       )}
 
@@ -790,17 +982,39 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          <div className={`relative w-full max-w-full ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-3-6' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px', transformOrigin: 'top center' }}>
-            <Image
-              src={slug === 'jobs' ? '/image/IAMockup.png' : slug === 'merchant-app' ? '/image/settle app/settleasa1410.png' : '/image/24. iPhone.png'}
-              alt={slug === 'jobs' ? 'Jobs tool interface' : slug === 'merchant-app' ? 'Settle connected touchpoints' : 'Project card with documentation'}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-              className="object-contain"
-            />
-          </div>
+          slug === 'installer-app' ? null : slug === 'jobs' ? null : (
+            <div className={`relative w-full max-w-full ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-3-6' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px', transformOrigin: 'top center' }}>
+              <Image
+                src={slug === 'jobs' ? '/image/IAMockup.png' : slug === 'merchant-app' ? '/image/settle app/settleasa1410.png' : '/image/24. iPhone.png'}
+                alt={slug === 'jobs' ? 'Jobs tool interface' : slug === 'merchant-app' ? 'Settle connected touchpoints' : 'Project card with documentation'}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                className="object-contain"
+              />
+            </div>
+          )
         }
       />
+
+      {/* Image-Only Section: All Screens (Installer App only) */}
+      {slug === 'installer-app' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-2/3 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
+                <Image
+                  src="/image/installer app/iall screens.png"
+                  alt="All screens"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 66vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* Section 8: Project Details */}
       <CaseStudySection
@@ -872,7 +1086,29 @@ export default function ProjectDetailPage() {
           ) : null
         }
         rightContent={
-          slug === 'merchant-app' ? null : (
+          slug === 'merchant-app' ? null : slug === 'installer-app' ? (
+            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
+              <video
+                src="/image/installer app/walkthrough.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-contain"
+              />
+            </div>
+          ) : slug === 'jobs' ? (
+            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
+              <video
+                src="/image/jobs/jobvideo.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-contain"
+              />
+            </div>
+          ) : (
             <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
               <Image
                 src={slug === 'jobs' ? '/image/CS1.png' : '/image/24. iPhone.png'}
@@ -954,6 +1190,14 @@ export default function ProjectDetailPage() {
                   less time on documentation
                 </p>
               </div>
+              <div className="mt-8 space-y-4">
+                <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-normal leading-relaxed">
+                  Documentation was now expected to be completed on the same day with operations being able to invoice the customer earlier than before. Operations are also proactively notified when the installation work starts and ends.
+                </p>
+                <p className="text-sm text-[hsl(var(--muted-foreground))] font-normal">
+                  Barcode scanning was introduced in the next iteration to assist documentation.
+                </p>
+              </div>
             </div>
           ) : (
             <div className="space-y-12">
@@ -987,7 +1231,18 @@ export default function ProjectDetailPage() {
                 className="object-contain"
               />
             </div>
-          ) : (
+          ) : slug === 'installer-app' ? (
+            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-0-8" style={{ minHeight: '200px' }}>
+              <video
+                src="/image/installer app/barcode scanner.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-contain"
+              />
+            </div>
+          ) : slug === 'jobs' ? null : (
             <div className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2`} style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/settle1.png' : '/image/24. iPhone.png'}
@@ -1002,7 +1257,7 @@ export default function ProjectDetailPage() {
       />
 
       {/* Section 10: Impact/Results */}
-      {slug !== 'merchant-app' && (
+      {slug !== 'merchant-app' && slug !== 'installer-app' && (
         <CaseStudySection
           leftContent={
             slug === 'customersupport' ? (
@@ -1035,22 +1290,9 @@ export default function ProjectDetailPage() {
                   Repair and maintenance work moved from ad hoc coordination into a structured, auditable workflow, without overloading the project system designed for full installations.
                 </p>
               </>
-            ) : (
-              <>
-                <p className="text-base md:text-lg text-[hsl(var(--muted-foreground))] font-normal leading-relaxed mb-4">
-                  Documentation was now expected to be completed on the same day
-                  with operations being able to invoice the customer earlier than
-                  before. Operations are also proactively notified when the
-                  installation work starts and ends.
-                </p>
-                <p className="text-sm text-[hsl(var(--muted-foreground))] font-normal">
-                  Barcode scanning was introduced in the next iteration to assist
-                  documentation.
-                </p>
-              </>
-            )
+            ) : null
           }
-          rightContent={
+          rightContent={slug === 'jobs' ? null : (
             <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
               <Image
                 src={slug === 'jobs' ? '/image/settle2.png' : '/image/24. iPhone.png'}
@@ -1060,7 +1302,7 @@ export default function ProjectDetailPage() {
                 className="object-contain"
               />
             </div>
-          }
+          )}
         />
       )}
 
