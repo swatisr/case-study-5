@@ -127,7 +127,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 1: Problem Statement */}
       <CaseStudySection
-        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : slug === 'installer-app' ? '!pt-[120px] md:!pt-[200px]' : slug === 'jobs' ? '!pt-[120px] md:!pt-[200px] [&>div>div>div:last-child]:justify-center' : slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
+        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : slug === 'installer-app' ? '!pt-[120px] md:!pt-[200px] [&>div>div>div:last-child]:justify-center' : slug === 'jobs' ? '!pt-[120px] md:!pt-[200px] [&>div>div>div:last-child]:justify-center' : slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'jobs' ? (
             <>
@@ -213,14 +213,14 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : slug === 'installer-app' ? (
-            <div className="flex justify-end w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-44" style={{ minHeight: '200px' }}>
+            <div className="flex justify-center items-center w-full">
+              <div className="relative w-full max-w-full mx-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2" style={{ minHeight: '200px' }}>
                 <Image
                   src="/image/installer app/headerimage.png"
                   alt="Installer app header"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                  className="object-contain rounded-[20px]"
+                  className="object-contain rounded-[24px]"
                   priority
                 />
               </div>
@@ -268,6 +268,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 3: Context */}
       <CaseStudySection
+        className={slug === 'installer-app' ? '[&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'jobs' ? (
             <>
@@ -335,14 +336,16 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'merchant-app' ? null : slug === 'installer-app' ? (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4" style={{ minHeight: '200px' }}>
-              <Image
-                src="/image/installer app/workers.png"
-                alt="Workers installation scenario"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                className="object-contain"
-              />
+            <div className="flex justify-center items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4" style={{ minHeight: '200px' }}>
+                <Image
+                  src="/image/installer app/workers.png"
+                  alt="Workers installation scenario"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain"
+                />
+              </div>
             </div>
           ) : slug === 'jobs' ? null : slug === 'customersupport' ? null : (
             <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
@@ -601,19 +604,19 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
-                <Image
-                  src="/image/installer app/experience map.png"
-                  alt="Experience map"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain"
-                />
-              </div>
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
+              <Image
+                src="/image/installer app/experience map.png"
+                alt="Experience map"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain"
+              />
             </div>
-          }
-        />
-      )}
+          </div>
+        }
+      />
+    )}
 
       {/* Image-Only Section: North Star (Installer App only) */}
       {slug === 'installer-app' && (
@@ -621,7 +624,7 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-25" style={{ minHeight: '150px' }}>
                 <Image
                   src="/image/installer app/north star.png"
                   alt="North star"

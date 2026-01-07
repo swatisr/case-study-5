@@ -137,6 +137,9 @@
     .img-scale-1-944 {
       transform: scale(1.944);
     }
+    .img-scale-2 {
+      transform: scale(2);
+    }
     .img-scale-2-16 {
       transform: scale(2.16);
     }
