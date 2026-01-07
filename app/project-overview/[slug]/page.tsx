@@ -601,10 +601,10 @@ export default function ProjectDetailPage() {
       {/* Image-Only Section: Experience Map (Installer App only) */}
       {slug === 'installer-app' && (
         <CaseStudySection
-          className="py-40 md:py-64"
+          className="pt-40 md:pt-64 pb-32 md:pb-48"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-5" style={{ minHeight: '150px' }}>
               <Image
                 src="/image/installer app/experience map.png"
                 alt="Experience map"
@@ -621,10 +621,10 @@ export default function ProjectDetailPage() {
       {/* Image-Only Section: North Star (Installer App only) */}
       {slug === 'installer-app' && (
         <CaseStudySection
-          className="py-40 md:py-64"
+          className="pt-56 md:pt-80 pb-40 md:pb-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-25" style={{ minHeight: '150px' }}>
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-5" style={{ minHeight: '150px' }}>
                 <Image
                   src="/image/installer app/north star.png"
                   alt="North star"
@@ -767,10 +767,10 @@ export default function ProjectDetailPage() {
       {/* Image-Only Section: Flowmap (Installer App only) */}
       {slug === 'installer-app' && (
         <CaseStudySection
-          className="py-40 md:py-64"
+          className="pt-40 md:pt-64 pb-[160px] md:pb-[256px]"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
                 <Image
                   src="/image/installer app/flowmap.png"
                   alt="Flow map"
@@ -806,7 +806,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 6: Installation Tracking UI */}
       <CaseStudySection
-        className={slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
+        className={slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : slug === 'installer-app' ? '!pt-[160px] md:!pt-[256px] [&>div>div>div:last-child]:!justify-center [&>div>div>div:last-child>div]:!items-center' : ''}
         leftContent={
           slug === 'installer-app' ? (
             <>
@@ -903,14 +903,16 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'merchant-app' ? null : slug === 'installer-app' ? (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-4-8" style={{ minHeight: '200px' }}>
-              <Image
-                src="/image/installer app/allvertical.png"
-                alt="All vertical installation tracking"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                className="object-contain"
-              />
+            <div className="flex justify-end items-center w-full mt-16 md:mt-32">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-4-8" style={{ minHeight: '200px' }}>
+                <Image
+                  src="/image/installer app/allvertical.png"
+                  alt="All vertical installation tracking"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain"
+                />
+              </div>
             </div>
           ) : slug === 'jobs' ? null : slug === 'customersupport' ? (
             <div className="flex justify-end items-center w-full">
