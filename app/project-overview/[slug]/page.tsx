@@ -39,7 +39,7 @@ export default function ProjectDetailPage() {
   const getProjectContent = (slug: string) => {
     const contentMap: { [key: string]: { headline: string; description: string; image: string } } = {
       'installer-app': {
-        headline: 'Installer App: Installation Documentation and Status Tracking',
+        headline: 'Installer App: On Location project tracking',
         description: 'Impact metrics',
         image: '/image/installerapp4.png',
       },
@@ -154,8 +154,11 @@ export default function ProjectDetailPage() {
             </>
           ) : slug === 'installer-app' ? (
             <>
+              <p className="text-xs md:text-sm text-[hsl(var(--muted-foreground))] font-normal mb-3 uppercase tracking-wide">
+                Otovo • B2B • TOOLING
+              </p>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--foreground))] leading-tight mb-4">
-                Installer App: Installation Documentation and Status Tracking
+                Installer App: On Location project tracking
               </h1>
               <div className="space-y-2 mt-4">
                 <p className="text-xs md:text-sm text-[hsl(var(--muted-foreground))] font-normal">
@@ -213,7 +216,7 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'installer-app' ? (
             <div className="flex justify-center items-center w-full">
-              <div className="relative w-full max-w-full mx-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div className="relative w-full max-w-full mx-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-1-8" style={{ minHeight: '200px', maxWidth: '100%' }}>
                 <Image
                   src="/image/installer app/headerimage.png"
                   alt="Installer app header"
@@ -226,7 +229,7 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'jobs' ? (
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2-88" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2-304" style={{ minHeight: '200px', maxWidth: '100%' }}>
                 <Image
                   src="/image/jobs/headerImage.png"
                   alt="Jobs header"
@@ -1501,7 +1504,7 @@ export default function ProjectDetailPage() {
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns=" http://www.w3.org/2000/svg"
             className="w-6 h-6"
             style={{ color: 'white' }}
           >
