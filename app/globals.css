@@ -122,11 +122,20 @@
     .img-scale-1-5 {
       transform: scale(1.5);
     }
+    .img-scale-1-56 {
+      transform: scale(1.56);
+    }
     .img-scale-1-8 {
       transform: scale(1.8);
     }
     .img-scale-1-95 {
       transform: scale(1.95);
+    }
+    .img-scale-1-944 {
+      transform: scale(1.944);
+    }
+    .img-scale-2-16 {
+      transform: scale(2.16);
     }
     .img-scale-2-4 {
       transform: scale(2.4);

@@ -127,7 +127,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 1: Problem Statement */}
       <CaseStudySection
-        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : slug === 'installer-app' ? '!pt-[120px] md:!pt-[200px]' : slug === 'jobs' ? '!pt-[120px] md:!pt-[200px]' : ''}
+        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : slug === 'installer-app' ? '!pt-[120px] md:!pt-[200px]' : slug === 'jobs' ? '!pt-[120px] md:!pt-[200px] [&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'jobs' ? (
             <>
@@ -135,7 +135,7 @@ export default function ProjectDetailPage() {
                 Otovo • Operations Tool • B2B
               </p>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--foreground))] leading-tight mb-4">
-                designing Jobs: the operational tool for maintenance
+                Designing installer assignment tool for solar maintenance
               </h1>
               <p className="text-xs md:text-sm text-[hsl(var(--muted-foreground))] font-normal">
                 900+ Jobs Invoiced
@@ -223,8 +223,8 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : slug === 'jobs' ? (
-            <div className="flex justify-end w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-2-88" style={{ minHeight: '200px' }}>
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2-88" style={{ minHeight: '200px' }}>
                 <Image
                   src="/image/jobs/headerImage.png"
                   alt="Jobs header"
@@ -376,10 +376,10 @@ export default function ProjectDetailPage() {
       {/* Image-Only Section: Flow (Jobs only) */}
       {slug === 'jobs' && (
         <CaseStudySection
-          className="py-40 md:py-64"
+          className="py-20 md:py-32"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
                 <Image
                   src="/image/jobs/flow.png"
                   alt="Jobs flow"
@@ -395,26 +395,29 @@ export default function ProjectDetailPage() {
 
       {/* Image-Only Section: Walkthrough (Jobs only) */}
       {slug === 'jobs' && (
-        <CaseStudySection
-          className="py-40 md:py-64"
-          rightContent={
-            <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px' }}>
-                <Image
-                  src="/image/jobs/walkthrough.png"
-                  alt="Jobs walkthrough"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain"
-                />
+        <div className="mt-16">
+          <CaseStudySection
+            className="pt-0 pb-20 md:pt-0 md:pb-32"
+            rightContent={
+              <div className="flex justify-end items-center w-full">
+                <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-944" style={{ minHeight: '150px' }}>
+                  <Image
+                    src="/image/jobs/walkthrough.png"
+                    alt="Jobs walkthrough"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                </div>
               </div>
-            </div>
-          }
-        />
+            }
+          />
+        </div>
       )}
 
       {/* Section 4: Solution Approach */}
       <CaseStudySection
+        className={slug === 'jobs' ? '[&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'customersupport' ? (
             <>
@@ -1097,18 +1100,7 @@ export default function ProjectDetailPage() {
                 className="w-full h-full object-contain"
               />
             </div>
-          ) : slug === 'jobs' ? (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
-              <video
-                src="/image/jobs/jobvideo.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-contain"
-              />
-            </div>
-          ) : (
+          ) : slug === 'jobs' ? null : (
             <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
               <Image
                 src={slug === 'jobs' ? '/image/CS1.png' : '/image/24. iPhone.png'}
@@ -1121,6 +1113,27 @@ export default function ProjectDetailPage() {
           )
         }
       />
+
+      {/* Image-Only Section: Job Video (Jobs only) */}
+      {slug === 'jobs' && (
+        <CaseStudySection
+          className="py-40 md:py-64"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-56" style={{ minHeight: '150px' }}>
+                <video
+                  src="/image/jobs/jobvideo.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* Section 9: Metrics (Bounded Container) */}
       <CaseStudySection
