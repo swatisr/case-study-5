@@ -108,7 +108,7 @@ export default function ProjectOverview() {
                 
                 {/* Text Content - Positioned in columns 9-12 - Desktop Only */}
                 {/* First text block - Top Left and Right */}
-                <div className="hidden md:block absolute top-0 left-0 right-0 z-10">
+                <div className="hidden md:block absolute top-0 left-0 right-0 z-10 pointer-events-none">
                   <div className="w-full flex justify-between items-start px-8 pt-8">
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
                       FINTECH / PAYMENTS
@@ -120,7 +120,7 @@ export default function ProjectOverview() {
                 </div>
                 
                 {/* Logo and second text block - Centered - Desktop Only */}
-                <div className="hidden md:flex absolute inset-0 items-center z-10">
+                <div className="hidden md:flex absolute inset-0 items-center z-10 pointer-events-none">
                   <div className="w-full h-full grid grid-cols-12">
                     <div className="col-start-9 col-span-4 flex flex-col justify-center px-8">
                       {/* Logo */}
@@ -183,7 +183,7 @@ export default function ProjectOverview() {
                   onMouseLeave={() => setHoveredRectangle(null)}
                 >
                 {/* Top text - FINTECH / PAYMENTS and 2019 • SR. UX DESIGNER - Desktop Only */}
-                <div className="hidden md:flex absolute top-0 right-0 z-10 flex-col items-end px-4 md:px-8 pt-4 md:pt-8">
+                <div className="hidden md:flex absolute top-0 right-0 z-10 flex-col items-end px-4 md:px-8 pt-4 md:pt-8 pointer-events-none">
                   <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
                     2019 • SR. UX DESIGNER
                   </div>
@@ -193,7 +193,7 @@ export default function ProjectOverview() {
                 </div>
                 
                 {/* Settle Logo - Top left, horizontally middle-aligned with top-right text - Desktop Only */}
-                <div className="hidden md:flex absolute top-0 left-0 z-10 flex-col items-start px-4 md:px-8 pt-4 md:pt-8">
+                <div className="hidden md:flex absolute top-0 left-0 z-10 flex-col items-start px-4 md:px-8 pt-4 md:pt-8 pointer-events-none">
                   <Image
                     src="/image/Settle.svg"
                     alt="Settle Logo"
@@ -270,7 +270,7 @@ export default function ProjectOverview() {
                   onMouseLeave={() => setHoveredRectangle(null)}
                 >
                 {/* Video - Mobile: Centered and middle-aligned */}
-                <div className="md:hidden absolute inset-0 flex items-center justify-center z-10 px-4">
+                <div className="md:hidden absolute inset-0 flex items-center justify-center z-10 px-4 pointer-events-none">
                   <video
                     autoPlay
                     muted
@@ -286,7 +286,7 @@ export default function ProjectOverview() {
                 
                 {/* Text Content - Positioned in columns 1-4 - Desktop Only */}
                 {/* First text block - Top Left and Right */}
-                <div className="hidden md:block absolute top-0 left-0 right-0 z-10">
+                <div className="hidden md:block absolute top-0 left-0 right-0 z-10 pointer-events-none">
                   <div className="w-full flex justify-between items-start px-8 pt-8">
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
                       FINTECH / PAYMENTS
@@ -298,7 +298,7 @@ export default function ProjectOverview() {
                 </div>
                 
                 {/* Logo and second text block - Left side - Desktop Only */}
-                <div className="hidden md:flex absolute inset-0 z-10">
+                <div className="hidden md:flex absolute inset-0 z-10 pointer-events-none">
                   <div className="w-full h-full grid grid-cols-12">
                     <div className="col-start-1 col-span-4 flex flex-col justify-end px-8 pb-8">
                       {/* Logo */}
@@ -391,7 +391,7 @@ export default function ProjectOverview() {
                 
                 {/* Text Content - Positioned in columns 1-4 - Desktop Only */}
                 {/* First text block - Top Left and Right */}
-                <div className="hidden md:block absolute top-0 left-0 right-0 z-10">
+                <div className="hidden md:block absolute top-0 left-0 right-0 z-10 pointer-events-none">
                   <div className="w-full flex justify-between items-start px-8 pt-8">
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
                       FINTECH / PAYMENTS
@@ -403,7 +403,7 @@ export default function ProjectOverview() {
                 </div>
                 
                 {/* Logo and second text block - Left side - Desktop Only */}
-                <div className="hidden md:flex absolute inset-0 items-center z-10">
+                <div className="hidden md:flex absolute inset-0 items-center z-10 pointer-events-none">
                   <div className="w-full h-full grid grid-cols-12">
                     <div className="col-start-1 col-span-4 flex flex-col justify-center px-8">
                       {/* Logo */}

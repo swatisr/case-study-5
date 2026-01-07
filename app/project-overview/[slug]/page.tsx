@@ -55,7 +55,7 @@ export default function ProjectDetailPage() {
       'customersupport': {
         headline: 'Building AI Supported Customer Support',
         description: 'Overview',
-        image: '/image/customerSupportkitchen 2.png',
+        image: '/image/CS1.png',
       },
     }
     return contentMap[slug] || contentMap['installer-app']
@@ -127,7 +127,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 1: Problem Statement */}
       <CaseStudySection
-        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : slug === 'installer-app' ? '!pt-[120px] md:!pt-[200px]' : slug === 'jobs' ? '!pt-[120px] md:!pt-[200px] [&>div>div>div:last-child]:justify-center' : ''}
+        className={slug === 'merchant-app' ? '!pt-[180px] md:!pt-[280px] [&>div>div>div:last-child]:justify-center' : slug === 'installer-app' ? '!pt-[120px] md:!pt-[200px]' : slug === 'jobs' ? '!pt-[120px] md:!pt-[200px] [&>div>div>div:last-child]:justify-center' : slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'jobs' ? (
             <>
@@ -169,10 +169,13 @@ export default function ProjectDetailPage() {
             </>
           ) : slug === 'customersupport' ? (
             <>
+              <p className="text-xs md:text-sm text-[hsl(var(--muted-foreground))] font-normal mb-3 uppercase tracking-wide">
+                Otovo • B2C • Support
+              </p>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[hsl(var(--foreground))] leading-tight mb-4">
-                Building AI Supported Customer Support
+                Improving installation tracking to reduce support
               </h1>
-              <div className="space-y-4 mt-4">
+              <div className="space-y-4 mt-4 max-w-[81%]">
                 <p className="text-sm md:text-base text-[hsl(var(--muted-foreground))] font-normal leading-relaxed">
                   As Otovo scaled across markets, customer support volume increased rapidly. Most incoming tickets were not complex issues, but repeated questions about project status, payments, and next steps.
                 </p>
@@ -231,6 +234,19 @@ export default function ProjectDetailPage() {
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                   className="object-contain rounded-[20px]"
+                  priority
+                />
+              </div>
+            </div>
+          ) : slug === 'customersupport' ? (
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2-25" style={{ minHeight: '200px' }}>
+                <Image
+                  src={projectContent.image}
+                  alt="Customer Support visual"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain rounded-[24px]"
                   priority
                 />
               </div>
@@ -328,7 +344,7 @@ export default function ProjectDetailPage() {
                 className="object-contain"
               />
             </div>
-          ) : slug === 'jobs' ? null : (
+          ) : slug === 'jobs' ? null : slug === 'customersupport' ? null : (
             <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/installerapp4.png' : '/image/installerapp4.png'}
@@ -341,6 +357,26 @@ export default function ProjectDetailPage() {
           )
         }
       />
+
+      {/* Image-Only Section: Map (Customer Support only) */}
+      {slug === 'customersupport' && (
+        <CaseStudySection
+          className="py-20 md:py-32"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4" style={{ minHeight: '150px' }}>
+                <Image
+                  src="/image/customer support/map.png"
+                  alt="Customer support map"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* New Section: Image Only (Merchant App only) - Second Section */}
       {slug === 'merchant-app' && (
@@ -417,7 +453,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 4: Solution Approach */}
       <CaseStudySection
-        className={slug === 'jobs' ? '[&>div>div>div:last-child]:justify-center' : ''}
+        className={slug === 'jobs' ? '[&>div>div>div:last-child]:justify-center' : slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'customersupport' ? (
             <>
@@ -512,6 +548,18 @@ export default function ProjectDetailPage() {
                 className="object-contain"
               />
             </div>
+          ) : slug === 'customersupport' ? (
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4" style={{ minHeight: '200px' }}>
+                <Image
+                  src="/image/customer support/1.png"
+                  alt="Information design"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
           ) : (
             <div className={`relative w-full max-w-full mx-auto md:ml-auto ${slug === 'merchant-app' ? 'md:max-w-none' : 'md:max-w-sm'} rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-1-32' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px' }}>
               <Image
@@ -525,6 +573,27 @@ export default function ProjectDetailPage() {
           )
         }
       />
+
+      {/* Image-Only Section: MyPage Video (Customer Support only) */}
+      {slug === 'customersupport' && (
+        <CaseStudySection
+          className="py-20 md:py-32"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
+                <video
+                  src="/image/customer support/mypage.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* Image-Only Section: Experience Map (Installer App only) */}
       {slug === 'installer-app' && (
@@ -678,7 +747,7 @@ export default function ProjectDetailPage() {
                 />
               </div>
             </div>
-          ) : slug === 'installer-app' ? null : slug === 'jobs' ? null : (
+          ) : slug === 'installer-app' ? null : slug === 'jobs' ? null : slug === 'customersupport' ? null : (
             <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/24. iPhone.png' : '/image/24. iPhone.png'}
@@ -734,6 +803,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 6: Installation Tracking UI */}
       <CaseStudySection
+        className={slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'installer-app' ? (
             <>
@@ -839,7 +909,19 @@ export default function ProjectDetailPage() {
                 className="object-contain"
               />
             </div>
-          ) : slug === 'jobs' ? null : (
+          ) : slug === 'jobs' ? null : slug === 'customersupport' ? (
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-44" style={{ minHeight: '200px' }}>
+                <Image
+                  src="/image/customer support/2.png"
+                  alt="AI cautiously introduced"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          ) : (
             <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/IA2.png' : '/image/24. iPhone.png'}
@@ -852,6 +934,27 @@ export default function ProjectDetailPage() {
           )
         }
       />
+
+      {/* Image-Only Section: AI Video (Customer Support only) */}
+      {slug === 'customersupport' && (
+        <CaseStudySection
+          className="py-20 md:py-32"
+          rightContent={
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px' }}>
+                <video
+                  src="/image/customer support/AI.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* Image-Only Section: Invoice Video (Jobs only) */}
       {slug === 'jobs' && (
@@ -985,7 +1088,7 @@ export default function ProjectDetailPage() {
           )
         }
         rightContent={
-          slug === 'installer-app' ? null : slug === 'jobs' ? null : (
+          slug === 'installer-app' ? null : slug === 'jobs' ? null : slug === 'customersupport' ? null : (
             <div className={`relative w-full max-w-full ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-3-6' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px', transformOrigin: 'top center' }}>
               <Image
                 src={slug === 'jobs' ? '/image/IAMockup.png' : slug === 'merchant-app' ? '/image/settle app/settleasa1410.png' : '/image/24. iPhone.png'}
@@ -1021,6 +1124,7 @@ export default function ProjectDetailPage() {
 
       {/* Section 8: Project Details */}
       <CaseStudySection
+        className={slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'merchant-app' ? (
             <>
@@ -1100,7 +1204,19 @@ export default function ProjectDetailPage() {
                 className="w-full h-full object-contain"
               />
             </div>
-          ) : slug === 'jobs' ? null : (
+          ) : slug === 'jobs' ? null : slug === 'customersupport' ? (
+            <div className="flex justify-end items-center w-full">
+              <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3-74" style={{ minHeight: '200px' }}>
+                <Image
+                  src="/image/customer support/4.png"
+                  alt="Build versus buy tradeoff"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          ) : (
             <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
               <Image
                 src={slug === 'jobs' ? '/image/CS1.png' : '/image/24. iPhone.png'}
@@ -1139,6 +1255,7 @@ export default function ProjectDetailPage() {
       <CaseStudySection
         boundedContainer={true}
         boundedContainerPadding={slug === 'merchant-app' ? 'py-24 md:py-36 lg:py-48 px-8 md:px-12 lg:px-16' : 'p-8 md:p-12 lg:p-16'}
+        className={slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
         leftContent={
           slug === 'merchant-app' ? (
             <>
@@ -1255,7 +1372,19 @@ export default function ProjectDetailPage() {
                 className="w-full h-full object-contain"
               />
             </div>
-          ) : slug === 'jobs' ? null : (
+          ) : slug === 'jobs' ? null : slug === 'customersupport' ? (
+            <div className="flex justify-center items-center w-full mt-[55px] md:mt-[81px]">
+              <div className={`relative w-full max-w-full mx-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-02`} style={{ minHeight: '200px' }}>
+                <Image
+                  src="/image/customer support/3.png"
+                  alt="Outcomes"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          ) : (
             <div className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2`} style={{ minHeight: '200px' }}>
               <Image
                 src={slug === 'jobs' ? '/image/settle1.png' : '/image/24. iPhone.png'}
@@ -1305,7 +1434,7 @@ export default function ProjectDetailPage() {
               </>
             ) : null
           }
-          rightContent={slug === 'jobs' ? null : (
+          rightContent={slug === 'jobs' ? null : slug === 'customersupport' ? null : (
             <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', transform: 'scale(1.2)', transformOrigin: 'center' }}>
               <Image
                 src={slug === 'jobs' ? '/image/settle2.png' : '/image/24. iPhone.png'}
