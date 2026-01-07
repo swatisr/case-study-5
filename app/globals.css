@@ -101,6 +101,8 @@
   .img-scale-mobile {
     transform: scale(1);
     transform-origin: center;
+    max-width: 100%;
+    width: 100%;
   }
   
   @media (min-width: 768px) {
