@@ -154,10 +154,10 @@ export default function ProjectOverview() {
                 <div className="hidden md:block absolute top-0 left-0 right-0 z-10 pointer-events-none">
                   <div className="w-full flex justify-between items-start px-8 pt-8">
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
-                      FINTECH / PAYMENTS
+                      B2B / Operations
                     </div>
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
-                      2019 • SR. UX DESIGNER
+                      Lead UX Designer
                     </div>
                   </div>
                 </div>
@@ -171,16 +171,16 @@ export default function ProjectOverview() {
                         <Image
                           src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                           alt="Otovo Logo"
-                          width={120}
-                          height={40}
-                          className="h-10"
-                          style={{ width: 'auto', height: '40px', aspectRatio: '120/40' }}
+                          width={60}
+                          height={20}
+                          className="h-5"
+                          style={{ width: 'auto', height: '20px', aspectRatio: '120/40' }}
                         />
                       </div>
                       
                       {/* Second text block */}
                       <div className="text-[16px] font-light text-white">
-                        <div className="font-semibold">On-site Documentation & Tracking</div>
+                        <div className="font-semibold">On Location project tracking</div>
                         <div className="font-light">18% faster project approvals</div>
                       </div>
                     </div>
@@ -196,16 +196,16 @@ export default function ProjectOverview() {
                   <Image
                     src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                     alt="Otovo Logo"
-                    width={64}
-                    height={22}
-                    className="h-4"
-                    style={{ width: 'auto', height: '16px', aspectRatio: '64/22' }}
+                    width={32}
+                    height={11}
+                    className="h-2"
+                    style={{ width: 'auto', height: '8px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
                 {/* Text - Right aligned */}
                 <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
-                  <div className="font-semibold">On-site Documentation & Tracking</div>
+                  <div className="font-semibold">On Location project tracking</div>
                   <div className="font-light">18% faster project approvals</div>
                 </div>
               </div>
@@ -228,10 +228,10 @@ export default function ProjectOverview() {
                 {/* Top text - FINTECH / PAYMENTS and 2019 • SR. UX DESIGNER - Desktop Only */}
                 <div className="hidden md:flex absolute top-0 right-0 z-10 flex-col items-end px-4 md:px-8 pt-4 md:pt-8 pointer-events-none">
                   <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
-                    2019 • SR. UX DESIGNER
+                    SR. UX DESIGNER
                   </div>
                   <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light">
-                    FINTECH / PAYMENTS
+                    Fintech / Payments
                   </div>
                 </div>
                 
@@ -246,7 +246,8 @@ export default function ProjectOverview() {
                     style={{ width: '58px', height: 'auto', aspectRatio: '58/20' }}
                   />
                   <div className="text-white text-[16px] font-light mt-1">
-                    <div className="font-semibold">Merchant transactions in P2P app</div>
+                    <div className="font-semibold">On Location project tracking</div>
+                    <div className="font-light">Integrated Merchant payments in P2P</div>
                   </div>
                 </div>
                 
@@ -293,7 +294,8 @@ export default function ProjectOverview() {
                 
                 {/* Text - Right aligned */}
                 <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
-                  <div className="font-semibold">Merchant transactions in P2P app</div>
+                  <div className="font-semibold">On Location project tracking</div>
+                  <div className="font-light">Integrated Merchant payments in P2P</div>
                 </div>
               </div>
             </div>
@@ -332,10 +334,10 @@ export default function ProjectOverview() {
                 <div className="hidden md:block absolute top-0 left-0 right-0 z-10 pointer-events-none">
                   <div className="w-full flex justify-between items-start px-8 pt-8">
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
-                      FINTECH / PAYMENTS
+                      B2B / Operations
                     </div>
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
-                      2019 • SR. UX DESIGNER
+                      Lead UX DESIGNER
                     </div>
                   </div>
                 </div>
@@ -349,17 +351,17 @@ export default function ProjectOverview() {
                         <Image
                           src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                           alt="Otovo Logo"
-                          width={120}
-                          height={40}
-                          className="h-10"
-                          style={{ width: 'auto', height: '40px', aspectRatio: '120/40' }}
+                          width={60}
+                          height={20}
+                          className="h-5"
+                          style={{ width: 'auto', height: '20px', aspectRatio: '120/40' }}
                         />
                       </div>
                       
                       {/* Second text block */}
                       <div className="text-[16px] font-light text-white">
-                        <div className="font-semibold">On-site Documentation & Tracking</div>
-                        <div className="font-light">18% faster project approvals</div>
+                        <div className="font-semibold">Solar maintenance and invoicing</div>
+                        <div className="font-light">900+ jobs invoiced</div>
                       </div>
                     </div>
                     
@@ -389,17 +391,17 @@ export default function ProjectOverview() {
                   <Image
                     src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                     alt="Otovo Logo"
-                    width={64}
-                    height={22}
-                    className="h-4"
-                    style={{ width: 'auto', height: '16px', aspectRatio: '64/22' }}
+                    width={32}
+                    height={11}
+                    className="h-2"
+                    style={{ width: 'auto', height: '8px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
                 {/* Text - Right aligned */}
                 <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
-                  <div className="font-semibold">On-site Documentation & Tracking</div>
-                  <div className="font-light">18% faster project approvals</div>
+                  <div className="font-semibold">Solar maintenance and invoicing</div>
+                  <div className="font-light">900+ jobs invoiced</div>
                 </div>
               </div>
             </div>
@@ -437,10 +439,10 @@ export default function ProjectOverview() {
                 <div className="hidden md:block absolute top-0 left-0 right-0 z-10 pointer-events-none">
                   <div className="w-full flex justify-between items-start px-8 pt-8">
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
-                      FINTECH / PAYMENTS
+                      B2C / Support
                     </div>
                     <div className="text-[11px] uppercase tracking-[0.2em] text-white">
-                      2019 • SR. UX DESIGNER
+                      Lead UX DESIGNER
                     </div>
                   </div>
                 </div>
@@ -454,17 +456,17 @@ export default function ProjectOverview() {
                         <Image
                           src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                           alt="Otovo Logo"
-                          width={120}
-                          height={40}
-                          className="h-10"
-                          style={{ width: 'auto', height: '40px', aspectRatio: '120/40' }}
+                          width={60}
+                          height={20}
+                          className="h-5"
+                          style={{ width: 'auto', height: '20px', aspectRatio: '120/40' }}
                         />
                       </div>
                       
                       {/* Second text block */}
                       <div className="text-[16px] font-light text-white">
-                        <div className="font-semibold">On-site Documentation & Tracking</div>
-                        <div className="font-light">18% faster project approvals</div>
+                        <div className="font-semibold">Installation tracking and support</div>
+                        <div className="font-light">70% reduction is manual support</div>
                       </div>
                     </div>
                   </div>
@@ -479,17 +481,17 @@ export default function ProjectOverview() {
                   <Image
                     src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                     alt="Otovo Logo"
-                    width={64}
-                    height={22}
-                    className="h-4"
-                    style={{ width: 'auto', height: '16px', aspectRatio: '64/22' }}
+                    width={32}
+                    height={11}
+                    className="h-2"
+                    style={{ width: 'auto', height: '8px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
                 {/* Text - Right aligned */}
                 <div className="text-right text-sm font-light text-white">
-                  <div className="font-semibold">On-site Documentation & Tracking</div>
-                  <div className="font-light">18% faster project approvals</div>
+                  <div className="font-semibold">Installation tracking and support</div>
+                  <div className="font-light">70% reduction is manual support</div>
                 </div>
               </div>
             </div>
