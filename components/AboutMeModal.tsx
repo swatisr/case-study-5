@@ -77,8 +77,16 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
             <div className="max-w-[95%] md:max-w-[81%] pt-12 md:pt-16 space-y-12 md:space-y-20 lg:space-y-32">
                 {/* Hero Section */}
                 <div className="space-y-8">
+                  <div className="space-y-2">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--primary-foreground))]">
+                      Swati Srivastava
+                    </h1>
+                    <p className="text-sm md:text-base text-[hsl(0_0%_40%)] font-light">
+                      Lead UX Designer at Otovo ASA, Norway
+                    </p>
+                  </div>
                   <p className="text-base md:text-xl leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                    Designing clear, durable product and service experiences across consumer and business-facing contexts. I work from early problem framing through interaction design and production-ready UI.
+                    For the last 14 plus years, I have worked as a product designer across consulting and in house roles. My work has focused on shipping B2B operations tools at scale, including products used across European markets and complex internal systems. I cycle between understanding the problem, making decisions visible through design, and testing through implementation until the solution holds up in day to day use. What motivates me is designing systems that quietly enable others to do their best work, there when needed, invisible when not.
                   </p>
                   
                   {/* Links */}
@@ -150,79 +158,83 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                   </div>
                 </div>
 
-                {/* EXPERIENCE Section */}
-                <div className="space-y-12">
-                  <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
-                    EXPERIENCE
-                  </h2>
-                  
-                  <div className="space-y-6">
-                    {/* Row 1 */}
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                      <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                        PRODUCT & SERVICE DESIGN
+                {/* EXPERIENCE Section - Hidden for now */}
+                {false && (
+                  <div className="space-y-12">
+                    <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
+                      EXPERIENCE
+                    </h2>
+                    
+                    <div className="space-y-6">
+                      {/* Row 1 */}
+                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
+                          PRODUCT & SERVICE DESIGN
+                        </div>
+                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                          Designing clear, durable
+                        </div>
                       </div>
-                      <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable
-                      </div>
-                    </div>
-                    <div className="h-px bg-black/10"></div>
+                      <div className="h-px bg-black/10"></div>
 
-                    {/* Row 2 */}
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                      <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                        PRODUCT & SERVICE DESIGN
+                      {/* Row 2 */}
+                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
+                          PRODUCT & SERVICE DESIGN
+                        </div>
+                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                          Designing clear, durable
+                        </div>
                       </div>
-                      <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable
-                      </div>
-                    </div>
-                    <div className="h-px bg-black/10"></div>
+                      <div className="h-px bg-black/10"></div>
 
-                    {/* Row 3 */}
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                      <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                        PRODUCT & SERVICE DESIGN
+                      {/* Row 3 */}
+                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
+                          PRODUCT & SERVICE DESIGN
+                        </div>
+                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                          Designing clear, durable
+                        </div>
                       </div>
-                      <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable
-                      </div>
-                    </div>
-                    <div className="h-px bg-black/10"></div>
+                      <div className="h-px bg-black/10"></div>
 
-                    {/* Row 4 */}
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                      <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                        PRODUCT & SERVICE DESIGN
+                      {/* Row 4 */}
+                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
+                          PRODUCT & SERVICE DESIGN
+                        </div>
+                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                          Designing clear, durable
+                        </div>
                       </div>
-                      <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable
-                      </div>
-                    </div>
-                    <div className="h-px bg-black/10"></div>
+                      <div className="h-px bg-black/10"></div>
 
-                    {/* Row 5 */}
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                      <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                        PRODUCT & SERVICE DESIGN
-                      </div>
-                      <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable
+                      {/* Row 5 */}
+                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
+                          PRODUCT & SERVICE DESIGN
+                        </div>
+                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                          Designing clear, durable
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
 
-                {/* MY CURRENT FOCUS Section */}
-                <div className="space-y-8">
-                  <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
-                    MY CURRENT FOCUS
-                  </h2>
-                  
-                  <p className="text-base md:text-xl leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                    Designing clear, durable product and service experiences across consumer and business-facing contexts. I work from early problem framing through interaction design and production-ready UI.
-                  </p>
-                </div>
+                {/* MY CURRENT FOCUS Section - Hidden for now */}
+                {false && (
+                  <div className="space-y-8">
+                    <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
+                      MY CURRENT FOCUS
+                    </h2>
+                    
+                    <p className="text-base md:text-xl leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                      For the last 14 plus years, I have worked as a product designer across consulting and in house roles. My work has focused on shipping B2B operations tools at scale, including products used across European markets and complex internal systems. I cycle between understanding the problem, making decisions visible through design, and testing through implementation until the solution holds up in day to day use. What motivates me is designing systems that quietly enable others to do their best work, there when needed, invisible when not.
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
         </div>

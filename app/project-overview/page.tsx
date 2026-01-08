@@ -466,7 +466,7 @@ export default function ProjectOverview() {
                       {/* Second text block */}
                       <div className="text-[16px] font-light text-white">
                         <div className="font-semibold">Installation tracking and support</div>
-                        <div className="font-light">70% reduction is manual support</div>
+                        <div className="font-light">70% reduction in tickets</div>
                       </div>
                     </div>
                   </div>
@@ -491,7 +491,7 @@ export default function ProjectOverview() {
                 {/* Text - Right aligned */}
                 <div className="text-right text-sm font-light text-white">
                   <div className="font-semibold">Installation tracking and support</div>
-                  <div className="font-light">70% reduction is manual support</div>
+                  <div className="font-light">70% reduction in tickets</div>
                 </div>
               </div>
             </div>
