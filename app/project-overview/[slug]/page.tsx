@@ -1,23 +1,17 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import CaseStudySection from '@/components/CaseStudySection'
 import AboutMeModal from '@/components/AboutMeModal'
-import Toast from '@/components/Toast'
-import ProjectHoverToast from '@/components/ProjectHoverToast'
 
 export default function ProjectDetailPage() {
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMenuAnimating, setIsMenuAnimating] = useState(false)
-  const [showToast, setShowToast] = useState(false)
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null)
-  const [hoverPosition, setHoverPosition] = useState({ top: 0, left: 0 })
   const params = useParams()
-  const router = useRouter()
   const slug = typeof params?.slug === 'string' ? params.slug : 'installer-app'
 
   // Determine current project number from slug
@@ -70,112 +64,21 @@ export default function ProjectDetailPage() {
 
   const projectContent = getProjectContent(slug)
 
-  // Prevent horizontal scroll on mount and navigation
-  useEffect(() => {
-    // Reset horizontal scroll position
-    const resetScroll = () => {
-      // Reset window scroll
-      if (window.scrollX !== 0) {
-        window.scrollTo(0, window.scrollY)
-      }
-      
-      // Reset document scroll
-      document.documentElement.style.overflowX = 'hidden'
-      document.body.style.overflowX = 'hidden'
-      document.documentElement.scrollLeft = 0
-      document.body.scrollLeft = 0
-      
-      // Ensure all containers don't have horizontal scroll
-      const scrollableContainers = document.querySelectorAll('[class*="overflow"], section, div')
-      scrollableContainers.forEach((container) => {
-        if (container instanceof HTMLElement) {
-          container.scrollLeft = 0
-          if (container.scrollWidth > container.clientWidth) {
-            container.style.overflowX = 'hidden'
-          }
-        }
-      })
-    }
-
-    // Reset immediately
-    resetScroll()
-
-    // Reset after delays to catch any async rendering
-    const timer = setTimeout(resetScroll, 100)
-    const timer2 = setTimeout(resetScroll, 300)
-    const timer3 = setTimeout(resetScroll, 500)
-
-    // Reset on window resize
-    const handleResize = () => {
-      resetScroll()
-    }
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      clearTimeout(timer)
-      clearTimeout(timer2)
-      clearTimeout(timer3)
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [slug])
-
-  // Map project numbers to their preview data
-  const projectPreviewData = {
-    1: {
-      image: '/image/installerapp4.png',
-      heading: 'Installer App: On Location project tracking',
-    },
-    2: {
-      image: '/image/settleappcombo.png',
-      heading: 'Settle: Designing Merchant Payments for Physical Shops',
-    },
-    3: {
-      image: '/image/jobs.png',
-      heading: 'Jobs: Repairs and Fixes Workflow',
-    },
-    4: {
-      image: '/image/CS1.png',
-      heading: 'Building AI Supported Customer Support',
-    },
-  }
-
   return (
-    <div 
-      className="min-h-screen bg-[hsl(var(--background))] overflow-x-hidden"
-      style={{ maxWidth: '100vw', width: '100%', overflowX: 'hidden' }}
-    >
+    <div className="min-h-screen bg-[hsl(var(--background))]">
       {/* Sticky Home Button and Case Study Navigation */}
-      <div className="fixed top-0 left-0 right-0 h-16 z-[100] bg-[hsl(var(--background))]/80 backdrop-blur-md flex items-center justify-between px-5 md:px-10 lg:px-40">
-        <div 
-          className="relative"
-          style={{ zIndex: 101 }}
+      <div className="fixed top-0 left-0 right-0 h-16 z-50 bg-[hsl(var(--background))]/80 backdrop-blur-md pointer-events-none flex items-center justify-between px-5 md:px-10 lg:px-40">
+        <Link
+          href="/project-overview"
+          className="text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none pointer-events-auto z-10 py-2 px-1"
         >
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              console.log('Home button clicked - navigating to /project-overview')
-              if (typeof window !== 'undefined') {
-                window.location.href = '/project-overview'
-              }
-            }}
-            className="text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none py-2 px-1 cursor-pointer bg-transparent border-0 outline-none"
-            style={{ 
-              pointerEvents: 'auto',
-              WebkitTapHighlightColor: 'transparent',
-              zIndex: 101,
-              position: 'relative'
-            }}
-          >
-            <span className="md:hidden text-[11px] uppercase tracking-[0.2em]">Home</span>
-            <span className="hidden md:inline text-[11px] uppercase tracking-[0.2em]">Home</span>
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
-          </button>
-        </div>
+          <span className="md:hidden text-[11px] uppercase tracking-[0.2em]">Home</span>
+          <span className="hidden md:inline text-[11px] uppercase tracking-[0.2em]">Home</span>
+          <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
+        </Link>
         
         {/* Case Study Numbers - Hidden on mobile */}
-        <div className="hidden md:flex gap-6 pointer-events-auto relative">
+        <div className="hidden md:flex gap-6 pointer-events-auto">
           {caseStudies.map((study) => {
             const isActive = study.number === currentProject
             return (
@@ -187,24 +90,6 @@ export default function ProjectDetailPage() {
                     ? 'text-[hsl(var(--foreground))]'
                     : 'text-[hsl(var(--muted-foreground))] opacity-40'
                 } hover:text-white hover:opacity-100`}
-                onMouseEnter={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect()
-                  const parentElement = e.currentTarget.parentElement
-                  
-                  if (parentElement) {
-                    const containerRect = parentElement.getBoundingClientRect()
-                    // Position toast directly below the number row, centered under the hovered number
-                    // Toast will auto-size to content, so we center it based on the number's center
-                    setHoverPosition({
-                      top: containerRect.bottom + 12, // 12px gap below the row
-                      left: rect.left + (rect.width / 2), // Start from center of number, toast will be positioned relative to this
-                    })
-                  }
-                  setHoveredProject(study.number)
-                }}
-                onMouseLeave={() => {
-                  setHoveredProject(null)
-                }}
               >
                 <span>{study.number}</span>
                 <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
@@ -218,26 +103,17 @@ export default function ProjectDetailPage() {
       <nav className="fixed top-4 bottom-auto md:top-auto md:bottom-8 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40">
         <div className="hidden md:flex gap-8">
           <a
-            href="https://www.linkedin.com/in/swatisr"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#"
             className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]"
           >
             LINKEDIN
           </a>
-          <button
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
-                setShowToast(true)
-              } catch (err) {
-                console.error('Failed to copy email:', err)
-              }
-            }}
+          <a
+            href="#"
             className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]"
           >
             COPY EMAIL
-          </button>
+          </a>
           <button
             onClick={() => setIsAboutMeOpen(true)}
             className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]"
@@ -1681,16 +1557,6 @@ export default function ProjectDetailPage() {
             <div className="px-6 pt-8 pb-8">
               {/* Menu Items */}
               <div className="flex flex-col gap-6 mb-6">
-                <Link
-                  href="/project-overview"
-                  onClick={() => {
-                    setIsMenuAnimating(false)
-                    setTimeout(() => setIsMobileMenuOpen(false), 300)
-                  }}
-                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
-                >
-                  Home
-                </Link>
                 <button
                   onClick={() => {
                     setIsAboutMeOpen(true)
@@ -1702,9 +1568,7 @@ export default function ProjectDetailPage() {
                   About me
                 </button>
                 <a
-                  href="https://www.linkedin.com/in/swatisr"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#"
                   onClick={() => {
                     setIsMenuAnimating(false)
                     setTimeout(() => setIsMobileMenuOpen(false), 300)
@@ -1714,36 +1578,16 @@ export default function ProjectDetailPage() {
                   Linked In
                 </a>
                 <button
-                  type="button"
-                  onClick={async (e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
+                  onClick={async () => {
                     try {
-                      await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
-                      setShowToast(true)
+                      await navigator.clipboard.writeText('your-email@example.com')
                       setIsMenuAnimating(false)
                       setTimeout(() => setIsMobileMenuOpen(false), 300)
                     } catch (err) {
                       console.error('Failed to copy email:', err)
-                      // Fallback for older browsers
-                      const textArea = document.createElement('textarea')
-                      textArea.value = 'iswatisrivastava@gmail.com'
-                      textArea.style.position = 'fixed'
-                      textArea.style.opacity = '0'
-                      document.body.appendChild(textArea)
-                      textArea.select()
-                      try {
-                        document.execCommand('copy')
-                        setShowToast(true)
-                        setIsMenuAnimating(false)
-                        setTimeout(() => setIsMobileMenuOpen(false), 300)
-                      } catch (fallbackErr) {
-                        console.error('Fallback copy failed:', fallbackErr)
-                      }
-                      document.body.removeChild(textArea)
                     }
                   }}
-                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light cursor-pointer"
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light px-4 py-2 rounded-none"
                 >
                   Copy email
                 </button>
@@ -1754,7 +1598,7 @@ export default function ProjectDetailPage() {
                 <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light mb-1">
                   Project
                 </div>
-                <div className="flex gap-10 justify-start items-center">
+                <div className="flex gap-10 justify-center items-center">
                   {caseStudies.map((study) => {
                     const isActive = study.number === currentProject
                     return (
@@ -1785,23 +1629,6 @@ export default function ProjectDetailPage() {
             </div>
           </div>
         </>
-      )}
-
-      {/* Toast Notification */}
-      <Toast
-        message="iswatisrivastava@gmail.com copied"
-        isVisible={showToast}
-        onClose={() => setShowToast(false)}
-      />
-
-      {/* Project Hover Toast */}
-      {hoveredProject && (
-        <ProjectHoverToast
-          isVisible={!!hoveredProject}
-          image={projectPreviewData[hoveredProject as keyof typeof projectPreviewData].image}
-          heading={projectPreviewData[hoveredProject as keyof typeof projectPreviewData].heading}
-          position={hoverPosition}
-        />
       )}
     </div>
   )
