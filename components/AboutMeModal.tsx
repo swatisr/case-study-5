@@ -76,34 +76,29 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
           </button>
 
           {/* Content - No internal scroll, whole modal scrolls */}
-          <div className="p-8 md:p-24 lg:p-40">
-            <div className="max-w-[95%] md:max-w-[81%] pt-12 md:pt-16 space-y-12 md:space-y-20 lg:space-y-32">
+          <div className="p-[1.805rem] md:p-[5.7rem] lg:p-[9.5rem] pb-20 md:pb-24 lg:pb-32">
+            <div className="max-w-[95%] md:max-w-[81%] pt-12 md:pt-16 space-y-24 md:space-y-40 lg:space-y-64">
                 {/* Hero Section */}
                 <div className="space-y-8">
-                  {/* Profile Picture and Header - Side by Side Layout */}
-                  <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-end">
-                    {/* Profile Picture - Left Side */}
-                    <div className="flex-shrink-0">
-                      <div className="w-24 h-24 md:w-32 md:h-32 relative rounded-lg overflow-hidden">
-                        <Image
-                          src="/image/displayPic.png"
-                          alt="Swati Srivastava"
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 96px, 128px"
-                        />
-                      </div>
-                    </div>
-                    
-                    {/* Name and Title - Right Side */}
-                    <div className="flex-1 space-y-2">
-                      <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--primary-foreground))]">
-                        Swati Srivastava
-                      </h1>
-                      <p className="text-sm md:text-base text-[hsl(0_0%_40%)] font-light">
-                        Lead UX Designer at Otovo ASA, Norway
-                      </p>
-                    </div>
+                  {/* Profile Picture - Above Name */}
+                  <div className="w-24 h-24 md:w-32 md:h-32 relative rounded-lg overflow-hidden">
+                    <Image
+                      src="/image/displayPic.png"
+                      alt="Swati Srivastava"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 96px, 128px"
+                    />
+                  </div>
+                  
+                  {/* Name and Title - Left Aligned */}
+                  <div className="space-y-2">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--primary-foreground))]">
+                      Swati Srivastava
+                    </h1>
+                    <p className="text-sm md:text-base text-[hsl(0_0%_65%)] font-semibold">
+                      Lead UX Designer at Otovo ASA, Norway
+                    </p>
                   </div>
                   
                   {/* Three Paragraphs */}
@@ -148,9 +143,9 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                 </div>
 
                 {/* WHAT I CAN HELP WITH Section */}
-                <div className="space-y-12 -mt-4 md:-mt-6 lg:-mt-8">
-                  <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
-                    WHAT I CAN HELP WITH
+                <div className="space-y-6 -mt-4 md:-mt-6 lg:-mt-8">
+                  <h2 className="text-[1.75rem] md:text-[2rem] text-[hsl(0_0%_15%)] font-semibold">
+                    What I can help with
                   </h2>
                   
                   <div className="space-y-8">
@@ -189,9 +184,9 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                 </div>
 
                 {/* EXPERIENCE Section */}
-                <div className="space-y-12">
-                  <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
-                    EXPERIENCE
+                <div className="space-y-6">
+                  <h2 className="text-[1.75rem] md:text-[2rem] text-[hsl(0_0%_15%)] font-semibold">
+                    Experience
                   </h2>
                   
                   <div className="space-y-8">
@@ -203,11 +198,11 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                       <div className="space-y-1 pl-0">
                         <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
                           Lead Designer, Product
-                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2022 to Present</span>
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2022-Present</span>
                         </div>
                         <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
                           Designer, B2B and Operations
-                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2020 to 2022</span>
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2020-22</span>
                         </div>
                       </div>
                     </div>
@@ -220,7 +215,7 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                       <div className="space-y-1 pl-0">
                         <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
                           Senior UX Designer
-                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2019 to 2020</span>
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2019-20</span>
                         </div>
                       </div>
                     </div>
@@ -233,7 +228,7 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                       <div className="space-y-1 pl-0">
                         <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
                           Service Designer and Researcher
-                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2015 to 2019</span>
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2015-19</span>
                         </div>
                       </div>
                     </div>
@@ -250,7 +245,7 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                         </div>
                         <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
                           User Experience Designer
-                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2011 to 2014</span>
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2011-14</span>
                         </div>
                       </div>
                     </div>
@@ -263,7 +258,7 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                       <div className="space-y-1 pl-0">
                         <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
                           Software Engineer
-                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2009 to 2010</span>
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2009-10</span>
                         </div>
                       </div>
                     </div>
@@ -274,10 +269,10 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                 <div className="space-y-12">
                   <div className="space-y-2">
                     <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
-                      M. Des. Interaction Design, 2009 - 2011
+                      M. Des. Interaction Design, 2009-11
                     </div>
                     <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
-                      B.E. Computer Science, 2004-2008
+                      B.E. Computer Science, 2004-08
                     </div>
                   </div>
                 </div>
@@ -296,6 +291,15 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                 )}
               </div>
             </div>
+
+          {/* Close Button - Bottom Left (Mobile Only) */}
+          <button
+            onClick={handleClose}
+            className="md:hidden absolute bottom-4 left-4 z-10 px-4 py-2 text-base font-light text-[hsl(var(--primary-foreground))] hover:opacity-70 transition-opacity underline"
+            aria-label="Close modal"
+          >
+            Close
+          </button>
         </div>
       </div>
 

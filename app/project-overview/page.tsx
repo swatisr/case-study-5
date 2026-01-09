@@ -71,6 +71,60 @@ export default function ProjectOverview() {
     }
   }, [pathname, isVisible])
 
+  // Prevent horizontal scroll on mount and navigation
+  useEffect(() => {
+    // Reset horizontal scroll position
+    const resetScroll = () => {
+      // Reset window scroll
+      if (window.scrollX !== 0) {
+        window.scrollTo(0, window.scrollY)
+      }
+      
+      // Reset document scroll
+      document.documentElement.style.overflowX = 'hidden'
+      document.body.style.overflowX = 'hidden'
+      document.documentElement.scrollLeft = 0
+      document.body.scrollLeft = 0
+      
+      // Ensure all containers don't have horizontal scroll
+      const scrollableContainers = document.querySelectorAll('[class*="overflow"], section, div')
+      scrollableContainers.forEach((container) => {
+        if (container instanceof HTMLElement) {
+          container.scrollLeft = 0
+          if (container.scrollWidth > container.clientWidth) {
+            container.style.overflowX = 'hidden'
+          }
+        }
+      })
+    }
+
+    // Reset immediately
+    resetScroll()
+
+    // Reset after delays to catch any async rendering
+    const timer = setTimeout(resetScroll, 100)
+    const timer2 = setTimeout(resetScroll, 300)
+    const timer3 = setTimeout(resetScroll, 500)
+
+    // Reset on window resize
+    const handleResize = () => {
+      resetScroll()
+    }
+    window.addEventListener('resize', handleResize)
+
+    // Reset on pathname change (navigation)
+    if (pathname === '/project-overview') {
+      resetScroll()
+    }
+
+    return () => {
+      clearTimeout(timer)
+      clearTimeout(timer2)
+      clearTimeout(timer3)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [pathname, isVisible])
+
   // Show loading while checking authentication
   if (isAuthenticated === null) {
     return (
@@ -91,14 +145,22 @@ export default function ProjectOverview() {
   const transitionDuration = prefersReducedMotion ? 0 : 600
 
   return (
-    <div className="fixed inset-0 bg-[hsl(var(--background))]">
+    <div 
+      className="fixed inset-0 bg-[hsl(var(--background))] overflow-x-hidden"
+      style={{ maxWidth: '100vw', width: '100%', overflowX: 'hidden' }}
+    >
       <div 
-        className={`h-screen overflow-y-scroll snap-y snap-mandatory transition-opacity ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        className={`h-screen overflow-y-scroll overflow-x-hidden snap-y snap-mandatory transition-opacity ease-[cubic-bezier(0.4,0,0.2,1)] ${
           isVisible 
             ? 'opacity-100' 
             : 'opacity-0'
         }`}
-        style={{ transitionDuration: `${transitionDuration}ms` }}
+        style={{ 
+          transitionDuration: `${transitionDuration}ms`,
+          maxWidth: '100vw',
+          width: '100%',
+          overflowX: 'hidden'
+        }}
       >
       {/* Sticky Navbar */}
       <nav className={`fixed top-4 bottom-auto md:top-auto md:bottom-8 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40 md:transition-opacity md:duration-500 ${hoveredRectangle ? 'md:opacity-20' : 'md:opacity-100'}`}>
@@ -138,23 +200,28 @@ export default function ProjectOverview() {
       <ShowMoreButton hoveredRectangle={hoveredRectangle} />
 
       {/* Section 1 */}
-      <section id="section-1" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 ${hoveredRectangle && hoveredRectangle !== 1 ? 'md:opacity-20' : 'md:opacity-100'}`}>
-        <div className="w-full px-5 md:px-10 lg:px-40">
+      <section id="section-1" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 overflow-x-hidden ${hoveredRectangle && hoveredRectangle !== 1 ? 'md:opacity-20' : 'md:opacity-100'}`}>
+        <div className="w-full px-5 md:px-10 lg:px-40 max-w-full">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
-            <div className="col-span-12">
-              <Link href="/project-overview/installer-app" className="block cursor-pointer">
+            <div className="col-span-12 max-w-full overflow-hidden">
+              <Link 
+                href="/project-overview/installer-app" 
+                className="block cursor-pointer relative"
+                style={{ pointerEvents: 'auto' }}
+              >
                 <div 
                   className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 1 ? 'md:scale-[1.01]' : ''}`}
                   onMouseEnter={() => setHoveredRectangle(1)}
                   onMouseLeave={() => setHoveredRectangle(null)}
+                  style={{ pointerEvents: 'auto' }}
                 >
-                <div key={`image-wrapper-${imageKey}`} className="absolute inset-0 w-full h-full">
+                <div key={`image-wrapper-${imageKey}`} className="absolute inset-0 w-full h-full pointer-events-none">
                   <Image
                     src="/image/installerapp4.png"
                     alt="Installer App"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
-                    className="object-cover object-[35%_center]"
+                    className="object-cover object-[35%_center] pointer-events-none"
                     priority
                     quality={85}
                     onLoadingComplete={() => {
@@ -163,6 +230,7 @@ export default function ProjectOverview() {
                     onError={(e) => {
                       console.error('Image error:', e)
                     }}
+                    style={{ pointerEvents: 'none' }}
                   />
                 </div>
                 
@@ -203,44 +271,47 @@ export default function ProjectOverview() {
                     </div>
                   </div>
                 </div>
-                </div>
-              </Link>
-              
-              {/* Mobile: Logo and text below rectangle - Top aligned */}
-              <div className="md:hidden mt-4 flex items-start justify-between w-full">
-                {/* Logo - Left aligned with image */}
-                <div>
+                {/* Mobile: Logo on top left */}
+                <div className="md:hidden absolute top-4 left-4 z-10 pointer-events-none">
                   <Image
                     src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                     alt="Otovo Logo"
-                    width={32}
-                    height={11}
-                    className="h-2"
-                    style={{ width: 'auto', height: '8px', aspectRatio: '64/22' }}
+                    width={96}
+                    height={33}
+                    className="h-6"
+                    style={{ width: 'auto', height: '24px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
-                {/* Text - Right aligned */}
-                <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
-                  <div className="font-semibold">On Location project tracking</div>
-                  <div className="font-light">18% faster project approvals</div>
+                {/* Mobile: Text on bottom left */}
+                <div className="md:hidden absolute bottom-6 left-4 z-10 pointer-events-none">
+                  <div className="text-[13.5px] font-light text-white" style={{ fontSize: '90%' }}>
+                    <div className="font-semibold">On Location project tracking</div>
+                    <div className="font-light">18% faster project approvals</div>
+                  </div>
                 </div>
-              </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Section 2 */}
-      <section id="section-2" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 ${hoveredRectangle && hoveredRectangle !== 2 ? 'md:opacity-20' : 'md:opacity-100'}`}>
-        <div className="w-full px-5 md:px-10 lg:px-40">
+      <section id="section-2" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 overflow-x-hidden ${hoveredRectangle && hoveredRectangle !== 2 ? 'md:opacity-20' : 'md:opacity-100'}`}>
+        <div className="w-full px-5 md:px-10 lg:px-40 max-w-full">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
-            <div className="col-span-12">
-              <Link href="/project-overview/merchant-app" className="block cursor-pointer">
+            <div className="col-span-12 max-w-full overflow-hidden">
+              <Link 
+                href="/project-overview/merchant-app" 
+                className="block cursor-pointer relative"
+                style={{ pointerEvents: 'auto' }}
+              >
                 <div 
                   className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] deep-green-bg rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 2 ? 'md:scale-[1.01]' : ''}`}
                   onMouseEnter={() => setHoveredRectangle(2)}
                   onMouseLeave={() => setHoveredRectangle(null)}
+                  style={{ pointerEvents: 'auto' }}
                 >
                 {/* Top text - FINTECH / PAYMENTS and 2019 • SR. UX DESIGNER - Desktop Only */}
                 <div className="hidden md:flex absolute top-0 right-0 z-10 flex-col items-end px-4 md:px-8 pt-4 md:pt-8 pointer-events-none">
@@ -269,67 +340,72 @@ export default function ProjectOverview() {
                 </div>
                 
                 {/* Image wrapper - to position image */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:-bottom-12 md:top-auto md:translate-y-0 w-[90.3%] md:w-[70%]">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:-bottom-12 md:top-auto md:translate-y-0 w-[90.3%] md:w-[70%] pointer-events-none">
                   {/* Image - Mobile: settle pic 3 */}
-                  <div className="md:hidden overflow-hidden" style={{ maxHeight: '100%' }}>
+                  <div className="md:hidden overflow-hidden" style={{ maxHeight: '100%', pointerEvents: 'none' }}>
                     <Image
                       src="/image/settle pic 3.png"
                       alt="Settle"
                       width={800}
                       height={600}
-                      className="w-full h-auto object-contain"
+                      className="w-full h-auto object-contain pointer-events-none"
                       priority
+                      style={{ pointerEvents: 'none' }}
                     />
                   </div>
                   {/* Image - Desktop: settleappcombo */}
-                  <div className="hidden md:block overflow-hidden" style={{ maxHeight: '100%' }}>
+                  <div className="hidden md:block overflow-hidden" style={{ maxHeight: '100%', pointerEvents: 'none' }}>
                     <Image
                       src="/image/settleappcombo.png"
                       alt="Settle"
                       width={800}
                       height={600}
-                      className="w-full h-auto object-contain"
+                      className="w-full h-auto object-contain pointer-events-none"
+                      style={{ pointerEvents: 'none' }}
                     />
+                  </div>
+                </div>
+                {/* Mobile: Logo on top left */}
+                <div className="md:hidden absolute top-4 left-4 z-10 pointer-events-none">
+                  <Image
+                    src="/image/Settle.svg"
+                    alt="Settle Logo"
+                    width={96}
+                    height={33}
+                    className="brightness-0 invert"
+                    style={{ width: 'auto', height: '33px', aspectRatio: '64/22' }}
+                  />
+                </div>
+                
+                {/* Mobile: Text on bottom left */}
+                <div className="md:hidden absolute bottom-6 left-4 z-10 pointer-events-none">
+                  <div className="text-[13.5px] font-light text-white" style={{ fontSize: '90%' }}>
+                    <div className="font-semibold">On Location project tracking</div>
+                    <div className="font-light">Integrated Merchant payments in P2P</div>
                   </div>
                 </div>
                 </div>
               </Link>
-              
-              {/* Mobile: Logo and text below rectangle - Middle aligned */}
-              <div className="md:hidden mt-4 flex items-center justify-between w-full">
-                {/* Logo - Left aligned with image */}
-                <div>
-                  <Image
-                    src="/image/Settle.svg"
-                    alt="Settle Logo"
-                    width={64}
-                    height={22}
-                    className="brightness-0 invert"
-                    style={{ width: 'auto', height: '22px', aspectRatio: '64/22' }}
-                  />
-                </div>
-                
-                {/* Text - Right aligned */}
-                <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
-                  <div className="font-semibold">On Location project tracking</div>
-                  <div className="font-light">Integrated Merchant payments in P2P</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Section 3 */}
-      <section id="section-3" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 ${hoveredRectangle && hoveredRectangle !== 3 ? 'md:opacity-20' : 'md:opacity-100'}`}>
-        <div className="w-full px-5 md:px-10 lg:px-40">
+      <section id="section-3" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 overflow-x-hidden ${hoveredRectangle && hoveredRectangle !== 3 ? 'md:opacity-20' : 'md:opacity-100'}`}>
+        <div className="w-full px-5 md:px-10 lg:px-40 max-w-full">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
-            <div className="col-span-12">
-              <Link href="/project-overview/jobs" className="block cursor-pointer">
+            <div className="col-span-12 max-w-full overflow-hidden">
+              <Link 
+                href="/project-overview/jobs" 
+                className="block cursor-pointer relative"
+                style={{ pointerEvents: 'auto' }}
+              >
                 <div 
                   className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-[#121212] rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 3 ? 'md:scale-[1.01]' : ''}`}
                   onMouseEnter={() => setHoveredRectangle(3)}
                   onMouseLeave={() => setHoveredRectangle(null)}
+                  style={{ pointerEvents: 'auto' }}
                 >
                 {/* Video - Mobile: Centered and middle-aligned */}
                 <div className="md:hidden absolute inset-0 flex items-center justify-center z-10 px-4 pointer-events-none">
@@ -339,7 +415,8 @@ export default function ProjectOverview() {
                     loop
                     playsInline
                     preload="none"
-                    className="w-full max-w-sm h-auto rounded-lg shadow-2xl"
+                    className="w-full max-w-sm h-auto rounded-lg shadow-2xl pointer-events-none"
+                    style={{ pointerEvents: 'none' }}
                   >
                     <source src="/video/jobs2.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
@@ -398,53 +475,59 @@ export default function ProjectOverview() {
                     </div>
                   </div>
                 </div>
-                </div>
-              </Link>
-              
-              {/* Mobile: Logo and text below rectangle - Top aligned */}
-              <div className="md:hidden mt-4 flex items-start justify-between w-full">
-                {/* Logo - Left aligned with image */}
-                <div>
+                {/* Mobile: Logo on top left */}
+                <div className="md:hidden absolute top-4 left-4 z-10 pointer-events-none">
                   <Image
                     src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                     alt="Otovo Logo"
-                    width={32}
-                    height={11}
-                    className="h-2"
-                    style={{ width: 'auto', height: '8px', aspectRatio: '64/22' }}
+                    width={96}
+                    height={33}
+                    className="h-6"
+                    style={{ width: 'auto', height: '24px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
-                {/* Text - Right aligned */}
-                <div className="text-right text-sm font-light text-[hsl(var(--foreground))]">
-                  <div className="font-semibold">Solar maintenance and invoicing</div>
-                  <div className="font-light">900+ jobs invoiced</div>
+                {/* Mobile: Text on bottom left */}
+                <div className="md:hidden absolute bottom-6 left-4 z-10 pointer-events-none">
+                  <div className="text-[13.5px] font-light text-white" style={{ fontSize: '90%' }}>
+                    <div className="font-semibold">Solar maintenance and invoicing</div>
+                    <div className="font-light">900+ jobs invoiced</div>
+                  </div>
                 </div>
-              </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Section 4 */}
-      <section id="section-4" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 ${hoveredRectangle && hoveredRectangle !== 4 ? 'md:opacity-20' : 'md:opacity-100'}`}>
-        <div className="w-full px-5 md:px-10 lg:px-40">
+      <section id="section-4" className={`h-screen snap-start snap-always flex items-center bg-[hsl(var(--background))] md:transition-opacity md:duration-500 overflow-x-hidden ${hoveredRectangle && hoveredRectangle !== 4 ? 'md:opacity-20' : 'md:opacity-100'}`}>
+        <div className="w-full px-5 md:px-10 lg:px-40 max-w-full">
           <div className="grid grid-cols-12 gap-2 md:gap-3 lg:gap-4 mt-[14px] md:mt-32 mb-14">
-            <div className="col-span-12">
-              <Link href="/project-overview/customersupport" className="block cursor-pointer">
+            <div className="col-span-12 max-w-full overflow-hidden">
+              <Link 
+                href="/project-overview/customersupport" 
+                className="block cursor-pointer relative"
+                style={{ pointerEvents: 'auto' }}
+              >
                 <div 
                   className={`w-full aspect-[3/4] md:aspect-[16/9] lg:aspect-[21/9] bg-white rounded-lg pt-0 pr-8 md:pr-16 lg:pr-32 pb-8 md:pb-14 lg:pb-[70px] pl-0 relative overflow-hidden md:transition-transform md:duration-700 md:ease-out ${hoveredRectangle === 4 ? 'md:scale-[1.01]' : ''}`}
                   onMouseEnter={() => setHoveredRectangle(4)}
                   onMouseLeave={() => setHoveredRectangle(null)}
+                  style={{ pointerEvents: 'auto' }}
                 >
-                <Image
-                  src="/image/customerSupportkitchen 2.png"
-                  alt="Customer Support Kitchen"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
-                  className="object-cover"
-                  priority
-                />
+                <div className="absolute inset-0 w-full h-full pointer-events-none">
+                  <Image
+                    src="/image/customerSupportkitchen 2.png"
+                    alt="Customer Support Kitchen"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+                    className="object-cover pointer-events-none"
+                    priority
+                    style={{ pointerEvents: 'none' }}
+                  />
+                </div>
                 
                 {/* Vignette overlay for text visibility */}
                 <div className="absolute inset-0 z-0 pointer-events-none" style={{
@@ -488,29 +571,27 @@ export default function ProjectOverview() {
                     </div>
                   </div>
                 </div>
-              </div>
-              </Link>
-              
-              {/* Mobile: Logo and text below rectangle - Top aligned */}
-              <div className="md:hidden mt-4 flex items-start justify-between w-full">
-                {/* Logo - Left aligned with image */}
-                <div>
+                {/* Mobile: Logo on top left */}
+                <div className="md:hidden absolute top-4 left-4 z-10 pointer-events-none">
                   <Image
                     src="/image/Otovo_logo_pale lilac_RGB 1 1.svg"
                     alt="Otovo Logo"
-                    width={32}
-                    height={11}
-                    className="h-2"
-                    style={{ width: 'auto', height: '8px', aspectRatio: '64/22' }}
+                    width={96}
+                    height={33}
+                    className="h-6"
+                    style={{ width: 'auto', height: '24px', aspectRatio: '64/22' }}
                   />
                 </div>
                 
-                {/* Text - Right aligned */}
-                <div className="text-right text-sm font-light text-white">
-                  <div className="font-semibold">Installation tracking and support</div>
-                  <div className="font-light">70% reduction in tickets</div>
+                {/* Mobile: Text on bottom left */}
+                <div className="md:hidden absolute bottom-6 left-4 z-10 pointer-events-none">
+                  <div className="text-[13.5px] font-light text-white" style={{ fontSize: '90%' }}>
+                    <div className="font-semibold">Installation tracking and support</div>
+                    <div className="font-light">70% reduction in tickets</div>
+                  </div>
                 </div>
               </div>
+              </Link>
             </div>
           </div>
       </div>
@@ -591,9 +672,19 @@ export default function ProjectOverview() {
             style={{ maxHeight: '75vh' }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-6 pt-8 pb-6">
+            <div className="px-6 pt-8 pb-8">
               {/* Menu Items */}
-              <div className="flex flex-col gap-6 mb-8">
+              <div className="flex flex-col gap-6 mb-6">
+                <Link
+                  href="/project-overview"
+                  onClick={() => {
+                    setIsMenuAnimating(false)
+                    setTimeout(() => setIsMobileMenuOpen(false), 300)
+                  }}
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
+                >
+                  Home
+                </Link>
                 <button
                   onClick={() => {
                     setIsAboutMeOpen(true)
@@ -617,7 +708,10 @@ export default function ProjectOverview() {
                   Linked In
                 </a>
                 <button
-                  onClick={async () => {
+                  type="button"
+                  onClick={async (e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
                     try {
                       await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
                       setShowToast(true)
@@ -625,12 +719,81 @@ export default function ProjectOverview() {
                       setTimeout(() => setIsMobileMenuOpen(false), 300)
                     } catch (err) {
                       console.error('Failed to copy email:', err)
+                      // Fallback for older browsers
+                      const textArea = document.createElement('textarea')
+                      textArea.value = 'iswatisrivastava@gmail.com'
+                      textArea.style.position = 'fixed'
+                      textArea.style.opacity = '0'
+                      document.body.appendChild(textArea)
+                      textArea.select()
+                      try {
+                        document.execCommand('copy')
+                        setShowToast(true)
+                        setIsMenuAnimating(false)
+                        setTimeout(() => setIsMobileMenuOpen(false), 300)
+                      } catch (fallbackErr) {
+                        console.error('Fallback copy failed:', fallbackErr)
+                      }
+                      document.body.removeChild(textArea)
                     }
                   }}
-                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light px-4 py-2 rounded-none"
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light cursor-pointer"
                 >
                   Copy email
                 </button>
+              </div>
+
+              {/* Project Numbers - Mobile Only */}
+              <div className="md:hidden flex flex-col gap-3 pt-4 border-t border-[hsl(0_0%_85%)]">
+                <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light mb-1">
+                  Project
+                </div>
+                <div className="flex gap-10 justify-start items-center">
+                  <Link
+                    href="/project-overview/installer-app"
+                    onClick={() => {
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    }}
+                    className="text-base font-light text-[hsl(0_0%_40%)] transition-colors duration-300 relative inline-block pb-1.5 hover:text-[hsl(var(--primary-foreground))]"
+                  >
+                    1
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
+                  </Link>
+                  <Link
+                    href="/project-overview/merchant-app"
+                    onClick={() => {
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    }}
+                    className="text-base font-light text-[hsl(0_0%_40%)] transition-colors duration-300 relative inline-block pb-1.5 hover:text-[hsl(var(--primary-foreground))]"
+                  >
+                    2
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
+                  </Link>
+                  <Link
+                    href="/project-overview/jobs"
+                    onClick={() => {
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    }}
+                    className="text-base font-light text-[hsl(0_0%_40%)] transition-colors duration-300 relative inline-block pb-1.5 hover:text-[hsl(var(--primary-foreground))]"
+                  >
+                    3
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
+                  </Link>
+                  <Link
+                    href="/project-overview/customersupport"
+                    onClick={() => {
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    }}
+                    className="text-base font-light text-[hsl(0_0%_40%)] transition-colors duration-300 relative inline-block pb-1.5 hover:text-[hsl(var(--primary-foreground))]"
+                  >
+                    4
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

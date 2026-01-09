@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import CaseStudySection from '@/components/CaseStudySection'
@@ -17,6 +17,7 @@ export default function ProjectDetailPage() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
   const [hoverPosition, setHoverPosition] = useState({ top: 0, left: 0 })
   const params = useParams()
+  const router = useRouter()
   const slug = typeof params?.slug === 'string' ? params.slug : 'installer-app'
 
   // Determine current project number from slug
@@ -69,6 +70,55 @@ export default function ProjectDetailPage() {
 
   const projectContent = getProjectContent(slug)
 
+  // Prevent horizontal scroll on mount and navigation
+  useEffect(() => {
+    // Reset horizontal scroll position
+    const resetScroll = () => {
+      // Reset window scroll
+      if (window.scrollX !== 0) {
+        window.scrollTo(0, window.scrollY)
+      }
+      
+      // Reset document scroll
+      document.documentElement.style.overflowX = 'hidden'
+      document.body.style.overflowX = 'hidden'
+      document.documentElement.scrollLeft = 0
+      document.body.scrollLeft = 0
+      
+      // Ensure all containers don't have horizontal scroll
+      const scrollableContainers = document.querySelectorAll('[class*="overflow"], section, div')
+      scrollableContainers.forEach((container) => {
+        if (container instanceof HTMLElement) {
+          container.scrollLeft = 0
+          if (container.scrollWidth > container.clientWidth) {
+            container.style.overflowX = 'hidden'
+          }
+        }
+      })
+    }
+
+    // Reset immediately
+    resetScroll()
+
+    // Reset after delays to catch any async rendering
+    const timer = setTimeout(resetScroll, 100)
+    const timer2 = setTimeout(resetScroll, 300)
+    const timer3 = setTimeout(resetScroll, 500)
+
+    // Reset on window resize
+    const handleResize = () => {
+      resetScroll()
+    }
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      clearTimeout(timer)
+      clearTimeout(timer2)
+      clearTimeout(timer3)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [slug])
+
   // Map project numbers to their preview data
   const projectPreviewData = {
     1: {
@@ -90,17 +140,39 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[hsl(var(--background))]">
+    <div 
+      className="min-h-screen bg-[hsl(var(--background))] overflow-x-hidden"
+      style={{ maxWidth: '100vw', width: '100%', overflowX: 'hidden' }}
+    >
       {/* Sticky Home Button and Case Study Navigation */}
-      <div className="fixed top-0 left-0 right-0 h-16 z-50 bg-[hsl(var(--background))]/80 backdrop-blur-md pointer-events-none flex items-center justify-between px-5 md:px-10 lg:px-40">
-        <Link
-          href="/project-overview"
-          className="text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none pointer-events-auto z-10 py-2 px-1"
+      <div className="fixed top-0 left-0 right-0 h-16 z-[100] bg-[hsl(var(--background))]/80 backdrop-blur-md flex items-center justify-between px-5 md:px-10 lg:px-40">
+        <div 
+          className="relative"
+          style={{ zIndex: 101 }}
         >
-          <span className="md:hidden text-[11px] uppercase tracking-[0.2em]">Home</span>
-          <span className="hidden md:inline text-[11px] uppercase tracking-[0.2em]">Home</span>
-          <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
-        </Link>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              console.log('Home button clicked - navigating to /project-overview')
+              if (typeof window !== 'undefined') {
+                window.location.href = '/project-overview'
+              }
+            }}
+            className="text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none py-2 px-1 cursor-pointer bg-transparent border-0 outline-none"
+            style={{ 
+              pointerEvents: 'auto',
+              WebkitTapHighlightColor: 'transparent',
+              zIndex: 101,
+              position: 'relative'
+            }}
+          >
+            <span className="md:hidden text-[11px] uppercase tracking-[0.2em]">Home</span>
+            <span className="hidden md:inline text-[11px] uppercase tracking-[0.2em]">Home</span>
+            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
+          </button>
+        </div>
         
         {/* Case Study Numbers - Hidden on mobile */}
         <div className="hidden md:flex gap-6 pointer-events-auto relative">
@@ -1609,6 +1681,16 @@ export default function ProjectDetailPage() {
             <div className="px-6 pt-8 pb-8">
               {/* Menu Items */}
               <div className="flex flex-col gap-6 mb-6">
+                <Link
+                  href="/project-overview"
+                  onClick={() => {
+                    setIsMenuAnimating(false)
+                    setTimeout(() => setIsMobileMenuOpen(false), 300)
+                  }}
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
+                >
+                  Home
+                </Link>
                 <button
                   onClick={() => {
                     setIsAboutMeOpen(true)
@@ -1632,7 +1714,10 @@ export default function ProjectDetailPage() {
                   Linked In
                 </a>
                 <button
-                  onClick={async () => {
+                  type="button"
+                  onClick={async (e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
                     try {
                       await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
                       setShowToast(true)
@@ -1640,9 +1725,25 @@ export default function ProjectDetailPage() {
                       setTimeout(() => setIsMobileMenuOpen(false), 300)
                     } catch (err) {
                       console.error('Failed to copy email:', err)
+                      // Fallback for older browsers
+                      const textArea = document.createElement('textarea')
+                      textArea.value = 'iswatisrivastava@gmail.com'
+                      textArea.style.position = 'fixed'
+                      textArea.style.opacity = '0'
+                      document.body.appendChild(textArea)
+                      textArea.select()
+                      try {
+                        document.execCommand('copy')
+                        setShowToast(true)
+                        setIsMenuAnimating(false)
+                        setTimeout(() => setIsMobileMenuOpen(false), 300)
+                      } catch (fallbackErr) {
+                        console.error('Fallback copy failed:', fallbackErr)
+                      }
+                      document.body.removeChild(textArea)
                     }
                   }}
-                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light px-4 py-2 rounded-none"
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light cursor-pointer"
                 >
                   Copy email
                 </button>
@@ -1653,7 +1754,7 @@ export default function ProjectDetailPage() {
                 <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light mb-1">
                   Project
                 </div>
-                <div className="flex gap-10 justify-center items-center">
+                <div className="flex gap-10 justify-start items-center">
                   {caseStudies.map((study) => {
                     const isActive = study.number === currentProject
                     return (

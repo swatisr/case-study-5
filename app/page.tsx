@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 import Toast from '@/components/Toast'
+import AboutMeModal from '@/components/AboutMeModal'
 
 // Trail images from public/trail folder
 const trailImages = [
@@ -34,6 +36,9 @@ export default function Home() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const [showToast, setShowToast] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMenuAnimating, setIsMenuAnimating] = useState(false)
+  const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
   const router = useRouter()
   
   // Duplicate images for seamless infinite scroll
@@ -254,6 +259,209 @@ export default function Home() {
         isVisible={showToast}
         onClose={() => setShowToast(false)}
       />
+
+      {/* Mobile Floating Button */}
+      <button
+        onClick={() => {
+          if (!isMobileMenuOpen) {
+            setIsMobileMenuOpen(true)
+            setTimeout(() => setIsMenuAnimating(true), 10)
+          } else {
+            setIsMenuAnimating(false)
+            setTimeout(() => setIsMobileMenuOpen(false), 300)
+          }
+        }}
+        className={`md:hidden fixed bottom-6 right-6 z-[100] w-14 h-14 rounded-full bg-[hsl(var(--secondary))] text-white hover:shadow-[0_6px_25px_rgba(0,0,0,0.4)] active:scale-95 transition-all duration-200 flex items-center justify-center ${
+          isMobileMenuOpen ? '' : 'shadow-[0_4px_20px_rgba(0,0,0,0.3)]'
+        }`}
+        aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+      >
+        {isMobileMenuOpen ? (
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6"
+            style={{ color: 'white' }}
+          >
+            <line x1="18" y1="6" x2="6" y2="18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <line x1="6" y1="6" x2="18" y2="18" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        ) : (
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6"
+          >
+            <path
+              d="M3 12H21M3 6H21M3 18H21"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        )}
+      </button>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <>
+          {/* Backdrop with blur and green gradient overlay */}
+          <div
+            className="md:hidden fixed inset-0 z-[60] backdrop-blur-lg transition-opacity duration-700 ease-out"
+            style={{
+              background: 'linear-gradient(135deg, rgba(18, 42, 28, 0.15) 0%, rgba(6, 26, 16, 0.20) 100%)'
+            }}
+            onClick={() => {
+              setIsMenuAnimating(false)
+              setTimeout(() => setIsMobileMenuOpen(false), 300)
+            }}
+          />
+          
+          {/* Menu Panel */}
+          <div
+            className={`md:hidden fixed bottom-0 left-0 right-0 z-[70] bg-[#f7f7f7] rounded-t-3xl transition-transform duration-300 ease-out overflow-y-auto ${
+              isMenuAnimating ? 'translate-y-0' : 'translate-y-full'
+            }`}
+            style={{ maxHeight: '75vh' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="px-6 pt-8 pb-8">
+              {/* Menu Items */}
+              <div className="flex flex-col gap-6 mb-6">
+                <Link
+                  href="/project-overview"
+                  onClick={() => {
+                    setIsMenuAnimating(false)
+                    setTimeout(() => setIsMobileMenuOpen(false), 300)
+                  }}
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
+                >
+                  Home
+                </Link>
+                <button
+                  onClick={() => {
+                    setIsAboutMeOpen(true)
+                    setIsMenuAnimating(false)
+                    setTimeout(() => setIsMobileMenuOpen(false), 300)
+                  }}
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
+                >
+                  About me
+                </button>
+                <a
+                  href="https://www.linkedin.com/in/swatisr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setIsMenuAnimating(false)
+                    setTimeout(() => setIsMobileMenuOpen(false), 300)
+                  }}
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
+                >
+                  Linked In
+                </a>
+                <button
+                  type="button"
+                  onClick={async (e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    try {
+                      await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
+                      setShowToast(true)
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    } catch (err) {
+                      console.error('Failed to copy email:', err)
+                      // Fallback for older browsers
+                      const textArea = document.createElement('textarea')
+                      textArea.value = 'iswatisrivastava@gmail.com'
+                      textArea.style.position = 'fixed'
+                      textArea.style.opacity = '0'
+                      document.body.appendChild(textArea)
+                      textArea.select()
+                      try {
+                        document.execCommand('copy')
+                        setShowToast(true)
+                        setIsMenuAnimating(false)
+                        setTimeout(() => setIsMobileMenuOpen(false), 300)
+                      } catch (fallbackErr) {
+                        console.error('Fallback copy failed:', fallbackErr)
+                      }
+                      document.body.removeChild(textArea)
+                    }
+                  }}
+                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light cursor-pointer"
+                >
+                  Copy email
+                </button>
+              </div>
+
+              {/* Project Numbers - Mobile Only */}
+              <div className="md:hidden flex flex-col gap-3 pt-4 border-t border-[hsl(0_0%_85%)]">
+                <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light mb-1">
+                  Project
+                </div>
+                <div className="flex gap-10 justify-start items-center">
+                  <Link
+                    href="/project-overview/installer-app"
+                    onClick={() => {
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    }}
+                    className="text-base font-light text-[hsl(0_0%_40%)] transition-colors duration-300 relative inline-block pb-1.5 hover:text-[hsl(var(--primary-foreground))]"
+                  >
+                    1
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
+                  </Link>
+                  <Link
+                    href="/project-overview/merchant-app"
+                    onClick={() => {
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    }}
+                    className="text-base font-light text-[hsl(0_0%_40%)] transition-colors duration-300 relative inline-block pb-1.5 hover:text-[hsl(var(--primary-foreground))]"
+                  >
+                    2
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
+                  </Link>
+                  <Link
+                    href="/project-overview/jobs"
+                    onClick={() => {
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    }}
+                    className="text-base font-light text-[hsl(0_0%_40%)] transition-colors duration-300 relative inline-block pb-1.5 hover:text-[hsl(var(--primary-foreground))]"
+                  >
+                    3
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
+                  </Link>
+                  <Link
+                    href="/project-overview/customersupport"
+                    onClick={() => {
+                      setIsMenuAnimating(false)
+                      setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    }}
+                    className="text-base font-light text-[hsl(0_0%_40%)] transition-colors duration-300 relative inline-block pb-1.5 hover:text-[hsl(var(--primary-foreground))]"
+                  >
+                    4
+                    <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* About Me Modal */}
+      <AboutMeModal isOpen={isAboutMeOpen} onClose={() => setIsAboutMeOpen(false)} />
     </div>
   )
 }

@@ -26,8 +26,13 @@
     --radius: 0.5rem;
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
   }
 }
 
