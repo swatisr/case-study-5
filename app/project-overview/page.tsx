@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -20,7 +20,7 @@ export default function ProjectOverview() {
   const router = useRouter()
   const pathname = usePathname()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Check if user is authenticated
     const auth = localStorage.getItem('portfolio-auth')
     if (auth !== 'authenticated') {
@@ -677,9 +677,14 @@ export default function ProjectOverview() {
               <div className="flex flex-col gap-6 mb-6">
                 <Link
                   href="/project-overview"
-                  onClick={() => {
+                  onClick={(e) => {
+                    setIsAboutMeOpen(false)
                     setIsMenuAnimating(false)
                     setTimeout(() => setIsMobileMenuOpen(false), 300)
+                    if (pathname === '/project-overview') {
+                      e.preventDefault()
+                      window.scrollTo({ top: 0, behavior: 'smooth' })
+                    }
                   }}
                   className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
                 >

@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useState, useLayoutEffect } from 'react'
+import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import CaseStudySection from '@/components/CaseStudySection'
@@ -11,8 +11,21 @@ export default function ProjectDetailPage() {
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMenuAnimating, setIsMenuAnimating] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const params = useParams()
+  const router = useRouter()
   const slug = typeof params?.slug === 'string' ? params.slug : 'installer-app'
+
+  // Authentication check - redirects to home if not authenticated
+  // Using useLayoutEffect to check before paint to prevent flash
+  useLayoutEffect(() => {
+    const auth = localStorage.getItem('portfolio-auth')
+    if (auth !== 'authenticated') {
+      router.push('/')
+    } else {
+      setIsAuthenticated(true)
+    }
+  }, [router])
 
   // Determine current project number from slug
   const getCurrentProjectNumber = (slug: string): number => {
@@ -63,6 +76,11 @@ export default function ProjectDetailPage() {
   }
 
   const projectContent = getProjectContent(slug)
+
+  // Show nothing while checking authentication or if not authenticated
+  if (isAuthenticated === null || !isAuthenticated) {
+    return null
+  }
 
   return (
     <div className="min-h-screen bg-[hsl(var(--background))]">

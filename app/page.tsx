@@ -156,7 +156,7 @@ export default function Home() {
       >
         {/* Role/Location */}
         <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light mb-2 md:mb-3">
-          Lead UX Designers, Otovo ASA
+          Product Designer, Oslo Norway
         </div>
 
         {/* Name */}
@@ -166,7 +166,7 @@ export default function Home() {
 
         {/* Description - Narrow and Readable */}
         <p className="text-xs md:text-sm lg:text-base leading-relaxed text-[hsl(var(--muted-foreground))] font-light mb-6 md:mb-8">
-          I'm a product designer with an interest in expert systems and operational workflows across B2B and B2C. For the past four years, I have led design at Otovo while staying hands on as an IC, shipping products across European markets.
+          Currently, I lead design at <span className="font-serif font-bold">Otovo ASA</span>, across customer journeys and B2B platform in the European solar market. I help organizations ship scalable and high-trust digital experiences.
         </p>
 
         {/* Password Form - Quiet and Secondary */}
@@ -335,8 +335,8 @@ export default function Home() {
             <div className="px-6 pt-8 pb-8">
               {/* Menu Items */}
               <div className="flex flex-col gap-6 mb-6">
-                <Link
-                  href="/project-overview"
+        <Link 
+          href="/project-overview"
                   onClick={() => {
                     setIsMenuAnimating(false)
                     setTimeout(() => setIsMobileMenuOpen(false), 300)
@@ -452,8 +452,8 @@ export default function Home() {
                   >
                     4
                     <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[hsl(var(--primary-foreground))] transition-all duration-300 hover:w-full"></span>
-                  </Link>
-                </div>
+        </Link>
+      </div>
               </div>
             </div>
           </div>

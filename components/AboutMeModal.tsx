@@ -77,7 +77,7 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
 
           {/* Content - No internal scroll, whole modal scrolls */}
           <div className="p-[1.805rem] md:p-[5.7rem] lg:p-[9.5rem] pb-20 md:pb-24 lg:pb-32">
-            <div className="max-w-[95%] md:max-w-[81%] pt-12 md:pt-16 space-y-24 md:space-y-40 lg:space-y-64">
+            <div className="max-w-[95%] md:max-w-[81%] pt-12 md:pt-16 space-y-24 md:space-y-20 lg:space-y-32">
                 {/* Hero Section */}
                 <div className="space-y-8">
                   {/* Profile Picture - Above Name */}
@@ -96,7 +96,7 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--primary-foreground))]">
                       Swati Srivastava
                     </h1>
-                    <p className="text-sm md:text-base text-[hsl(0_0%_65%)] font-semibold">
+                    <p className="text-sm md:text-base text-[hsl(var(--primary-foreground))] font-semibold">
                       Lead UX Designer at Otovo ASA, Norway
                     </p>
                   </div>
@@ -104,15 +104,15 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                   {/* Three Paragraphs */}
                   <div className="space-y-6">
                     <p className="text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                      For the last 14+ years, I have worked as a product designer across consulting and in-house roles. My work has focused on shipping B2B operations tools at scale, including products used across European markets and complex expert systems.
+                      For the last 14+ years, I have worked as a product designer across consulting and in-house roles. My experience spans fintech, digital marketplaces, enterprise network software, customer acquisition and conversion funnels, and consumer applications.
                     </p>
                     
                     <p className="text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                      I have worked as an IC designer and mentor, with a high degree of autonomy and close collaboration. In my six years at Otovo and in prior roles, I have led feature rollouts, mentored a small team of designers, and currently serve as part of product leadership as the design lead.
+                      I have worked as an IC designer and mentor, with a high degree of autonomy and close collaboration. In my six years at Otovo and in prior roles, I have led feature rollouts, mentored a small team of designers, and served as part of product leadership as a design lead.
                     </p>
                     
                     <p className="text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                      I strongly prefer working with small, focused teams and going deep on one product, shaping and shipping its best version.
+                      I lean towards working with small focussed team, spending time with the product to shape and ship its best version.
                     </p>
                   </div>
                   
