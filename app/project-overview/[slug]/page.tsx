@@ -6,12 +6,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import CaseStudySection from '@/components/CaseStudySection'
 import AboutMeModal from '@/components/AboutMeModal'
+import ImageZoomModal from '@/components/ImageZoomModal'
 
 export default function ProjectDetailPage() {
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMenuAnimating, setIsMenuAnimating] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
+  const [isImageZoomOpen, setIsImageZoomOpen] = useState(false)
+  const [zoomedImageSrc, setZoomedImageSrc] = useState('')
+  const [zoomedImageAlt, setZoomedImageAlt] = useState('')
   const params = useParams()
   const router = useRouter()
   const slug = typeof params?.slug === 'string' ? params.slug : 'installer-app'
@@ -76,6 +80,13 @@ export default function ProjectDetailPage() {
   }
 
   const projectContent = getProjectContent(slug)
+
+  // Helper function to open image zoom modal
+  const handleImageClick = (src: string, alt: string) => {
+    setZoomedImageSrc(src)
+    setZoomedImageAlt(alt)
+    setIsImageZoomOpen(true)
+  }
 
   // Show nothing while checking authentication or if not authenticated
   if (isAuthenticated === null || !isAuthenticated) {
@@ -234,7 +245,15 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'installer-app' ? (
             <div className="flex justify-center items-center w-full">
-              <div className="relative w-full max-w-full mx-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-1-8" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-1-8 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => {
+                  setZoomedImageSrc('/image/installer app/headerimage.png')
+                  setZoomedImageAlt('Installer app header')
+                  setIsImageZoomOpen(true)
+                }}
+              >
                 <Image
                   src="/image/installer app/headerimage.png"
                   alt="Installer app header"
@@ -247,7 +266,11 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'jobs' ? (
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2-304" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2-304 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/jobs/headerImage.png', 'Jobs header')}
+              >
                 <Image
                   src="/image/jobs/headerImage.png"
                   alt="Jobs header"
@@ -260,7 +283,11 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'customersupport' ? (
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2-25" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-2-25 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => handleImageClick(projectContent.image, 'Customer Support visual')}
+              >
                 <Image
                   src={projectContent.image}
                   alt="Customer Support visual"
@@ -272,7 +299,11 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div 
+              className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2 cursor-pointer hover:opacity-90 transition-opacity" 
+              style={{ minHeight: '200px', maxWidth: '100%' }}
+              onClick={() => handleImageClick(projectContent.image, 'Project visual')}
+            >
               <Image
                 src={projectContent.image}
                 alt="Project visual"
@@ -387,7 +418,11 @@ export default function ProjectDetailPage() {
           className="py-20 md:py-32"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/customer support/map.png', 'Customer support map')}
+              >
                 <Image
                   src="/image/customer support/map.png"
                   alt="Customer support map"
@@ -407,7 +442,11 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-2/3 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-2/3 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/settle app/settle app 2019.png.png', 'Settle app 2019')}
+              >
                 <Image
                   src="/image/settle app/settle app 2019.png.png"
                   alt="Settle app 2019"
@@ -438,7 +477,11 @@ export default function ProjectDetailPage() {
           className="py-20 md:py-32"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/jobs/flow.png', 'Jobs flow')}
+              >
                 <Image
                   src="/image/jobs/flow.png"
                   alt="Jobs flow"
@@ -459,7 +502,11 @@ export default function ProjectDetailPage() {
             className="pt-0 pb-20 md:pt-0 md:pb-32"
             rightContent={
               <div className="flex justify-end items-center w-full">
-                <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-944" style={{ minHeight: '150px', maxWidth: '100%' }}>
+                <div 
+                  className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-944 cursor-pointer hover:opacity-90 transition-opacity" 
+                  style={{ minHeight: '150px', maxWidth: '100%' }}
+                  onClick={() => handleImageClick('/image/jobs/walkthrough.png', 'Jobs walkthrough')}
+                >
                   <Image
                     src="/image/jobs/walkthrough.png"
                     alt="Jobs walkthrough"
@@ -562,7 +609,11 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'installer-app' ? null : slug === 'jobs' ? (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-145" style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div 
+              className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-145 cursor-pointer hover:opacity-90 transition-opacity" 
+              style={{ minHeight: '200px', maxWidth: '100%' }}
+              onClick={() => handleImageClick('/image/jobs/snapshot.png', 'Jobs snapshot')}
+            >
               <Image
                 src="/image/jobs/snapshot.png"
                 alt="Jobs snapshot"
@@ -573,7 +624,11 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'customersupport' ? (
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/customer support/1.png', 'Information design')}
+              >
                 <Image
                   src="/image/customer support/1.png"
                   alt="Information design"
@@ -584,7 +639,15 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : (
-            <div className={`relative w-full max-w-full mx-auto md:ml-auto ${slug === 'merchant-app' ? 'md:max-w-none' : 'md:max-w-sm'} rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-1-32' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div 
+              className={`relative w-full max-w-full mx-auto md:ml-auto ${slug === 'merchant-app' ? 'md:max-w-none' : 'md:max-w-sm'} rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-1-32' : 'md:img-scale-1-2'} cursor-pointer hover:opacity-90 transition-opacity`} 
+              style={{ minHeight: '200px', maxWidth: '100%' }}
+              onClick={() => {
+                const src = slug === 'jobs' ? '/image/24. iPhone3.png' : slug === 'merchant-app' ? '/image/settle app/group image 1.png' : '/image/24. iPhone.png'
+                const alt = slug === 'jobs' ? 'Jobs tool decision process' : slug === 'merchant-app' ? 'Settle merchant group interface' : 'Mobile app interface showing projects list'
+                handleImageClick(src, alt)
+              }}
+            >
               <Image
                 src={slug === 'jobs' ? '/image/24. iPhone3.png' : slug === 'merchant-app' ? '/image/settle app/group image 1.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs tool decision process' : slug === 'merchant-app' ? 'Settle merchant group interface' : 'Mobile app interface showing projects list'}
@@ -624,7 +687,11 @@ export default function ProjectDetailPage() {
           className="pt-40 md:pt-64 pb-32 md:pb-48"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-5" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-5 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/installer app/experience map.png', 'Experience map')}
+              >
               <Image
                 src="/image/installer app/experience map.png"
                 alt="Experience map"
@@ -644,7 +711,11 @@ export default function ProjectDetailPage() {
           className="pt-56 md:pt-80 pb-40 md:pb-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-5" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-5 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/installer app/north star.png', 'North star')}
+              >
                 <Image
                   src="/image/installer app/north star.png"
                   alt="North star"
@@ -664,7 +735,11 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-[16px] overflow-hidden bg-[hsl(var(--background))] shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3-3" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-[16px] overflow-hidden bg-[hsl(var(--background))] shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3-3 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/settle app/settleasa03.png', 'Settle merchant setup interface')}
+              >
                 <Image
                   src="/image/settle app/settleasa03.png"
                   alt="Settle merchant setup interface"
@@ -760,7 +835,11 @@ export default function ProjectDetailPage() {
         rightContent={
           slug === 'merchant-app' ? (
             <div className="flex justify-end w-full">
-              <div className="relative w-full max-w-full md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-8" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-8 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/settle app/settleasa06.png', 'Settle merchant interface')}
+              >
                 <Image
                   src="/image/settle app/settleasa06.png"
                   alt="Settle merchant interface"
@@ -771,7 +850,11 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : slug === 'installer-app' ? null : slug === 'jobs' ? null : slug === 'customersupport' ? null : (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div 
+              className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2 cursor-pointer hover:opacity-90 transition-opacity" 
+              style={{ minHeight: '200px', maxWidth: '100%' }}
+              onClick={() => handleImageClick('/image/24. iPhone.png', slug === 'jobs' ? 'Jobs interface example' : 'App screen with house illustration')}
+            >
               <Image
                 src={slug === 'jobs' ? '/image/24. iPhone.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs interface example' : 'App screen with house illustration'}
@@ -790,7 +873,11 @@ export default function ProjectDetailPage() {
           className="pt-40 md:pt-64 pb-[160px] md:pb-[256px]"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/installer app/flowmap.png', 'Flow map')}
+              >
                 <Image
                   src="/image/installer app/flowmap.png"
                   alt="Flow map"
@@ -810,7 +897,11 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/jobs/all screens.png', 'Jobs all screens')}
+              >
                 <Image
                   src="/image/jobs/all screens.png"
                   alt="Jobs all screens"
@@ -924,7 +1015,11 @@ export default function ProjectDetailPage() {
         rightContent={
           slug === 'merchant-app' ? null : slug === 'installer-app' ? (
             <div className="flex justify-end items-center w-full mt-16 md:mt-32">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-4-8" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-4-8 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/installer app/allvertical.png', 'All vertical installation tracking')}
+              >
                 <Image
                   src="/image/installer app/allvertical.png"
                   alt="All vertical installation tracking"
@@ -936,7 +1031,11 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'jobs' ? null : slug === 'customersupport' ? (
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-44" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-44 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/customer support/2.png', 'AI cautiously introduced')}
+              >
                 <Image
                   src="/image/customer support/2.png"
                   alt="AI cautiously introduced"
@@ -947,7 +1046,11 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div 
+              className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2 cursor-pointer hover:opacity-90 transition-opacity" 
+              style={{ minHeight: '200px', maxWidth: '100%' }}
+              onClick={() => handleImageClick(slug === 'jobs' ? '/image/IA2.png' : '/image/24. iPhone.png', slug === 'jobs' ? 'Jobs workflow integration' : 'Installation tracking interface')}
+            >
               <Image
                 src={slug === 'jobs' ? '/image/IA2.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs workflow integration' : 'Installation tracking interface'}
@@ -1114,7 +1217,15 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'installer-app' ? null : slug === 'jobs' ? null : slug === 'customersupport' ? null : (
-            <div className={`relative w-full max-w-full ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-3-6' : 'md:img-scale-1-2'}`} style={{ minHeight: '200px', maxWidth: '100%', transformOrigin: 'top center' }}>
+            <div 
+              className={`relative w-full max-w-full ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile ${slug === 'merchant-app' ? 'md:img-scale-3-6' : 'md:img-scale-1-2'} cursor-pointer hover:opacity-90 transition-opacity`} 
+              style={{ minHeight: '200px', maxWidth: '100%', transformOrigin: 'top center' }}
+              onClick={() => {
+                const src = slug === 'jobs' ? '/image/IAMockup.png' : slug === 'merchant-app' ? '/image/settle app/settleasa1410.png' : '/image/24. iPhone.png'
+                const alt = slug === 'jobs' ? 'Jobs tool interface' : slug === 'merchant-app' ? 'Settle connected touchpoints' : 'Project card with documentation'
+                handleImageClick(src, alt)
+              }}
+            >
               <Image
                 src={slug === 'jobs' ? '/image/IAMockup.png' : slug === 'merchant-app' ? '/image/settle app/settleasa1410.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs tool interface' : slug === 'merchant-app' ? 'Settle connected touchpoints' : 'Project card with documentation'}
@@ -1133,7 +1244,11 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-2/3 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3" style={{ minHeight: '150px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-2/3 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '150px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/installer app/iall screens.png', 'All screens')}
+              >
                 <Image
                   src="/image/installer app/iall screens.png"
                   alt="All screens"
@@ -1231,7 +1346,11 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'jobs' ? null : slug === 'customersupport' ? (
             <div className="flex justify-end items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3-74" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3-74 cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/customer support/4.png', 'Build versus buy tradeoff')}
+              >
                 <Image
                   src="/image/customer support/4.png"
                   alt="Build versus buy tradeoff"
@@ -1242,7 +1361,11 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', maxWidth: '100%', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+            <div 
+              className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] cursor-pointer hover:opacity-90 transition-opacity" 
+              style={{ minHeight: '300px', maxWidth: '100%', transform: 'scale(1.2)', transformOrigin: 'center' }}
+              onClick={() => handleImageClick(slug === 'jobs' ? '/image/CS1.png' : '/image/24. iPhone.png', slug === 'jobs' ? 'Jobs overview interface' : 'Project details with illustration')}
+            >
               <Image
                 src={slug === 'jobs' ? '/image/CS1.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs overview interface' : 'Project details with illustration'}
@@ -1377,7 +1500,11 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'merchant-app' ? (
-            <div className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-44`} style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div 
+              className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-44 cursor-pointer hover:opacity-90 transition-opacity`} 
+              style={{ minHeight: '200px', maxWidth: '100%' }}
+              onClick={() => handleImageClick('/image/settle app/settleasa10.png', 'What this work made possible')}
+            >
               <Image
                 src="/image/settle app/settleasa10.png"
                 alt="What this work made possible"
@@ -1399,7 +1526,11 @@ export default function ProjectDetailPage() {
             </div>
           ) : slug === 'jobs' ? null : slug === 'customersupport' ? (
             <div className="flex justify-center items-center w-full mt-[55px] md:mt-[81px]">
-              <div className={`relative w-full max-w-full mx-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-02`} style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div 
+                className={`relative w-full max-w-full mx-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-02 cursor-pointer hover:opacity-90 transition-opacity`} 
+                style={{ minHeight: '200px', maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/customer support/3.png', 'Outcomes')}
+              >
                 <Image
                   src="/image/customer support/3.png"
                   alt="Outcomes"
@@ -1410,7 +1541,11 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           ) : (
-            <div className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2`} style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div 
+              className={`relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2 cursor-pointer hover:opacity-90 transition-opacity`} 
+              style={{ minHeight: '200px', maxWidth: '100%' }}
+              onClick={() => handleImageClick(slug === 'jobs' ? '/image/settle1.png' : '/image/24. iPhone.png', slug === 'jobs' ? 'Jobs metrics visualization' : 'Camera interface for photo capture')}
+            >
               <Image
                 src={slug === 'jobs' ? '/image/settle1.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs metrics visualization' : 'Camera interface for photo capture'}
@@ -1460,7 +1595,11 @@ export default function ProjectDetailPage() {
             ) : null
           }
           rightContent={slug === 'jobs' ? null : slug === 'customersupport' ? null : (
-            <div className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '300px', maxWidth: '100%', transform: 'scale(1.2)', transformOrigin: 'center' }}>
+            <div 
+              className="relative w-full max-w-sm mx-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] cursor-pointer hover:opacity-90 transition-opacity" 
+              style={{ minHeight: '300px', maxWidth: '100%', transform: 'scale(1.2)', transformOrigin: 'center' }}
+              onClick={() => handleImageClick(slug === 'jobs' ? '/image/settle2.png' : '/image/24. iPhone.png', slug === 'jobs' ? 'Jobs impact visualization' : 'Success confirmation screen')}
+            >
               <Image
                 src={slug === 'jobs' ? '/image/settle2.png' : '/image/24. iPhone.png'}
                 alt={slug === 'jobs' ? 'Jobs impact visualization' : 'Success confirmation screen'}
@@ -1499,6 +1638,14 @@ export default function ProjectDetailPage() {
 
       {/* About Me Modal */}
       <AboutMeModal isOpen={isAboutMeOpen} onClose={() => setIsAboutMeOpen(false)} />
+
+      {/* Image Zoom Modal */}
+      <ImageZoomModal 
+        isOpen={isImageZoomOpen} 
+        imageSrc={zoomedImageSrc}
+        imageAlt={zoomedImageAlt}
+        onClose={() => setIsImageZoomOpen(false)} 
+      />
 
       {/* Mobile Floating Button */}
       <button
