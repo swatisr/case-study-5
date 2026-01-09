@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import Toast from '@/components/Toast'
 
 // Trail images from public/trail folder
 const trailImages = [
@@ -32,6 +33,7 @@ export default function Home() {
   const [statusType, setStatusType] = useState<'error' | 'success' | ''>('')
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [showToast, setShowToast] = useState(false)
   const router = useRouter()
   
   // Duplicate images for seamless infinite scroll
@@ -95,9 +97,13 @@ export default function Home() {
     setStatusType('')
   }
 
-  const handleCopyEmail = () => {
-    // Copy email functionality (same as COPY EMAIL link)
-    navigator.clipboard.writeText('your.email@example.com').catch(() => {})
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
+      setShowToast(true)
+    } catch (err) {
+      console.error('Failed to copy email:', err)
+    }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -128,7 +134,7 @@ export default function Home() {
             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
           </button>
           <a 
-            href="https://linkedin.com" 
+            href="https://www.linkedin.com/in/swatisr" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))] opacity-40 font-light relative inline-block group hover:opacity-70 transition-opacity duration-300 leading-none"
@@ -155,7 +161,7 @@ export default function Home() {
 
         {/* Description - Narrow and Readable */}
         <p className="text-xs md:text-sm lg:text-base leading-relaxed text-[hsl(var(--muted-foreground))] font-light mb-6 md:mb-8">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          I'm a product designer with an interest in expert systems and operational workflows across B2B and B2C. For the past four years, I have led design at Otovo while staying hands on as an IC, shipping products across European markets.
         </p>
 
         {/* Password Form - Quiet and Secondary */}
@@ -241,6 +247,13 @@ export default function Home() {
           })}
         </div>
       </div>
+
+      {/* Toast Notification */}
+      <Toast
+        message="iswatisrivastava@gmail.com copied"
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
     </div>
   )
 }

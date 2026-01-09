@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Toast from '@/components/Toast'
 
 interface AboutMeModalProps {
   isOpen: boolean
@@ -9,6 +11,7 @@ interface AboutMeModalProps {
 
 export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
   const [isVisible, setIsVisible] = useState(false)
+  const [showToast, setShowToast] = useState(false)
 
   useEffect(() => {
     if (isOpen) {
@@ -77,37 +80,75 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
             <div className="max-w-[95%] md:max-w-[81%] pt-12 md:pt-16 space-y-12 md:space-y-20 lg:space-y-32">
                 {/* Hero Section */}
                 <div className="space-y-8">
-                  <div className="space-y-2">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--primary-foreground))]">
-                      Swati Srivastava
-                    </h1>
-                    <p className="text-sm md:text-base text-[hsl(0_0%_40%)] font-light">
-                      Lead UX Designer at Otovo ASA, Norway
+                  {/* Profile Picture and Header - Side by Side Layout */}
+                  <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-end">
+                    {/* Profile Picture - Left Side */}
+                    <div className="flex-shrink-0">
+                      <div className="w-24 h-24 md:w-32 md:h-32 relative rounded-lg overflow-hidden">
+                        <Image
+                          src="/image/displayPic.png"
+                          alt="Swati Srivastava"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 96px, 128px"
+                        />
+                      </div>
+                    </div>
+                    
+                    {/* Name and Title - Right Side */}
+                    <div className="flex-1 space-y-2">
+                      <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-[hsl(var(--primary-foreground))]">
+                        Swati Srivastava
+                      </h1>
+                      <p className="text-sm md:text-base text-[hsl(0_0%_40%)] font-light">
+                        Lead UX Designer at Otovo ASA, Norway
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Three Paragraphs */}
+                  <div className="space-y-6">
+                    <p className="text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                      For the last 14+ years, I have worked as a product designer across consulting and in-house roles. My work has focused on shipping B2B operations tools at scale, including products used across European markets and complex expert systems.
+                    </p>
+                    
+                    <p className="text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                      I have worked as an IC designer and mentor, with a high degree of autonomy and close collaboration. In my six years at Otovo and in prior roles, I have led feature rollouts, mentored a small team of designers, and currently serve as part of product leadership as the design lead.
+                    </p>
+                    
+                    <p className="text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
+                      I strongly prefer working with small, focused teams and going deep on one product, shaping and shipping its best version.
                     </p>
                   </div>
-                  <p className="text-base md:text-xl leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                    For the last 14 plus years, I have worked as a product designer across consulting and in house roles. My work has focused on shipping B2B operations tools at scale, including products used across European markets and complex internal systems. I cycle between understanding the problem, making decisions visible through design, and testing through implementation until the solution holds up in day to day use. What motivates me is designing systems that quietly enable others to do their best work, there when needed, invisible when not.
-                  </p>
                   
                   {/* Links */}
                   <div className="flex gap-8">
                     <a 
-                      href="#" 
+                      href="https://www.linkedin.com/in/swatisr"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] hover:text-[hsl(var(--primary-foreground))] transition-colors font-light"
                     >
                       LINKED IN
                     </a>
-                    <a 
-                      href="#" 
+                    <button 
+                      onClick={async () => {
+                        try {
+                          await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
+                          setShowToast(true)
+                        } catch (err) {
+                          console.error('Failed to copy email:', err)
+                        }
+                      }}
                       className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] hover:text-[hsl(var(--primary-foreground))] transition-colors font-light"
                     >
                       COPY EMAIL
-                    </a>
+                    </button>
                   </div>
                 </div>
 
                 {/* WHAT I CAN HELP WITH Section */}
-                <div className="space-y-12">
+                <div className="space-y-12 -mt-4 md:-mt-6 lg:-mt-8">
                   <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
                     WHAT I CAN HELP WITH
                   </h2>
@@ -119,7 +160,7 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                         Product & service design
                       </div>
                       <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable product and service experiences across consumer and business-facing contexts.
+                        Designing product and service experiences across B2B and B2C in complex, constrained environments.
                       </div>
                     </div>
                     <div className="h-px bg-black/10"></div>
@@ -127,10 +168,10 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                     {/* Row 2 */}
                     <div className="flex flex-col md:flex-row gap-4 md:gap-8">
                       <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                        Product & service design
+                        Zero to one product UX
                       </div>
                       <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable product and service experiences across consumer and business-facing contexts.
+                        Taking new product ideas to first release by defining workflows, user flows, and core screens.
                       </div>
                     </div>
                     <div className="h-px bg-black/10"></div>
@@ -138,90 +179,108 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
                     {/* Row 3 */}
                     <div className="flex flex-col md:flex-row gap-4 md:gap-8">
                       <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                        Product & service design
+                        Design leadership & mentorship
                       </div>
                       <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable product and service experiences across consumer and business-facing contexts.
-                      </div>
-                    </div>
-                    <div className="h-px bg-black/10"></div>
-
-                    {/* Row 4 */}
-                    <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                      <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                        Product & service design
-                      </div>
-                      <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                        Designing clear, durable product and service experiences across consumer and business-facing contexts.
+                        Leading design through critique and mentorship. Building lightweight design operations, reviews, and collaboration routines that support delivery.
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* EXPERIENCE Section - Hidden for now */}
-                {false && (
-                  <div className="space-y-12">
-                    <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
-                      EXPERIENCE
-                    </h2>
-                    
-                    <div className="space-y-6">
-                      {/* Row 1 */}
-                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                          PRODUCT & SERVICE DESIGN
+                {/* EXPERIENCE Section */}
+                <div className="space-y-12">
+                  <h2 className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
+                    EXPERIENCE
+                  </h2>
+                  
+                  <div className="space-y-8">
+                    {/* Entry 1 - OTOVO ASA */}
+                    <div className="space-y-2">
+                      <div className="inline-block bg-black text-white px-3 py-1 text-[9px] uppercase tracking-[0.1em] font-light rounded-[2px]">
+                        OTOVO ASA, Norway
+                      </div>
+                      <div className="space-y-1 pl-0">
+                        <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
+                          Lead Designer, Product
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2022 to Present</span>
                         </div>
-                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                          Designing clear, durable
+                        <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
+                          Designer, B2B and Operations
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2020 to 2022</span>
                         </div>
                       </div>
-                      <div className="h-px bg-black/10"></div>
+                    </div>
 
-                      {/* Row 2 */}
-                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                          PRODUCT & SERVICE DESIGN
-                        </div>
-                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                          Designing clear, durable
+                    {/* Entry 2 - SETTLE AS */}
+                    <div className="space-y-2">
+                      <div className="inline-block bg-black text-white px-3 py-1 text-[9px] uppercase tracking-[0.1em] font-light rounded-[2px]">
+                        SETTLE AS, Norway
+                      </div>
+                      <div className="space-y-1 pl-0">
+                        <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
+                          Senior UX Designer
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2019 to 2020</span>
                         </div>
                       </div>
-                      <div className="h-px bg-black/10"></div>
+                    </div>
 
-                      {/* Row 3 */}
-                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                          PRODUCT & SERVICE DESIGN
-                        </div>
-                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                          Designing clear, durable
+                    {/* Entry 3 - UNIVERSITY OF OSLO */}
+                    <div className="space-y-2">
+                      <div className="inline-block bg-black text-white px-3 py-1 text-[9px] uppercase tracking-[0.1em] font-light rounded-[2px]">
+                        UNIVERSITY OF OSLO, Norway
+                      </div>
+                      <div className="space-y-1 pl-0">
+                        <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
+                          Service Designer and Researcher
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2015 to 2019</span>
                         </div>
                       </div>
-                      <div className="h-px bg-black/10"></div>
+                    </div>
 
-                      {/* Row 4 */}
-                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                          PRODUCT & SERVICE DESIGN
+                    {/* Entry 4 - GLOBANT */}
+                    <div className="space-y-2">
+                      <div className="inline-block bg-black text-white px-3 py-1 text-[9px] uppercase tracking-[0.1em] font-light rounded-[2px]">
+                        GLOBANT, India
+                      </div>
+                      <div className="space-y-1 pl-0">
+                        <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
+                          Sr. User Experience Designer
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2014</span>
                         </div>
-                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                          Designing clear, durable
+                        <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
+                          User Experience Designer
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2011 to 2014</span>
                         </div>
                       </div>
-                      <div className="h-px bg-black/10"></div>
+                    </div>
 
-                      {/* Row 5 */}
-                      <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                        <div className="w-full md:w-1/3 text-[11px] uppercase tracking-[0.1em] text-[hsl(0_0%_40%)] font-light">
-                          PRODUCT & SERVICE DESIGN
-                        </div>
-                        <div className="w-full md:flex-1 text-sm md:text-base leading-[1.7] font-light text-[hsl(var(--primary-foreground))]">
-                          Designing clear, durable
+                    {/* Entry 5 - HSBC */}
+                    <div className="space-y-2">
+                      <div className="inline-block bg-black text-white px-3 py-1 text-[9px] uppercase tracking-[0.1em] font-light rounded-[2px]">
+                        HSBC, India
+                      </div>
+                      <div className="space-y-1 pl-0">
+                        <div className="text-sm md:text-base font-semibold text-[hsl(var(--primary-foreground))]">
+                          Software Engineer
+                          <span className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light ml-2">2009 to 2010</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
+                </div>
+
+                {/* EDUCATION Section */}
+                <div className="space-y-12">
+                  <div className="space-y-2">
+                    <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
+                      M. Des. Interaction Design, 2009 - 2011
+                    </div>
+                    <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light">
+                      B.E. Computer Science, 2004-2008
+                    </div>
+                  </div>
+                </div>
 
                 {/* MY CURRENT FOCUS Section - Hidden for now */}
                 {false && (
@@ -239,6 +298,13 @@ export default function AboutMeModal({ isOpen, onClose }: AboutMeModalProps) {
             </div>
         </div>
       </div>
+
+      {/* Toast Notification */}
+      <Toast
+        message="iswatisrivastava@gmail.com copied"
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
     </div>
   )
 }

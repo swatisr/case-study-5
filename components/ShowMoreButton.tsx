@@ -84,28 +84,24 @@ export default function ShowMoreButton({ hoveredRectangle = null }: ShowMoreButt
           </div>
         )}
 
-        {/* More Projects Button - appears when last section is visible */}
+        {/* Swati Srivastava - appears when last section is visible */}
         {isLastSectionVisible && (
-          <a
-            href="#"
-            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none"
+          <div
+            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light leading-none"
           >
-            MORE PROJECTS
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
-          </a>
+            Swati Srivastava
+          </div>
         )}
       </div>
 
-      {/* Mobile: More Projects button on top left */}
+      {/* Mobile: Swati Srivastava on top left */}
       {isLastSectionVisible && (
         <div className="md:hidden fixed top-4 left-5 z-50 flex items-start py-4">
-          <a
-            href="#"
-            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none"
+          <div
+            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--muted-foreground))] font-light leading-none"
           >
-            MORE PROJECTS
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
-          </a>
+            Swati Srivastava
+          </div>
         </div>
       )}
     </>

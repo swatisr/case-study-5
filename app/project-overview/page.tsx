@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import ShowMoreButton from '@/components/ShowMoreButton'
 import AboutMeModal from '@/components/AboutMeModal'
+import Toast from '@/components/Toast'
 
 export default function ProjectOverview() {
   const [hoveredRectangle, setHoveredRectangle] = useState<number | null>(null)
@@ -15,6 +16,7 @@ export default function ProjectOverview() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [imageKey, setImageKey] = useState(Date.now())
+  const [showToast, setShowToast] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -102,12 +104,27 @@ export default function ProjectOverview() {
       <nav className={`fixed top-4 bottom-auto md:top-auto md:bottom-8 left-0 right-0 bg-transparent flex justify-end items-start md:items-center py-4 z-50 px-5 md:px-10 lg:px-40 md:transition-opacity md:duration-500 ${hoveredRectangle ? 'md:opacity-20' : 'md:opacity-100'}`}>
         {/* Desktop: Full Navigation */}
         <div className="hidden md:flex gap-8">
-          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
+          <a 
+            href="https://www.linkedin.com/in/swatisr" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]"
+          >
             LINKEDIN
           </a>
-          <a href="#" className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]">
+          <button 
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
+                setShowToast(true)
+              } catch (err) {
+                console.error('Failed to copy email:', err)
+              }
+            }}
+            className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]"
+          >
             COPY EMAIL
-          </a>
+          </button>
           <button 
             onClick={() => setIsAboutMeOpen(true)}
             className="text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--foreground))]"
@@ -588,7 +605,9 @@ export default function ProjectOverview() {
                   About me
                 </button>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/swatisr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => {
                     setIsMenuAnimating(false)
                     setTimeout(() => setIsMobileMenuOpen(false), 300)
@@ -600,7 +619,8 @@ export default function ProjectOverview() {
                 <button
                   onClick={async () => {
                     try {
-                      await navigator.clipboard.writeText('your-email@example.com')
+                      await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
+                      setShowToast(true)
                       setIsMenuAnimating(false)
                       setTimeout(() => setIsMobileMenuOpen(false), 300)
                     } catch (err) {
@@ -616,6 +636,13 @@ export default function ProjectOverview() {
           </div>
         </>
       )}
+
+      {/* Toast Notification */}
+      <Toast
+        message="iswatisrivastava@gmail.com copied"
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       </div>
     </div>
   )
