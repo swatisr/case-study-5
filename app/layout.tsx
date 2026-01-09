@@ -15,6 +15,9 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: 'Portfolio Website',
   description: 'Portfolio website',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
