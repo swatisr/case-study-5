@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
 interface ImageZoomModalProps {
   isOpen: boolean
@@ -27,12 +27,12 @@ export default function ImageZoomModal({ isOpen, imageSrc, imageAlt, onClose }: 
     }
   }, [isOpen])
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsVisible(false)
     setTimeout(() => {
       onClose()
     }, 200) // Match transition duration
-  }
+  }, [onClose])
 
   // Close on Escape key
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function ImageZoomModal({ isOpen, imageSrc, imageAlt, onClose }: 
       window.addEventListener('keydown', handleEscape)
     }
     return () => window.removeEventListener('keydown', handleEscape)
-  }, [isOpen])
+  }, [isOpen, handleClose])
 
   if (!isOpen && !isVisible) return null
 
@@ -53,7 +53,6 @@ export default function ImageZoomModal({ isOpen, imageSrc, imageAlt, onClose }: 
     <div 
       className="fixed inset-0 z-[100] flex items-center justify-center"
       onClick={handleClose}
-      onTouchEnd={handleClose}
     >
       {/* Backdrop with blur */}
       <div 
@@ -71,7 +70,6 @@ export default function ImageZoomModal({ isOpen, imageSrc, imageAlt, onClose }: 
           isVisible ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={handleClose}
-        onTouchEnd={handleClose}
       >
         {/* Image - Click/tap anywhere on image or backdrop to close */}
         <div 
@@ -94,7 +92,6 @@ export default function ImageZoomModal({ isOpen, imageSrc, imageAlt, onClose }: 
             }}
             draggable={false}
             onClick={handleClose}
-            onTouchEnd={handleClose}
           />
         </div>
       </div>

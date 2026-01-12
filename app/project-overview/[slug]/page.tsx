@@ -7,6 +7,7 @@ import Link from 'next/link'
 import CaseStudySection from '@/components/CaseStudySection'
 import AboutMeModal from '@/components/AboutMeModal'
 import ImageZoomModal from '@/components/ImageZoomModal'
+import Toast from '@/components/Toast'
 
 export default function ProjectDetailPage() {
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false)
@@ -16,6 +17,7 @@ export default function ProjectDetailPage() {
   const [isImageZoomOpen, setIsImageZoomOpen] = useState(false)
   const [zoomedImageSrc, setZoomedImageSrc] = useState('')
   const [zoomedImageAlt, setZoomedImageAlt] = useState('')
+  const [showToast, setShowToast] = useState(false)
   const params = useParams()
   const router = useRouter()
   const slug = typeof params?.slug === 'string' ? params.slug : 'installer-app'
@@ -51,6 +53,11 @@ export default function ProjectDetailPage() {
     { number: 3, slug: 'jobs', route: '/project-overview/jobs' },
     { number: 4, slug: 'customersupport', route: '/project-overview/customersupport' },
   ]
+
+  // Get next project
+  const nextProject = currentProject < caseStudies.length 
+    ? caseStudies[currentProject] 
+    : null
 
   // Get project-specific content for first section
   const getProjectContent = (slug: string) => {
@@ -97,12 +104,12 @@ export default function ProjectDetailPage() {
     <div className="min-h-screen bg-[hsl(var(--background))]">
       {/* Sticky Home Button and Case Study Navigation */}
       <div className="fixed top-0 left-0 right-0 h-16 z-50 bg-[hsl(var(--background))]/80 backdrop-blur-md pointer-events-none flex items-center justify-between px-5 md:px-10 lg:px-40">
+        {/* Desktop: Home button to project overview */}
         <Link
           href="/project-overview"
-          className="text-[hsl(var(--muted-foreground))] font-light relative inline-block group hover:text-white transition-colors duration-300 leading-none pointer-events-auto z-10 py-2 px-1"
+          className="hidden md:inline-block text-[hsl(var(--muted-foreground))] font-light relative group hover:text-white transition-colors duration-300 leading-none pointer-events-auto z-10 py-2 px-1"
         >
-          <span className="md:hidden text-[11px] uppercase tracking-[0.2em]">Home</span>
-          <span className="hidden md:inline text-[11px] uppercase tracking-[0.2em]">Home</span>
+          <span className="text-[11px] uppercase tracking-[0.2em]">Home</span>
           <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[hsl(var(--muted-foreground))] group-hover:bg-white transition-all duration-300 ease-in-out group-hover:w-0 group-hover:origin-right"></span>
         </Link>
         
@@ -246,8 +253,8 @@ export default function ProjectDetailPage() {
           ) : slug === 'installer-app' ? (
             <div className="flex justify-center items-center w-full">
               <div 
-                className="relative w-full max-w-full mx-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-1-8 cursor-pointer hover:opacity-90 transition-opacity" 
-                style={{ minHeight: '200px', maxWidth: '100%' }}
+                className="relative w-full max-w-full mx-auto rounded-[24px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-transparent img-scale-mobile md:img-scale-1-8 cursor-pointer hover:opacity-90 transition-opacity min-h-[50vh] md:min-h-[200px] max-h-[70vh] md:max-h-none" 
+                style={{ maxWidth: '100%' }}
                 onClick={() => {
                   setZoomedImageSrc('/image/installer app/headerimage.png')
                   setZoomedImageAlt('Installer app header')
@@ -388,7 +395,7 @@ export default function ProjectDetailPage() {
         rightContent={
           slug === 'merchant-app' ? null : slug === 'installer-app' ? (
             <div className="flex justify-center items-center w-full">
-              <div className="relative w-full max-w-full mx-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4" style={{ minHeight: '200px', maxWidth: '100%' }}>
+              <div className="relative w-full max-w-full mx-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-4 min-h-[50vh] md:min-h-[200px] max-h-[70vh] md:max-h-none" style={{ maxWidth: '100%' }}>
                 <Image
                   src="/image/installer app/workers.png"
                   alt="Workers installation scenario"
@@ -411,6 +418,32 @@ export default function ProjectDetailPage() {
           )
         }
       />
+
+      {/* Image-Only Section: All Screens (Installer App only) */}
+      {slug === 'installer-app' && (
+        <CaseStudySection
+          className="py-27 md:py-128"
+          rightContent={
+            <div className="flex justify-center md:justify-end items-center w-full">
+              <div 
+                className="relative aspect-square w-[80vw] max-w-[80vw] mx-auto md:max-w-full md:w-2/3 md:aspect-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(0_0%_8%)] md:bg-transparent img-scale-mobile md:img-scale-3-6 cursor-pointer hover:opacity-90 transition-opacity md:min-h-[150px]" 
+                style={{ maxWidth: '100%' }}
+                onClick={() => handleImageClick('/image/installer app/iall screens.png', 'All screens')}
+              >
+                <div className="absolute inset-2 md:inset-0">
+                  <Image
+                    src="/image/installer app/iall screens.png"
+                    alt="All screens"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 66vw"
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          }
+        />
+      )}
 
       {/* Image-Only Section: Map (Customer Support only) */}
       {slug === 'customersupport' && (
@@ -471,30 +504,6 @@ export default function ProjectDetailPage() {
         />
       )}
 
-      {/* Image-Only Section: Flow (Jobs only) */}
-      {slug === 'jobs' && (
-        <CaseStudySection
-          className="py-20 md:py-32"
-          rightContent={
-            <div className="flex justify-end items-center w-full">
-              <div 
-                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
-                style={{ minHeight: '150px', maxWidth: '100%' }}
-                onClick={() => handleImageClick('/image/jobs/flow.png', 'Jobs flow')}
-              >
-                <Image
-                  src="/image/jobs/flow.png"
-                  alt="Jobs flow"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          }
-        />
-      )}
-
       {/* Image-Only Section: Walkthrough (Jobs only) */}
       {slug === 'jobs' && (
         <div className="mt-16">
@@ -502,8 +511,9 @@ export default function ProjectDetailPage() {
             className="pt-0 pb-20 md:pt-0 md:pb-32"
             rightContent={
               <div className="flex justify-end items-center w-full">
+                {/* Hide on mobile to prevent crashes from large image (2.8MB) */}
                 <div 
-                  className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-944 cursor-pointer hover:opacity-90 transition-opacity" 
+                  className="hidden md:block relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-944 cursor-pointer hover:opacity-90 transition-opacity" 
                   style={{ minHeight: '150px', maxWidth: '100%' }}
                   onClick={() => handleImageClick('/image/jobs/walkthrough.png', 'Jobs walkthrough')}
                 >
@@ -513,7 +523,12 @@ export default function ProjectDetailPage() {
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-contain"
+                    loading="lazy"
                   />
+                </div>
+                {/* Mobile placeholder */}
+                <div className="md:hidden w-full text-center py-8 text-[hsl(var(--muted-foreground))] text-sm">
+                  Image available on desktop
                 </div>
               </div>
             }
@@ -684,45 +699,47 @@ export default function ProjectDetailPage() {
       {/* Image-Only Section: Experience Map (Installer App only) */}
       {slug === 'installer-app' && (
         <CaseStudySection
-          className="pt-40 md:pt-64 pb-32 md:pb-48"
+          className="pt-40 md:pt-64 pb-16 md:pb-24"
           rightContent={
-            <div className="flex justify-end items-center w-full">
+            <div className="flex justify-center md:justify-end items-center w-full">
               <div 
-                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-5 cursor-pointer hover:opacity-90 transition-opacity" 
-                style={{ minHeight: '150px', maxWidth: '100%' }}
-                onClick={() => handleImageClick('/image/installer app/experience map.png', 'Experience map')}
+                className="relative w-full max-w-full mx-auto md:max-w-[90%] md:w-auto rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity" 
+                onClick={() => handleImageClick('/image/installer app/exMap.png', 'Experience map')}
               >
-              <Image
-                src="/image/installer app/experience map.png"
-                alt="Experience map"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain"
-              />
+                <Image
+                  src="/image/installer app/exMap.png"
+                  alt="Experience map"
+                  width={1200}
+                  height={800}
+                  sizes="(max-width: 768px) 100vw, 90vw"
+                  className="object-contain w-full h-auto rounded-lg"
+                />
+              </div>
             </div>
-          </div>
-        }
-      />
-    )}
+          }
+        />
+      )}
 
       {/* Image-Only Section: North Star (Installer App only) */}
       {slug === 'installer-app' && (
         <CaseStudySection
-          className="pt-56 md:pt-80 pb-40 md:pb-64"
+          className="pt-28 md:pt-40 pb-40 md:pb-64"
           rightContent={
-            <div className="flex justify-end items-center w-full">
+            <div className="flex justify-center md:justify-end items-center w-full">
               <div 
-                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-2-5 cursor-pointer hover:opacity-90 transition-opacity" 
-                style={{ minHeight: '150px', maxWidth: '100%' }}
+                className="relative aspect-square w-[80vw] max-w-[80vw] mx-auto md:max-w-full md:w-1/2 md:aspect-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(0_0%_8%)] md:bg-transparent img-scale-mobile md:img-scale-2-5 cursor-pointer hover:opacity-90 transition-opacity md:min-h-[150px]" 
+                style={{ maxWidth: '100%' }}
                 onClick={() => handleImageClick('/image/installer app/north star.png', 'North star')}
               >
-                <Image
-                  src="/image/installer app/north star.png"
-                  alt="North star"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain"
-                />
+                <div className="absolute inset-2 md:inset-0">
+                  <Image
+                    src="/image/installer app/north star.png"
+                    alt="North star"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                </div>
               </div>
             </div>
           }
@@ -872,19 +889,21 @@ export default function ProjectDetailPage() {
         <CaseStudySection
           className="pt-40 md:pt-64 pb-[160px] md:pb-[256px]"
           rightContent={
-            <div className="flex justify-end items-center w-full">
+            <div className="flex justify-center md:justify-end items-center w-full">
               <div 
-                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
-                style={{ minHeight: '150px', maxWidth: '100%' }}
+                className="relative aspect-square w-[80vw] max-w-[80vw] mx-auto md:max-w-full md:w-1/2 md:aspect-auto rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(0_0%_8%)] md:bg-transparent img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity md:min-h-[150px]" 
+                style={{ maxWidth: '100%' }}
                 onClick={() => handleImageClick('/image/installer app/flowmap.png', 'Flow map')}
               >
-                <Image
-                  src="/image/installer app/flowmap.png"
-                  alt="Flow map"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain"
-                />
+                <div className="absolute inset-2 md:inset-0">
+                  <Image
+                    src="/image/installer app/flowmap.png"
+                    alt="Flow map"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                </div>
               </div>
             </div>
           }
@@ -897,18 +916,24 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
+              {/* Hide on mobile to reduce memory usage */}
               <div 
-                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
+                className="hidden md:block relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
                 style={{ minHeight: '150px', maxWidth: '100%' }}
-                onClick={() => handleImageClick('/image/jobs/all screens.png', 'Jobs all screens')}
+                onClick={() => handleImageClick('/image/jobs/invoiceimagetrio.png', 'Invoice image trio')}
               >
                 <Image
-                  src="/image/jobs/all screens.png"
-                  alt="Jobs all screens"
+                  src="/image/jobs/invoiceimagetrio.png"
+                  alt="Invoice image trio"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-contain"
+                  loading="lazy"
                 />
+              </div>
+              {/* Mobile placeholder */}
+              <div className="md:hidden w-full text-center py-8 text-[hsl(var(--muted-foreground))] text-sm">
+                Image available on desktop
               </div>
             </div>
           }
@@ -1014,19 +1039,24 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'merchant-app' ? null : slug === 'installer-app' ? (
-            <div className="flex justify-end items-center w-full mt-16 md:mt-32">
+            <div className="flex justify-end items-center w-full mt-24 md:mt-40 mb-24 md:mb-40">
               <div 
-                className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-4-8 cursor-pointer hover:opacity-90 transition-opacity" 
-                style={{ minHeight: '200px', maxWidth: '100%' }}
+                className="relative w-full mx-auto md:ml-auto md:w-2/3 rounded-none overflow-visible cursor-pointer hover:opacity-90 transition-opacity" 
+                style={{ minHeight: '200px' }}
                 onClick={() => handleImageClick('/image/installer app/allvertical.png', 'All vertical installation tracking')}
               >
-                <Image
-                  src="/image/installer app/allvertical.png"
-                  alt="All vertical installation tracking"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                  className="object-contain"
-                />
+                <div className="md:scale-[3]" style={{ transformOrigin: 'center' }}>
+                  <div className="relative w-full rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)]" style={{ minHeight: '200px' }}>
+                    <Image
+                      src="/image/installer app/allvertical.png"
+                      alt="All vertical installation tracking"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 22vw"
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           ) : slug === 'jobs' ? null : slug === 'customersupport' ? (
@@ -1091,14 +1121,22 @@ export default function ProjectDetailPage() {
           rightContent={
             <div className="flex justify-end items-center w-full">
               <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-5" style={{ minHeight: '150px', maxWidth: '100%' }}>
-              <video
-                src="/image/jobs/invoice video.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-contain"
-              />
+              {/* Video on desktop, hidden on mobile to prevent crashes */}
+              <div className="hidden md:block w-full h-full">
+                <video
+                  src="/image/jobs/invoice video.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="none"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              {/* Placeholder on mobile - videos disabled to prevent crashes */}
+              <div className="md:hidden w-full h-full flex items-center justify-center text-[hsl(var(--muted-foreground))] text-sm">
+                Video content available on desktop
+              </div>
               </div>
             </div>
           }
@@ -1238,30 +1276,6 @@ export default function ProjectDetailPage() {
         }
       />
 
-      {/* Image-Only Section: All Screens (Installer App only) */}
-      {slug === 'installer-app' && (
-        <CaseStudySection
-          className="py-40 md:py-64"
-          rightContent={
-            <div className="flex justify-end items-center w-full">
-              <div 
-                className="relative w-full max-w-full mx-auto md:ml-auto md:w-2/3 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
-                style={{ minHeight: '150px', maxWidth: '100%' }}
-                onClick={() => handleImageClick('/image/installer app/iall screens.png', 'All screens')}
-              >
-                <Image
-                  src="/image/installer app/iall screens.png"
-                  alt="All screens"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 66vw"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          }
-        />
-      )}
-
       {/* Section 8: Project Details */}
       <CaseStudySection
         className={slug === 'customersupport' ? '[&>div>div>div:last-child]:justify-center' : ''}
@@ -1334,7 +1348,7 @@ export default function ProjectDetailPage() {
         }
         rightContent={
           slug === 'merchant-app' ? null : slug === 'installer-app' ? (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-0-8" style={{ minHeight: '200px', maxWidth: '100%' }}>
               <video
                 src="/image/installer app/walkthrough.mp4"
                 autoPlay
@@ -1385,14 +1399,22 @@ export default function ProjectDetailPage() {
           rightContent={
             <div className="flex justify-end items-center w-full">
               <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-1-56" style={{ minHeight: '150px', maxWidth: '100%' }}>
-                <video
-                  src="/image/jobs/jobvideo.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-contain"
-                />
+                {/* Video on desktop, hidden on mobile to prevent crashes */}
+                <div className="hidden md:block w-full h-full">
+                  <video
+                    src="/image/jobs/jobvideo.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="none"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                {/* Placeholder on mobile - videos disabled to prevent crashes */}
+                <div className="md:hidden w-full h-full flex items-center justify-center text-[hsl(var(--muted-foreground))] text-sm">
+                  Video content available on desktop
+                </div>
               </div>
             </div>
           }
@@ -1514,7 +1536,7 @@ export default function ProjectDetailPage() {
               />
             </div>
           ) : slug === 'installer-app' ? (
-            <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))] img-scale-mobile md:img-scale-0-8" style={{ minHeight: '200px', maxWidth: '100%' }}>
+            <div className="relative w-full max-w-full mx-auto md:ml-auto md:w-[205px] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] bg-[hsl(var(--background))]" style={{ minHeight: '200px' }}>
               <video
                 src="/image/installer app/barcode scanner.mp4"
                 autoPlay
@@ -1615,13 +1637,24 @@ export default function ProjectDetailPage() {
       {/* Footer */}
       <footer className="py-20 md:py-32 bg-[hsl(var(--background))]">
         <div className="w-full px-5 md:px-10 lg:px-40">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <Link
-              href="/project-overview"
-              className="text-sm text-[hsl(var(--foreground))] underline"
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+            {nextProject ? (
+              <Link
+                href={nextProject.route}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'instant' })
+                }}
+                className="md:hidden text-sm text-[hsl(var(--foreground))] underline"
+              >
+                Next project
+              </Link>
+            ) : null}
+            <button
+              onClick={() => setIsAboutMeOpen(true)}
+              className="md:hidden text-sm text-[hsl(var(--foreground))] underline"
             >
-              Back to all projects
-            </Link>
+              About me
+            </button>
             <a
               href="#"
               className="text-sm text-[hsl(var(--foreground))] underline"
@@ -1716,43 +1749,56 @@ export default function ProjectDetailPage() {
             className={`md:hidden fixed bottom-0 left-0 right-0 z-[70] bg-[#f7f7f7] rounded-t-3xl transition-transform duration-300 ease-out overflow-y-auto ${
               isMenuAnimating ? 'translate-y-0' : 'translate-y-full'
             }`}
-            style={{ maxHeight: '75vh' }}
+            style={{ maxHeight: '100vh' }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="px-6 pt-8 pb-8">
               {/* Menu Items */}
               <div className="flex flex-col gap-6 mb-6">
+                <Link
+                  href="/project-overview"
+                  onClick={() => {
+                    setIsMenuAnimating(false)
+                    setTimeout(() => setIsMobileMenuOpen(false), 300)
+                  }}
+                  className="text-left text-[hsl(var(--primary-foreground))] text-2xl font-light"
+                >
+                  Home
+                </Link>
                 <button
                   onClick={() => {
                     setIsAboutMeOpen(true)
                     setIsMenuAnimating(false)
                     setTimeout(() => setIsMobileMenuOpen(false), 300)
                   }}
-                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
+                  className="text-left text-[hsl(var(--primary-foreground))] text-2xl font-light"
                 >
                   About me
                 </button>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/swatisr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => {
                     setIsMenuAnimating(false)
                     setTimeout(() => setIsMobileMenuOpen(false), 300)
                   }}
-                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light"
+                  className="text-left text-[hsl(var(--primary-foreground))] text-2xl font-light"
                 >
                   Linked In
                 </a>
                 <button
                   onClick={async () => {
                     try {
-                      await navigator.clipboard.writeText('your-email@example.com')
+                      await navigator.clipboard.writeText('iswatisrivastava@gmail.com')
+                      setShowToast(true)
                       setIsMenuAnimating(false)
                       setTimeout(() => setIsMobileMenuOpen(false), 300)
                     } catch (err) {
                       console.error('Failed to copy email:', err)
                     }
                   }}
-                  className="text-left text-[hsl(var(--primary-foreground))] text-sm font-light px-4 py-2 rounded-none"
+                  className="text-left text-[hsl(var(--primary-foreground))] text-2xl font-light"
                 >
                   Copy email
                 </button>
@@ -1761,9 +1807,9 @@ export default function ProjectDetailPage() {
               {/* Project Numbers - Mobile Only */}
               <div className="md:hidden flex flex-col gap-3 pt-4 border-t border-[hsl(0_0%_85%)]">
                 <div className="text-[11px] uppercase tracking-[0.2em] text-[hsl(0_0%_40%)] font-light mb-1">
-                  Project
+                  Projects
                 </div>
-                <div className="flex gap-10 justify-center items-center">
+                <div className="flex gap-10 justify-start items-center">
                   {caseStudies.map((study) => {
                     const isActive = study.number === currentProject
                     return (
@@ -1774,7 +1820,7 @@ export default function ProjectDetailPage() {
                           setIsMenuAnimating(false)
                           setTimeout(() => setIsMobileMenuOpen(false), 300)
                         }}
-                        className={`text-base font-light transition-colors duration-300 relative inline-block pb-1.5 ${
+                        className={`text-2xl ${isActive ? 'font-bold' : 'font-light'} transition-colors duration-300 relative inline-block pb-1.5 ${
                           isActive
                             ? 'text-[hsl(var(--primary-foreground))]'
                             : 'text-[hsl(0_0%_40%)]'
@@ -1795,6 +1841,13 @@ export default function ProjectDetailPage() {
           </div>
         </>
       )}
+
+      {/* Toast Notification */}
+      <Toast
+        message="iswatisrivastava@gmail.com copied"
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
     </div>
   )
 }

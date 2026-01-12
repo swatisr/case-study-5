@@ -418,7 +418,7 @@ export default function ProjectOverview() {
                     className="w-full max-w-sm h-auto rounded-lg shadow-2xl pointer-events-none"
                     style={{ pointerEvents: 'none' }}
                   >
-                    <source src="/video/jobs2.mp4" type="video/mp4" />
+                    <source src="/image/jobs/jobvideo.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
@@ -469,7 +469,7 @@ export default function ProjectOverview() {
                         preload="none"
                         className="w-full h-auto rounded-lg shadow-2xl"
                       >
-                        <source src="/video/jobs2.mp4" type="video/mp4" />
+                        <source src="/image/jobs/jobvideo.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>

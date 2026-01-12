@@ -38,7 +38,7 @@ export default function Toast({ message, isVisible, onClose }: ToastProps) {
           : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
     >
-      <div className="bg-[#1a1a1a] text-white px-6 py-3 rounded-lg shadow-[0_8px_24px_rgba(0,0,0,0.4)] text-sm font-light whitespace-nowrap">
+      <div className="bg-[#1a1a1a] text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-[0_8px_24px_rgba(0,0,0,0.4)] text-xs md:text-sm font-light whitespace-nowrap">
         {message}
       </div>
     </div>

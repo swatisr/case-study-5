@@ -207,6 +207,9 @@
     .img-scale-3-12 {
       transform: scale(3.12);
     }
+    .img-scale-3-25 {
+      transform: scale(3.25);
+    }
     .img-scale-3-3 {
       transform: scale(3.3);
     }
@@ -221,6 +224,9 @@
     }
     .img-scale-4-8 {
       transform: scale(4.8);
+    }
+    .img-scale-9-6 {
+      transform: scale(9.6);
     }
   }
 }
