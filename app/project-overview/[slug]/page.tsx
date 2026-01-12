@@ -511,9 +511,8 @@ export default function ProjectDetailPage() {
             className="pt-0 pb-20 md:pt-0 md:pb-32"
             rightContent={
               <div className="flex justify-end items-center w-full">
-                {/* Hide on mobile to prevent crashes from large image (2.8MB) */}
                 <div 
-                  className="hidden md:block relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-944 cursor-pointer hover:opacity-90 transition-opacity" 
+                  className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 md:max-w-[50%] rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-944 cursor-pointer hover:opacity-90 transition-opacity" 
                   style={{ minHeight: '150px', maxWidth: '100%' }}
                   onClick={() => handleImageClick('/image/jobs/walkthrough.png', 'Jobs walkthrough')}
                 >
@@ -524,11 +523,8 @@ export default function ProjectDetailPage() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-contain"
                     loading="lazy"
+                    quality={75}
                   />
-                </div>
-                {/* Mobile placeholder */}
-                <div className="md:hidden w-full text-center py-8 text-[hsl(var(--muted-foreground))] text-sm">
-                  Image available on desktop
                 </div>
               </div>
             }
@@ -916,9 +912,8 @@ export default function ProjectDetailPage() {
           className="py-40 md:py-64"
           rightContent={
             <div className="flex justify-end items-center w-full">
-              {/* Hide on mobile to reduce memory usage */}
               <div 
-                className="hidden md:block relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
+                className="relative w-full max-w-full mx-auto md:ml-auto md:w-1/2 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-3 cursor-pointer hover:opacity-90 transition-opacity" 
                 style={{ minHeight: '150px', maxWidth: '100%' }}
                 onClick={() => handleImageClick('/image/jobs/invoiceimagetrio.png', 'Invoice image trio')}
               >
@@ -929,11 +924,8 @@ export default function ProjectDetailPage() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-contain"
                   loading="lazy"
+                  quality={75}
                 />
-              </div>
-              {/* Mobile placeholder */}
-              <div className="md:hidden w-full text-center py-8 text-[hsl(var(--muted-foreground))] text-sm">
-                Image available on desktop
               </div>
             </div>
           }
