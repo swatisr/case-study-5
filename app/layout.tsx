@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk } from 'next/font/google'
 import './globals.css'
 
@@ -20,14 +20,20 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={spaceGrotesk.variable}>
-      <body className={`${spaceGrotesk.className} bg-[hsl(var(--background))] overflow-x-hidden`}>{children}</body>
+    <html lang="en" className={spaceGrotesk.variable} style={{ overflowX: 'hidden', maxWidth: '100vw', width: '100%' }}>
+      <body className={`${spaceGrotesk.className} bg-[hsl(var(--background))] overflow-x-hidden`} style={{ overflowX: 'hidden', maxWidth: '100vw', width: '100%' }}>{children}</body>
     </html>
   )
 }

@@ -58,7 +58,7 @@ export default function ProjectDetailPage() {
       'installer-app': {
         headline: 'Installer App: On Location project tracking',
         description: 'Impact metrics',
-        image: '/image/installerapp4.png',
+        image: '/image/installer app/installerapp4.png',
       },
       'merchant-app': {
         headline: 'Settle: Designing Merchant Payments for Physical Shops',
@@ -401,7 +401,7 @@ export default function ProjectDetailPage() {
           ) : slug === 'jobs' ? null : slug === 'customersupport' ? null : (
             <div className="relative w-full max-w-full mx-auto md:ml-auto md:max-w-sm rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.08)] img-scale-mobile md:img-scale-1-2" style={{ minHeight: '200px', maxWidth: '100%' }}>
               <Image
-                src={slug === 'jobs' ? '/image/installerapp4.png' : '/image/installerapp4.png'}
+                src={slug === 'jobs' ? '/image/installer app/installerapp4.png' : '/image/installer app/installerapp4.png'}
                 alt={slug === 'jobs' ? 'Installation workflow comparison' : 'Building scaffolding detail'}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"

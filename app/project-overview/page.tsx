@@ -217,14 +217,14 @@ export default function ProjectOverview() {
                 >
                 <div key={`image-wrapper-${imageKey}`} className="absolute inset-0 w-full h-full pointer-events-none">
                   <Image
-                    src="/image/installerapp4.png"
+                    src="/image/installer app/installerapp4.png"
                     alt="Installer App"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
                     className="object-cover object-[35%_center] pointer-events-none"
                     priority
                     quality={85}
-                    onLoadingComplete={() => {
+                    onLoad={() => {
                       console.log('Image loaded successfully')
                     }}
                     onError={(e) => {
